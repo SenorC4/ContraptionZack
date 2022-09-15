@@ -131,77 +131,8 @@ public class ContraptionZacClient extends Application
    {
       public void handle(KeyEvent event) 
       {
-         //if the user presses Left and there is not a wall, move Left
-         if (event.getCode() == KeyCode.LEFT) 
-         {
-            if (startPosX-1 == -1)
-            {
-               
-            }
-            else
-            {
-               if ((precisePosY > 0) && ((posBox[startPosX-1][startPosY-1] == 1) || (posBox[startPosX-1][startPosY+1] == 1)))
-               {
-               
-               }
-               else if (posBox[startPosX-1][startPosY] == 0)
-               {
-                  wall.move(-1,0);
-                  precisePosX++;
-                  if (precisePosX > 24)
-                  {
-                     startPosX--;
-                     precisePosX = 0;
-                  }
-                  
-               }
-               else
-               {
-                  if (precisePosX < 0)
-                  {
-                     wall.move(-1,0);
-                     precisePosX++;
-                  }
-               }
-            }
-         }
-         //if the user presses Right and there is not a wall, move Right
-         else if (event.getCode() == KeyCode.RIGHT) 
-         {
-            if (startPosX+1 == 21)
-            {
-            
-            }
-            else
-            {
-               if ((precisePosY > 0) && ((posBox[startPosX+1][startPosY-1] == 1) || (posBox[startPosX+1][startPosY+1] == 1)))
-               {
-               
-               }
-               else if (posBox[startPosX+1][startPosY] == 0)
-               {
-                  wall.move(1,0);
-                  precisePosX--;
-                  if (precisePosX < 0)
-                  {
-                     startPosX++;
-                     precisePosX = 24;
-                  }
-                  
-               }
-               else
-               {
-                  if (precisePosX > 0)
-                  {
-                     wall.move(1,0);
-                     precisePosX--;
-                  }
-               }
-            }
-
-         }
          //if the user presses Up and there is not a wall, move Up
-         if (event.getCode() == KeyCode.UP) 
+         if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.Q || event.getCode() == KeyCode.E) 
          {
             if (startPosY-1 == -1)
             {
@@ -224,18 +155,82 @@ public class ContraptionZacClient extends Application
                   }
                   
                }
-               else
-               {
-                  if (precisePosY < 0)
-                  {
-                     wall.move(0,-1);
-                     precisePosY++;
-                  }
-               }
-            }
+               //else
+               //{
+               //   if (precisePosY < 0)
+               //   {
+               //      wall.move(0,-1);
+               //      precisePosY++;
+               //  }
+              // }
+           }
          }
+         
+         //if the user presses Left and there is not a wall, move Left
+         if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.Q || event.getCode() == KeyCode.Z) 
+         {
+            //make sure dosen't leave screen on left side
+            if (startPosX-1 == -1)
+            {
+               
+            }
+            else
+            {  //precisePosY is y position within tile
+               //
+               if ((precisePosY > 0) && ((posBox[startPosX-1][startPosY-1] == 1) || (posBox[startPosX-1][startPosY+1] == 1)))
+               {
+               
+               }
+               //moves left one pxl if allowed to
+               else if (posBox[startPosX-1][startPosY] == 0)
+               {
+                  wall.move(-1,0);
+                  precisePosX++;
+                  //if it goes into a new tile, then reset precisePos to 0 in the new tile
+                  if (precisePosX > 24)
+                  {
+                     startPosX--;
+                     precisePosX = 0;
+                  }
+                  
+               }
+             
+            }
+            
+         }
+        
+          
+         //if the user presses Right and there is not a wall, move Right
+         if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.E || event.getCode() == KeyCode.X) 
+         {
+            if (startPosX+1 == 21)
+            {
+            
+            }
+            else
+            {
+               if ((precisePosY > 0) && ((posBox[startPosX+1][startPosY-1] == 1) || (posBox[startPosX+1][startPosY+1] == 1)))
+               {
+               
+               }
+               else if (posBox[startPosX+1][startPosY] == 0)
+               {
+                  wall.move(1,0);
+                  precisePosX--;
+                  if (precisePosX < 0)
+                  {
+                     startPosX++;
+                     precisePosX = 24;
+                  }
+                  
+               }
+               
+            }
+
+         }
+          
          //if the user presses Down and there is not a wall, move Down
-         else if (event.getCode() == KeyCode.DOWN) 
+         if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.Z || event.getCode() == KeyCode.X) 
          {
             if (startPosY+1 == 21)
             {
@@ -267,6 +262,7 @@ public class ContraptionZacClient extends Application
                   }
                }
             }
+            
          }
          
          //if you reach the end, type out win message
