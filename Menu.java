@@ -84,12 +84,14 @@ public void start (Stage stage)
          {
             gamePaused = true;
             root.getChildren().add(vbox);
+            resume.requestFocus();
             //root.getChildren().remove(vbox);
          }
          else if (event.getCode() == KeyCode.ESCAPE && gamePaused == true)
          {
             gamePaused = false;
             root.getChildren().remove(vbox);
+            root.requestFocus();
          }
          
       }
