@@ -108,7 +108,7 @@ public class ContraptionZacCanvas extends JPanel
           {
             String s = level.getNextFileName(1);
           
-            if(!s.equals("NONE"))
+            if(s.equals("NONE"))
             {
                level = new ContraptionZacLevel(s);
                px = 400;
