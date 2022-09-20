@@ -1,11 +1,11 @@
 Layout
 6 5
-T T T T T
-T T T T T
-T T T T T
-T T T T T
-T T T T T
-T T T T T
+T1 T1 XT1 T1 T1
+T1 T1 T1 T1 T1
+T1 T1 T1 T1 T1
+T1 T1 T1 T1 T1
+T1 T1 T1 T1 T1
+T1 T1 T1 T1 T1
 
 Walls
 6
@@ -18,6 +18,3 @@ Walls
 
 Object
 4 3.5
-
-Exit
-0 2

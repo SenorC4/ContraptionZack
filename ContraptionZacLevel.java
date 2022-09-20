@@ -3,7 +3,12 @@ import java.io.*;
 
 public class ContraptionZacLevel
 {
-   int[][] data = new int[9][9];
+   int[][] data;
+   int x;
+   int y;
+   int exitX;
+   int exitY;
+   
 
    String[] directions = new String[4];
    
@@ -16,18 +21,30 @@ public class ContraptionZacLevel
       try
       {
          Scanner scan = new Scanner(new File(filename));
-         for(int i=0;i<9;i++)
+         
+         //remove "Layout" string
+         scan.next()
+         
+         x = scan.nextInt()
+         y = scan.nextInt()
+         
+         //get layout
+         data = new int[x][y];
+         
+         for(int i=0;i<x;i++)
          {
-            for(int j=0;j<9;j++)
+            for(int j=0;j<y;j++)
             {
-               data[j][i] = scan.nextInt();
+               data[j][i] = scan.next();
             }
          }
-         directions[0] = scan.next();
-         directions[1] = scan.next();
-         directions[2] = scan.next();
-         directions[3] = scan.next();
-      
+         
+         //get walls
+         
+         //get objects
+         
+         
+               
       }
       catch(Exception e)
       {
