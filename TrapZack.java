@@ -18,6 +18,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.animation.*;
 import javafx.scene.input.*;
+import javafx.scene.text.Font;
 
 public class TrapZack extends Application{
    
@@ -34,19 +35,40 @@ public class TrapZack extends Application{
   Button restartL = new Button("Restart Level");
   Button end = new Button("Exit");
   VBox vbox = new VBox (0, resume, save, load, restartA, restartL, end);
+  
+  //title menu
+  Button newGame = new Button("New Game");
+  Button loadGame = new Button("Load Game");
+  Font comic = new Font("Comic Sans MS", 50);
+  Label title = new Label("Contraption Zack");
+  VBox titleBox = new VBox(200, title, newGame, loadGame);
    
    
    public void start(Stage stage){
    
+      //escape menu
       resume.setOnAction(new ButtonListener());
       end.setOnAction(new ButtonListener());
       root.setOnKeyPressed(new KeyListenerDown());
+      
+      
+      
    
       Scene scene = new Scene(root, 800, 800);      
       root.getChildren().add(canvas);
       
+      //title
+      title.setFont(comic);
+      newGame.setFont(comic);
+      loadGame.setFont(comic);
+      vbox.setAlignment(Pos.CENTER); 
+      newGame.setOnAction(new ButtonListener());
+      titleBox.setAlignment(Pos.CENTER);
+      root.getChildren().add(titleBox);
+      
+      
       //create squyare
-      gc.drawImage(new Image("Assets/Boat1.png", false), 400, 600);
+      
       //gc.fillRect(250, 250, 25, 25);
       
       //default javafx stuff
@@ -59,6 +81,7 @@ public class TrapZack extends Application{
       
       //request focus for canvas
       canvas.requestFocus();
+      titleBox.requestFocus();
    }
    
    public static void main(String[] args){ 
@@ -157,6 +180,18 @@ public class KeyListenerDown implements EventHandler<KeyEvent>
          else if (e.getSource() == restartL)
          {
             
+         }
+         
+         if (e.getSource() == newGame);
+         {
+            root.getChildren().remove(titleBox);
+            gc.drawImage(new Image("Assets/Boat1.png", false), 400, 600);
+            root.requestFocus();
+            //eventually add code to load first level
+         }
+         if (e.getSource() == loadGame)
+         {
+            //add code to load the saved file
          }
       }
    }
