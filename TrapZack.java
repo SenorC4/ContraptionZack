@@ -21,6 +21,11 @@ import javafx.scene.input.*;
 import javafx.scene.text.Font;
 
 public class TrapZack extends Application{
+
+  int Px = 400;
+  int Py = 600;
+  
+  ContraptionZacLevel L1;
    
   StackPane root = new StackPane();
   Canvas canvas = new Canvas(800, 800);
@@ -45,6 +50,9 @@ public class TrapZack extends Application{
   Font comic = new Font("Comic Sans MS", 50);
   Label title = new Label("Contraption Zack");
   VBox titleBox = new VBox(200, title, newGame, loadGame);
+  
+  //game
+  Image Player = new Image("Assets/Boat1.png", false);
    
    
    public void start(Stage stage){
@@ -59,7 +67,7 @@ public class TrapZack extends Application{
    
       Scene scene = new Scene(root, 800, 800);      
       root.getChildren().add(canvas);
-      
+            
       //title
       title.setFont(comic);
       newGame.setFont(comic);
@@ -98,11 +106,24 @@ public class TrapZack extends Application{
    
    //draw player movement and stuff
    public void draw(GraphicsContext gc){
-      gc.drawImage(new Image("Assets/Boat1.png", false), 400, 600);
+      root.setStyle("-fx-background-color: yellow");
+
+      
+      if(titleMenu == false){
+         L1.getData();
+         L1.getObjects();
+      }
+      
+      
+      
+      //get player position
+      
+      Py--;
+
+      gc.drawImage(Player, Px, Py);
+      
 
    }
-
-
    
    
 public class KeyListenerDown implements EventHandler<KeyEvent>  
@@ -124,6 +145,8 @@ public class KeyListenerDown implements EventHandler<KeyEvent>
             root.getChildren().remove(vbox);
             root.requestFocus();
          }
+         
+         
          
       }
    }
@@ -164,6 +187,8 @@ public class KeyListenerDown implements EventHandler<KeyEvent>
             titleMenu = false;
             root.getChildren().remove(titleBox);
             vbox.setAlignment(Pos.TOP_LEFT);
+            
+            ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
             
             //create and start animation handler
             ta = new AnimationHandler();

@@ -53,14 +53,6 @@ public class ContraptionZacLevel
             objects[i][0] = scan.next();
             objects[i][1] = scan.next();
          }
-         
-         for(int i = 0; i < numObjects; i++){
-            System.out.print(objects[i][0]);
-            System.out.println(objects[i][1]);         
-            
-         }
-
-         
       }
       catch(Exception e)
       {
@@ -68,10 +60,16 @@ public class ContraptionZacLevel
       }
    }
    
-   public String getData(int i, int j)
+   public String[][] getData()
    {
-      return data[i][j];
+      return data;
    }
+   
+   public String[][] getObjects()
+   {
+      return objects;
+   }
+
    
    
    public int getNext(){
