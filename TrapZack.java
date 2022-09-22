@@ -22,12 +22,15 @@ import javafx.scene.text.Font;
 
 public class TrapZack extends Application{
    
-   StackPane root = new StackPane();
+  StackPane root = new StackPane();
   Canvas canvas = new Canvas(800, 800);
   GraphicsContext gc = canvas.getGraphicsContext2D();
   
+  AnimationTimer ta;
+  
   //assets for pause menu
   boolean gamePaused = false;
+  boolean titleMenu = true;
   Button resume = new Button("Resume");
   Button save = new Button("Save");
   Button load = new Button("Load");
@@ -66,11 +69,7 @@ public class TrapZack extends Application{
       titleBox.setAlignment(Pos.CENTER);
       root.getChildren().add(titleBox);
       
-      
-      //create squyare
-      
-      //gc.fillRect(250, 250, 25, 25);
-      
+            
       //default javafx stuff
       stage.setScene(scene);      
       stage.setTitle("Square");      
@@ -84,64 +83,42 @@ public class TrapZack extends Application{
       titleBox.requestFocus();
    }
    
+   //main
    public static void main(String[] args){ 
       launch(args); 
    }
    
-   // private EventHandler<KeyEvent> keyReleased = new EventHandler<KeyEvent>() {
-// 
-//         @Override
-//         public void handle(KeyEvent event) {
-//             // set movement to 0, if the released key was responsible for the paddle
-//             switch (event.getCode()) {
-//                 case W:
-//                 case S:
-//                     leftPaddleDY = 0;
-//                     break;
-//                 case UP:
-//                 case DOWN:
-//                     rightPaddleDY = 0;
-//                     break;
-//             }
-//         }
-// 
-//     };
-// 
-//     private EventHandler<KeyEvent> keyPressed = new EventHandler<KeyEvent>() {
-// 
-//         @Override
-//         public void handle(KeyEvent event) {
-//             // start movement according to key pressed
-//             switch (event.getCode()) {
-//                 case W:
-//                     leftPaddleDY = -6;
-//                     break;
-//                 case S:
-//                     leftPaddleDY = 6;
-//                     break;
-//                 case UP:
-//                     rightPaddleDY = -6;
-//                     break;
-//                 case DOWN:
-//                     rightPaddleDY = 6;
-//                     break;
-//             }
-// 
-//         }
+   
+   //animation
+   public class AnimationHandler extends AnimationTimer{
+      public void handle(long currentTimeInNanoSeconds){
+         draw(gc);
+      }   
+   }
+   
+   //draw player movement and stuff
+   public void draw(GraphicsContext gc){
+      gc.drawImage(new Image("Assets/Boat1.png", false), 400, 600);
+
+   }
+
+
+   
+   
 public class KeyListenerDown implements EventHandler<KeyEvent>  
    {
    
       public void handle(KeyEvent event) 
       {
-      
-         if (event.getCode() == KeyCode.ESCAPE && gamePaused == false)
+         //Escape menu
+         if (event.getCode() == KeyCode.ESCAPE && gamePaused == false && titleMenu == false)
          {
             gamePaused = true;
             root.getChildren().add(vbox);
             resume.requestFocus();
             
          }
-         else if (event.getCode() == KeyCode.ESCAPE && gamePaused == true)
+         else if (event.getCode() == KeyCode.ESCAPE && gamePaused)
          {
             gamePaused = false;
             root.getChildren().remove(vbox);
@@ -184,10 +161,16 @@ public class KeyListenerDown implements EventHandler<KeyEvent>
          
          if (e.getSource() == newGame);
          {
+            titleMenu = false;
             root.getChildren().remove(titleBox);
-            gc.drawImage(new Image("Assets/Boat1.png", false), 400, 600);
+            vbox.setAlignment(Pos.TOP_LEFT);
+            
+            //create and start animation handler
+            ta = new AnimationHandler();
+            ta.start();
+
+
             root.requestFocus();
-            //eventually add code to load first level
          }
          if (e.getSource() == loadGame)
          {
