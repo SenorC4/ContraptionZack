@@ -1,20 +1,19 @@
 Layout
+2
 6 5
 T1 T1 XT1 T1 T1
 T1 T1 T1 T1 T1
 T1 T1 T1 T1 T1
 T1 T1 T1 T1 T1
 T1 T1 T1 T1 T1
-T1 T1 T1 T1 T1
+T1 T1 PT1 T1 T1
 
-Walls
-6
-0 4
-1 4
-2 4
-3 4
-4 4
-5 4
-
-Object
-4 3.5
+Objects
+7
+fw0 4 
+fw1 4
+fw2 4
+fw3 4
+fw4 4
+fw5 4
+jb4 3.5

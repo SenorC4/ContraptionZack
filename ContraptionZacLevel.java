@@ -3,14 +3,11 @@ import java.io.*;
 
 public class ContraptionZacLevel
 {
-   int[][] data;
+   String[][] data;
+   String[][] objects;
    int x;
    int y;
-   int exitX;
-   int exitY;
-   
-
-   String[] directions = new String[4];
+   int nextFile;
    
    public String name;
    
@@ -23,28 +20,47 @@ public class ContraptionZacLevel
          Scanner scan = new Scanner(new File(filename));
          
          //remove "Layout" string
-         scan.next()
+         scan.next();
          
-         x = scan.nextInt()
-         y = scan.nextInt()
+         //get next file to load
+         nextFile = scan.nextInt();
+         
+         
+         //get width and length of array
+         y = scan.nextInt();
+         x = scan.nextInt();
          
          //get layout
-         data = new int[x][y];
+         data = new String[x][y];
          
-         for(int i=0;i<x;i++)
+         for(int i=0;i<y;i++)
          {
-            for(int j=0;j<y;j++)
+            for(int j=0;j<x;j++)
             {
                data[j][i] = scan.next();
             }
          }
          
-         //get walls
-         
+                  
          //get objects
+         scan.next();
+                  
+         int numObjects = scan.nextInt();
          
+         objects = new String[numObjects][2];
          
-               
+         for(int i = 0; i < numObjects; i++){
+            objects[i][0] = scan.next();
+            objects[i][1] = scan.next();
+         }
+         
+         for(int i = 0; i < numObjects; i++){
+            System.out.print(objects[i][0]);
+            System.out.println(objects[i][1]);         
+            
+         }
+
+         
       }
       catch(Exception e)
       {
@@ -52,13 +68,13 @@ public class ContraptionZacLevel
       }
    }
    
-   public int getData(int i, int j)
+   public String getData(int i, int j)
    {
       return data[i][j];
    }
    
-   public String getNextFileName(int direction)
-   {
-      return directions[direction];
+   
+   public int getNext(){
+      return nextFile;
    }
 }
