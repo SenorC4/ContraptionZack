@@ -25,14 +25,14 @@ public class Menu extends Application
 
 StackPane root = new StackPane();
 boolean gamePaused = false;
-//MenuMaker make = new MenuMaker(root);
+
             Button resume = new Button("Resume");
       
             Button save = new Button("Save");
-            //start.setFont(font);
+            
             
             Button load = new Button("Load");
-            //end.setFont(font);
+            
             
             Button restartA = new Button("Restart Area");
             
@@ -42,8 +42,7 @@ boolean gamePaused = false;
            
             
             VBox vbox = new VBox (0, resume, save, load, restartA, restartL, end);
-            //vbox.setTranslateX(20);
-            //vbox.setTranslateY(20);
+            ;
 
 
 
@@ -85,7 +84,7 @@ public void start (Stage stage)
             gamePaused = true;
             root.getChildren().add(vbox);
             resume.requestFocus();
-            //root.getChildren().remove(vbox);
+            
          }
          else if (event.getCode() == KeyCode.ESCAPE && gamePaused == true)
          {
