@@ -33,15 +33,21 @@ public class TrapZack extends Application{
   
   AnimationTimer ta;
   
+
   //assets for pause menu
   boolean gamePaused = false;
   boolean titleMenu = true;
   Button resume = new Button("Resume");
+  
   Button save = new Button("Save");
+  
   Button load = new Button("Load");
+  
   Button restartA = new Button("Restart Area");
   Button restartL = new Button("Restart Level");
+  
   Button end = new Button("Exit");
+  
   VBox vbox = new VBox (0, resume, save, load, restartA, restartL, end);
   
   //title menu
@@ -58,6 +64,13 @@ public class TrapZack extends Application{
    public void start(Stage stage){
    
       //escape menu
+      resume.setMinWidth(100);
+      save.setMinWidth(100);
+      load.setMinWidth(100);
+      restartA.setMinWidth(100);
+      restartL.setMinWidth(100);
+      end.setMinWidth(100);
+      
       resume.setOnAction(new ButtonListener());
       end.setOnAction(new ButtonListener());
       root.setOnKeyPressed(new KeyListenerDown());
