@@ -65,6 +65,16 @@ public class ContraptionZacLevel
       return data;
    }
    
+   public int getX()
+   {
+      return x;
+   }
+   
+   public int getY()
+   {
+      return y;
+   }
+   
    public String[][] getObjects()
    {
       return objects;

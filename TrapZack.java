@@ -24,9 +24,10 @@ public class TrapZack extends Application{
 
   int Px = 400;
   int Py = 600;
+  boolean drewPlayer = false;
   
   //ContraptionZacLevel L1;
-  ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
+  ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level Files/lvl1.txt");
    
   StackPane root = new StackPane();
   Canvas canvas = new Canvas(800, 800);
@@ -61,6 +62,7 @@ public class TrapZack extends Application{
   //game
   Image Water = new Image("Assets/Aseprite Sprites/Boat Game/Water.png", false);
   Image Player = new Image("Assets/Aseprite Sprites/Boat Game/Boat1.png", false);
+  Image Arrow = new Image("Assets/Aseprite Sprites/Boat Game/Arrow.png", false);
    
    
    public void start(Stage stage){
@@ -125,7 +127,36 @@ public class TrapZack extends Application{
 
       
       if(titleMenu == false){
-         L1.getData();
+         String[][] data = L1.getData();
+         int x = L1.getX();
+         int y = L1.getY();
+         
+         for (int i = 0; i < x; i++)
+         {
+            for (int j = 0; j < y; j++)
+            {
+               if (data[i][j].equals("T1"))
+               {
+                  gc.drawImage(Water, i*64, j*64);
+               }
+               else if (data[i][j].equals("XT1"))
+               {
+                  gc.drawImage(Water, i*64, j*64);
+                  gc.drawImage(Arrow, i*64, j*64);
+               }
+               else if (data[i][j].equals("PT1"))
+               {
+                  gc.drawImage(Water, i*64, j*64);
+                  if (!drewPlayer)
+                  {
+                     Px = i*64;
+                     Py = j*64;
+                     drewPlayer = true;
+                  }
+               }
+            }
+         }
+         
          L1.getObjects();
       }
       
@@ -136,7 +167,7 @@ public class TrapZack extends Application{
       {
          
       }
-      gc.drawImage(Water, Px, Py+1);
+      //gc.drawImage(Water, Px, Py+1);
       gc.drawImage(Player, Px, Py);
       
 
