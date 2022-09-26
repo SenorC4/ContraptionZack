@@ -36,6 +36,8 @@ public class TrapZack extends Application{
   boolean canMoveRight = true;
   boolean canMoveUp = true;
   boolean canMoveDown = true;
+  //variable to count the current frame rotation
+  int frameCount = 0;
   
   //ContraptionZacLevel L1;
   ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level Files/lvl1.txt");
@@ -72,9 +74,10 @@ public class TrapZack extends Application{
   
   //game
   Image Water = new Image("Assets/Aseprite Sprites/Boat Game/Water.png", false);
-  Image Player = new Image("Assets/Aseprite Sprites/Boat Game/Boat1.png", false);
+  Image Player1 = new Image("Assets/Aseprite Sprites/Boat Game/Boat1.png", false);
+  Image Player2 = new Image("Assets/Aseprite Sprites/Boat Game/Boat2.png", false);
   Image Arrow = new Image("Assets/Aseprite Sprites/Boat Game/Arrow.png", false);
-   
+  Image PlayerImage = Player1;
    
    public void start(Stage stage){
    
@@ -236,8 +239,18 @@ public class TrapZack extends Application{
          L1.getObjects();
       }
       
+      //count every five frames, swap image every cycle
+      frameCount++;
+      if (frameCount > 4)
+      {
+         frameCount = 0;
+         if (PlayerImage == Player1)
+            PlayerImage = Player2;
+         else if (PlayerImage == Player2)
+            PlayerImage = Player1;
+      }
       //Draw player at its current position over the background
-      gc.drawImage(Player, Px, Py);
+      gc.drawImage(PlayerImage, Px, Py);
       
 
    }
