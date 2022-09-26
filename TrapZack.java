@@ -22,12 +22,16 @@ import javafx.scene.text.Font;
 
 public class TrapZack extends Application{
 
+  //Variables holding the offsets of the level
   int levelOffsetX = 100;
   int levelOffsetY = 100;
-
+  
+  //Player x and y positions
   int Px = 400;
   int Py = 600;
+  //boolean holding when the player is first drawn
   boolean drewPlayer = false;
+  //variables holding directional access
   boolean canMoveLeft = true;
   boolean canMoveRight = true;
   boolean canMoveUp = true;
@@ -132,32 +136,40 @@ public class TrapZack extends Application{
    public void draw(GraphicsContext gc){
       root.setStyle("-fx-background-color: yellow");
 
-      
+      //if not in the title screen
       if(titleMenu == false){
+         //load the first level, get the data from the text file
          String[][] data = L1.getData();
+         //get the dimensions of the text for the for loops
          int x = L1.getX();
          int y = L1.getY();
          
+         //go through the array
          for (int i = 0; i < x; i++)
          {
             for (int j = 0; j < y; j++)
             {
+               //generic water tile
                if (data[i][j].equals("T1"))
                {
                   gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
                }
+               //Exit Arrow Tile
                else if (data[i][j].equals("XT1"))
                {
                   gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
                   gc.drawImage(Arrow, levelOffsetX + i*64, levelOffsetY + j*64);
                }
+               //Player Tile
                else if (data[i][j].equals("PT1"))
                {
                   gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
+                  //set the player position, only once
                   if (!drewPlayer)
                   {
                      Px = levelOffsetX + i*64;
                      Py = levelOffsetY + j*64;
+                     //boolean to hold if the player's position has been set yet
                      drewPlayer = true;
                   }
                }
@@ -165,60 +177,66 @@ public class TrapZack extends Application{
          }
          
          //check bounds left
+         //if the player is trying to move outside the array
          if ((Px - 48 - levelOffsetX)/64 <= -1)
             canMoveLeft = false;
          else
          {
+            //if the players left is NOT a walkable tile
             if ((!data[(Px - 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("T1")) && (!data[(Px - 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1")))
                canMoveLeft = false;
+            //if the players left is a walkable tile
             else 
                canMoveLeft = true;
          }
             
          //check bounds right
+         //if the player is trying to move outside the array
          if ((Px + 48  - levelOffsetX)/64 >= x)
             canMoveRight = false;
          else
          {
+            //if the players right is NOT a walkable tile
             if ((!data[(Px + 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("T1")) && (!data[(Px + 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1")))
                canMoveRight = false;
+            //if the players right is a walkable tile
             else 
                canMoveRight = true;
          }
          
          //check bounds up
+         //if the player is trying to move outside the array
          if ((Py - 59 - levelOffsetY)/64 <= -1)
             canMoveUp = false;
          else
          {
+            //if the players up is NOT a walkable tile
             if ((!data[(Px - levelOffsetX)/64][(Py - 59 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - levelOffsetX)/64][(Py - 59 - levelOffsetY)/64].equals("T1")) && (!data[(Px - levelOffsetX)/64][(Py - 59 - levelOffsetY)/64].equals("XT1")))
                canMoveUp = false;
+            //if the players up is a walkable tile
             else 
                canMoveUp = true;
          }
             
          //check bounds Down
+         //if the player is trying to move outside the array
          if ((Py + 64  - levelOffsetY)/64 >= y)
             canMoveDown = false;
          else
          {
+            //if the players down is NOT a walkable tile
             if ((!data[(Px - levelOffsetX)/64][(Py + 64 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - levelOffsetX)/64][(Py + 64 - levelOffsetY)/64].equals("T1")) && (!data[(Px - levelOffsetX)/64][(Py + 64 - levelOffsetY)/64].equals("XT1")))
                canMoveDown = false;
+            //if the players down is a walkable tile
             else 
                canMoveDown = true;
          }
 
-         
+         //deal with objects
          L1.getObjects();
       }
       
-      
-      
-      //get player position, check for walls
-      
-         
-      
-      //gc.drawImage(Water, Px, Py+1);
+      //Draw player at its current position over the background
       gc.drawImage(Player, Px, Py);
       
 
