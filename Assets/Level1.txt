@@ -1,3 +1,5 @@
+PlayerPosition
+2 5
 Layout
 2
 6 5
@@ -6,7 +8,7 @@ T1 T1 T1 T1 T1
 T1 T1 T1 T1 T1
 T1 T1 T1 T1 T1
 T1 T1 T1 T1 T1
-T1 T1 PT1 T1 T1
+T1 T1 T1 T1 T1
 
 Objects
 7

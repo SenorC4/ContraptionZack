@@ -7,6 +7,8 @@ public class ContraptionZacLevel
    String[][] objects;
    int x;
    int y;
+   int Px;
+   int Py;
    int nextFile;
    
    public String name;
@@ -18,6 +20,12 @@ public class ContraptionZacLevel
       try
       {
          Scanner scan = new Scanner(new File(filename));
+         
+         //remove "Layout" string
+         scan.next();
+         
+         Px = scan.nextInt();
+         Py = scan.nextInt();
          
          //remove "Layout" string
          scan.next();
@@ -80,6 +88,15 @@ public class ContraptionZacLevel
       return objects;
    }
 
+   public int getPy()
+   {
+      return Py;
+   }
+   
+   public int getPx()
+   {
+      return Px;
+   }
    
    
    public int getNext(){
