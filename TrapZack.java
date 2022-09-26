@@ -22,9 +22,16 @@ import javafx.scene.text.Font;
 
 public class TrapZack extends Application{
 
+  int levelOffsetX = 100;
+  int levelOffsetY = 100;
+
   int Px = 400;
   int Py = 600;
   boolean drewPlayer = false;
+  boolean canMoveLeft = true;
+  boolean canMoveRight = true;
+  boolean canMoveUp = true;
+  boolean canMoveDown = true;
   
   //ContraptionZacLevel L1;
   ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level Files/lvl1.txt");
@@ -137,36 +144,80 @@ public class TrapZack extends Application{
             {
                if (data[i][j].equals("T1"))
                {
-                  gc.drawImage(Water, i*64, j*64);
+                  gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
                }
                else if (data[i][j].equals("XT1"))
                {
-                  gc.drawImage(Water, i*64, j*64);
-                  gc.drawImage(Arrow, i*64, j*64);
+                  gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
+                  gc.drawImage(Arrow, levelOffsetX + i*64, levelOffsetY + j*64);
                }
                else if (data[i][j].equals("PT1"))
                {
-                  gc.drawImage(Water, i*64, j*64);
+                  gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
                   if (!drewPlayer)
                   {
-                     Px = i*64;
-                     Py = j*64;
+                     Px = levelOffsetX + i*64;
+                     Py = levelOffsetY + j*64;
                      drewPlayer = true;
                   }
                }
             }
          }
          
+         //check bounds left
+         if ((Px - 48 - levelOffsetX)/64 <= -1)
+            canMoveLeft = false;
+         else
+         {
+            if ((!data[(Px - 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("T1")) && (!data[(Px - 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1")))
+               canMoveLeft = false;
+            else 
+               canMoveLeft = true;
+         }
+            
+         //check bounds right
+         if ((Px + 48  - levelOffsetX)/64 >= x)
+            canMoveRight = false;
+         else
+         {
+            if ((!data[(Px + 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("T1")) && (!data[(Px + 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1")))
+               canMoveRight = false;
+            else 
+               canMoveRight = true;
+         }
+         
+         //check bounds up
+         if ((Py - 59 - levelOffsetY)/64 <= -1)
+            canMoveUp = false;
+         else
+         {
+            if ((!data[(Px - levelOffsetX)/64][(Py - 59 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - levelOffsetX)/64][(Py - 59 - levelOffsetY)/64].equals("T1")) && (!data[(Px - levelOffsetX)/64][(Py - 59 - levelOffsetY)/64].equals("XT1")))
+               canMoveUp = false;
+            else 
+               canMoveUp = true;
+         }
+            
+         //check bounds Down
+         if ((Py + 64  - levelOffsetY)/64 >= y)
+            canMoveDown = false;
+         else
+         {
+            if ((!data[(Px - levelOffsetX)/64][(Py + 64 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - levelOffsetX)/64][(Py + 64 - levelOffsetY)/64].equals("T1")) && (!data[(Px - levelOffsetX)/64][(Py + 64 - levelOffsetY)/64].equals("XT1")))
+               canMoveDown = false;
+            else 
+               canMoveDown = true;
+         }
+
+         
          L1.getObjects();
       }
       
       
       
-      //get player position
-      if (!gamePaused)
-      {
+      //get player position, check for walls
+      
          
-      }
+      
       //gc.drawImage(Water, Px, Py+1);
       gc.drawImage(Player, Px, Py);
       
@@ -195,25 +246,32 @@ public class TrapZack extends Application{
          }
          
          //Player Movement
-         //Left
-         if (event.getCode() == KeyCode.A)
+         if (!gamePaused)
          {
-            Px--;
-         }
-         //Right
-         if (event.getCode() == KeyCode.D)
-         {
-            Px++;
-         }
-         //Up
-         if (event.getCode() == KeyCode.W)
-         {
-            Py--;
-         }
-         //Down
-         if (event.getCode() == KeyCode.S)
-         {
-            Py++;
+            //Left
+            if (event.getCode() == KeyCode.A)
+            {
+               if (canMoveLeft)
+                  Px--;
+            }
+            //Right
+            if (event.getCode() == KeyCode.D)
+            {
+               if (canMoveRight)
+                  Px++;
+            }
+            //Up
+            if (event.getCode() == KeyCode.W)
+            {
+               if (canMoveUp)
+                  Py--;
+            }
+            //Down
+            if (event.getCode() == KeyCode.S)
+            {
+               if (canMoveDown)
+                  Py++;
+            }
          }
          
          
