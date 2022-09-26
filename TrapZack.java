@@ -25,7 +25,8 @@ public class TrapZack extends Application{
   int Px = 400;
   int Py = 600;
   
-  ContraptionZacLevel L1;
+  //ContraptionZacLevel L1;
+  ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
    
   StackPane root = new StackPane();
   Canvas canvas = new Canvas(800, 800);
@@ -58,7 +59,8 @@ public class TrapZack extends Application{
   VBox titleBox = new VBox(200, title, newGame, loadGame);
   
   //game
-  Image Player = new Image("Assets/Boat1.png", false);
+  Image Water = new Image("Assets/Aseprite Sprites/Boat Game/Water.png", false);
+  Image Player = new Image("Assets/Aseprite Sprites/Boat Game/Boat1.png", false);
    
    
    public void start(Stage stage){
@@ -130,16 +132,18 @@ public class TrapZack extends Application{
       
       
       //get player position
-      
-      Py--;
-
+      if (!gamePaused)
+      {
+         
+      }
+      gc.drawImage(Water, Px, Py+1);
       gc.drawImage(Player, Px, Py);
       
 
    }
    
    
-public class KeyListenerDown implements EventHandler<KeyEvent>  
+   public class KeyListenerDown implements EventHandler<KeyEvent>  
    {
    
       public void handle(KeyEvent event) 
@@ -159,6 +163,27 @@ public class KeyListenerDown implements EventHandler<KeyEvent>
             root.requestFocus();
          }
          
+         //Player Movement
+         //Left
+         if (event.getCode() == KeyCode.A)
+         {
+            Px--;
+         }
+         //Right
+         if (event.getCode() == KeyCode.D)
+         {
+            Px++;
+         }
+         //Up
+         if (event.getCode() == KeyCode.W)
+         {
+            Py--;
+         }
+         //Down
+         if (event.getCode() == KeyCode.S)
+         {
+            Py++;
+         }
          
          
       }
@@ -201,7 +226,7 @@ public class KeyListenerDown implements EventHandler<KeyEvent>
             root.getChildren().remove(titleBox);
             vbox.setAlignment(Pos.TOP_LEFT);
             
-            ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
+            //ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
             
             //create and start animation handler
             ta = new AnimationHandler();
