@@ -27,8 +27,8 @@ public class TrapZack extends Application{
   int levelOffsetY = 100;
   
   //Player x and y positions
-  int Px = 0;
-  int Py = 0;
+  int Px = 400;
+  int Py = 600;
   //boolean holding when the player is first drawn
   boolean drewPlayer = false;
   //variables holding directional access
@@ -40,7 +40,9 @@ public class TrapZack extends Application{
   int frameCount = 0;
   
   //ContraptionZacLevel L1;
-  ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
+  ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level Files/lvl1.txt");
+  ContraptionZacLevel L2 = new ContraptionZacLevel("Assets/Level Files/lvl2.txt");
+  ContraptionZacLevel currentLevel = L1;
    
   StackPane root = new StackPane();
   Canvas canvas = new Canvas(800, 800);
@@ -73,10 +75,10 @@ public class TrapZack extends Application{
   VBox titleBox = new VBox(200, title, newGame, loadGame);
   
   //game
-  Image Water = new Image("Assets/Water.png", false);
-  Image Player1 = new Image("Assets/Boat1.png", false);
-  Image Player2 = new Image("Assets/Boat2.png", false);
-  Image Arrow = new Image("Assets/Arrow.png", false);
+  Image Water = new Image("Assets/Aseprite Sprites/Boat Game/Water.png", false);
+  Image Player1 = new Image("Assets/Aseprite Sprites/Boat Game/Boat1.png", false);
+  Image Player2 = new Image("Assets/Aseprite Sprites/Boat Game/Boat2.png", false);
+  Image Arrow = new Image("Assets/Aseprite Sprites/Boat Game/Arrow.png", false);
   Image PlayerImage = Player1;
    
    public void start(Stage stage){
@@ -91,7 +93,6 @@ public class TrapZack extends Application{
       
       resume.setOnAction(new ButtonListener());
       end.setOnAction(new ButtonListener());
-      restartA.setOnAction(new ButtonListener());
       root.setOnKeyPressed(new KeyListenerDown());
       
       
@@ -143,10 +144,14 @@ public class TrapZack extends Application{
       //if not in the title screen
       if(titleMenu == false){
          //load the first level, get the data from the text file
-         String[][] data = L1.getData();
+         String[][] data = currentLevel.getData();
          //get the dimensions of the text for the for loops
-         int x = L1.getX();
-         int y = L1.getY();
+         int x = currentLevel.getX();
+         int y = currentLevel.getY();
+         
+         gc.setFill(Color.YELLOW);
+         gc.fillRect(0,0,800,800);
+         gc.setFill(Color.BLACK);
          
          //go through the array
          for (int i = 0; i < x; i++)
@@ -156,7 +161,10 @@ public class TrapZack extends Application{
                //generic water tile
                if (data[i][j].equals("T1"))
                {
-                  gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
+                  //gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
+                  gc.setFill(Color.BLUE);
+                  gc.fillRect(levelOffsetX + i*64, levelOffsetY + j*64, 64, 64);
+                  gc.setFill(Color.BLACK);
                }
                //Exit Arrow Tile
                else if (data[i][j].equals("XT1"))
@@ -165,29 +173,45 @@ public class TrapZack extends Application{
                   gc.drawImage(Arrow, levelOffsetX + i*64, levelOffsetY + j*64);
                }
                //Player Tile
-               //else if (data[i][j].equals("PT1"))
-               //{
-                  //gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
+               else if (data[i][j].equals("PT1"))
+               {
+                  gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
                   //set the player position, only once
                   if (!drewPlayer)
                   {
-                     Px = levelOffsetX + L1.getPx()*64;
-                     Py = levelOffsetY + L1.getPy()*64;
+                     
+                     
+                     Px = levelOffsetX + i*64 + 32;
+                     Py = levelOffsetY + j*64 + 32;
                      //boolean to hold if the player's position has been set yet
                      drewPlayer = true;
                   }
-               //}
+               }
             }
          }
          
          //check bounds left
          //if the player is trying to move outside the array
-         if ((Px - 48 - levelOffsetX)/64 <= -1)
+         if ((Px - 33 - levelOffsetX) <= 0)
+         {
             canMoveLeft = false;
+            //If the current tile is an exit tile and youre trying to leave
+            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1"))
+            {
+               //reset the visuals
+               drewPlayer = false;
+                  
+               //Move to the next level
+               if (currentLevel == L1)
+               {
+                  currentLevel = L2;
+               }
+            }
+         }
          else
          {
             //if the players left is NOT a walkable tile
-            if ((!data[(Px - 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("T1")) && (!data[(Px - 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("T1")) && (!data[(Px - 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1")))
+            if (((!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("XT1"))))
                canMoveLeft = false;
             //if the players left is a walkable tile
             else 
@@ -196,13 +220,26 @@ public class TrapZack extends Application{
             
          //check bounds right
          //if the player is trying to move outside the array
-         if ((Px + 48  - levelOffsetX)/64 >= x)
+         if ((Px + 33  - levelOffsetX)/64 >= x)
+         {
             canMoveRight = false;
+            //If the current tile is an exit tile and youre trying to leave
+            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1"))
+            {
+               //reset the visuals
+               drewPlayer = false;
+                  
+               //Move to the next level
+               if (currentLevel == L1)
+               {
+                  currentLevel = L2;
+               }
+            }
+         }
          else
          {
             //if the players right is NOT a walkable tile
-            if ((!data[(Px + 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("T1")) && (!data[(Px + 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("T1")) && (!data[(Px + 48 - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1")))
-               canMoveRight = false;
+            if (((!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("XT1"))))               canMoveRight = false;
             //if the players right is a walkable tile
             else 
                canMoveRight = true;
@@ -210,12 +247,27 @@ public class TrapZack extends Application{
          
          //check bounds up
          //if the player is trying to move outside the array
-         if ((Py - 59 - levelOffsetY)/64 <= -1)
+         //System.out.println((Py-32-levelOffsetY)/64);
+         if ((Py - 33 - levelOffsetY) < 0)
+         {
             canMoveUp = false;
+            //If the current tile is an exit tile and youre trying to leave
+            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1"))
+            {
+               //reset the visuals
+               drewPlayer = false;
+                  
+               //Move to the next level
+               if (currentLevel == L1)
+               {
+                  currentLevel = L2;
+               }
+            }
+         }
          else
          {
             //if the players up is NOT a walkable tile
-            if ((!data[(Px - levelOffsetX)/64][(Py - 59 - levelOffsetY)/64].equals("T1")) && (!data[(Px - levelOffsetX)/64][(Py - 59 - levelOffsetY)/64].equals("T1")) && (!data[(Px - levelOffsetX)/64][(Py - 59 - levelOffsetY)/64].equals("XT1")))
+            if (((!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("XT1"))))
                canMoveUp = false;
             //if the players up is a walkable tile
             else 
@@ -224,12 +276,26 @@ public class TrapZack extends Application{
             
          //check bounds Down
          //if the player is trying to move outside the array
-         if ((Py + 64  - levelOffsetY)/64 >= y)
+         if ((Py + 33 - levelOffsetY)/64 >= y)
+         {
             canMoveDown = false;
+            //If the current tile is an exit tile and youre trying to leave
+            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1"))
+            {
+               //reset the visuals
+               drewPlayer = false;
+                  
+               //Move to the next level
+               if (currentLevel == L1)
+               {
+                  currentLevel = L2;
+               }
+            }
+         }
          else
          {
             //if the players down is NOT a walkable tile
-            if ((!data[(Px - levelOffsetX)/64][(Py + 64 - levelOffsetY)/64].equals("T1")) && (!data[(Px - levelOffsetX)/64][(Py + 64 - levelOffsetY)/64].equals("T1")) && (!data[(Px - levelOffsetX)/64][(Py + 64 - levelOffsetY)/64].equals("XT1")))
+            if (((!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("XT1"))))
                canMoveDown = false;
             //if the players down is a walkable tile
             else 
@@ -251,7 +317,8 @@ public class TrapZack extends Application{
             PlayerImage = Player1;
       }
       //Draw player at its current position over the background
-      gc.drawImage(PlayerImage, Px, Py);
+      //gc.drawImage(PlayerImage, Px, Py);
+      gc.fillRect(Px - 32, Py - 32, 64, 64);
       
 
    }
@@ -284,25 +351,25 @@ public class TrapZack extends Application{
             if (event.getCode() == KeyCode.A)
             {
                if (canMoveLeft)
-                  Px--;
+                  Px -= 4;
             }
             //Right
             if (event.getCode() == KeyCode.D)
             {
                if (canMoveRight)
-                  Px++;
+                  Px += 4;
             }
             //Up
             if (event.getCode() == KeyCode.W)
             {
                if (canMoveUp)
-                  Py--;
+                  Py -= 4;
             }
             //Down
             if (event.getCode() == KeyCode.S)
             {
                if (canMoveDown)
-                  Py++;
+                  Py += 4;
             }
          }
          
@@ -334,10 +401,6 @@ public class TrapZack extends Application{
          }
          else if (e.getSource() == restartA)
          {
-            drewPlayer = false;
-            gamePaused = false;
-            root.getChildren().remove(vbox);
-            root.requestFocus();
             
          }
          else if (e.getSource() == restartL)
@@ -366,7 +429,6 @@ public class TrapZack extends Application{
          }
       }
    }
-   
    
 
 }
