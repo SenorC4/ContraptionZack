@@ -1,23 +1,19 @@
+PlayerPosition
+2.5 9
 Layout
-6 5
-T T T T T
-T T T T T
-T T T T T
-T T T T T
-T T T T T
-T T T T T
+3
+6 9
+E1 E1 E0.5 XT1 E1.5 E1
+T1 T1 T1 T1 T1 T1
+T1 T1 T1 T1 T1 T1
+T1 T1 E1 E1 T1 T1
+T1 T1 E1 E1 T1 T1
+T1 T1 T1 T1 T1 T1
+T1 T1 T1 T1 T1 T1
+T1 T1 T1 T1 T1 T1
+E1 E1 E0.5 T1 E1.5 E1
 
-Walls
-6
-0 4
-1 4
-2 4
-3 4
-4 4
-5 4
+Objects
+27
+springLeft2 8
 
-Object
-4 3.5
-
-Exit
-0 2
