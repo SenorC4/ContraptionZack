@@ -41,8 +41,10 @@ public class TrapZack extends Application{
   
   //ContraptionZacLevel L1;
   ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
-  ContraptionZacLevel L2 = new ContraptionZacLevel("Assets/Level2.txt");
-  ContraptionZacLevel L3 = new ContraptionZacLevel("Assets/Level3.txt");
+  //ContraptionZacLevel L2 = new ContraptionZacLevel("Assets/Level2.txt");
+  //ContraptionZacLevel L3 = new ContraptionZacLevel("Assets/Level3.txt");
+  //ContraptionZacLevel L4 = new ContraptionZacLevel("Assets/Level4.txt");
+
 
   ContraptionZacLevel currentLevel = L1;
    
@@ -184,7 +186,7 @@ public class TrapZack extends Application{
                      
                      
                      Px = levelOffsetX + i*64 + 32;
-                     Py = levelOffsetY + j*64 + 32;
+                     Py = levelOffsetY + j*64 + 28;
                      //boolean to hold if the player's position has been set yet
                      drewPlayer = true;
                   }
@@ -204,10 +206,12 @@ public class TrapZack extends Application{
                drewPlayer = false;
                   
                //Move to the next level
-               if (currentLevel == L1)
-               {
-                  currentLevel = L2;
-               }
+               //if (currentLevel == L1)
+               //{
+               //   currentLevel = L2;
+               //}
+               currentLevel = new ContraptionZacLevel(currentLevel.getNext());
+               
             }
          }
          else
@@ -232,10 +236,8 @@ public class TrapZack extends Application{
                drewPlayer = false;
                   
                //Move to the next level
-               if (currentLevel == L1)
-               {
-                  currentLevel = L2;
-               }
+               currentLevel = new ContraptionZacLevel(currentLevel.getNext());
+
             }
          }
          else
@@ -260,12 +262,7 @@ public class TrapZack extends Application{
                drewPlayer = false;
                   
                //Move to the next level
-               if (currentLevel == L1)
-               {
-                  currentLevel = L2;
-               }else{
-                  currentLevel = L3;
-               }
+               currentLevel = new ContraptionZacLevel(currentLevel.getNext());
             }
          }
          else
@@ -284,16 +281,16 @@ public class TrapZack extends Application{
          {
             canMoveDown = false;
             //If the current tile is an exit tile and youre trying to leave
-            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1"))
+            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1") || data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("PT1"))
             {
                //reset the visuals
                drewPlayer = false;
                   
                //Move to the next level
-               if (currentLevel == L1)
-               {
-                  currentLevel = L2;
+               if(currentLevel != L1){
+                  currentLevel = new ContraptionZacLevel(currentLevel.getLast());
                }
+
             }
          }
          else

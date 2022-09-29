@@ -9,7 +9,8 @@ public class ContraptionZacLevel
    int y;
    int Px;
    int Py;
-   int nextFile;
+   String nextFile;
+   String lastFile;
    
    public String name;
    
@@ -30,8 +31,12 @@ public class ContraptionZacLevel
          //remove "Layout" string
          scan.next();
          
+         //get last file if go back
+         lastFile = scan.next();
+
+         
          //get next file to load
-         nextFile = scan.nextInt();
+         nextFile = scan.next();
          
          
          //get width and length of array
@@ -55,11 +60,13 @@ public class ContraptionZacLevel
                   
          int numObjects = scan.nextInt();
          
-         objects = new String[numObjects][2];
+         objects = new String[numObjects][4];
          
          for(int i = 0; i < numObjects; i++){
-            objects[i][0] = scan.next();
-            objects[i][1] = scan.next();
+            objects[i][0] = scan.next(); //name
+            objects[i][1] = scan.next(); //x
+            objects[i][2] = scan.next(); //y
+            objects[i][3] = scan.next(); //relationship
          }
       }
       catch(Exception e)
@@ -99,7 +106,12 @@ public class ContraptionZacLevel
    }
    
    
-   public int getNext(){
+   public String getNext(){
       return nextFile;
    }
+   
+   public String getLast(){
+      return lastFile;
+   }
+
 }
