@@ -16,7 +16,7 @@ E1 E1 E0.5 PT1 E1.5 E1
 
 Objects
 3
-springLeft 2 8 E
-blueButton 4 6 G3
-blueSpike 3 7 G3
+springLeft 2 8 E down
+blueButton 4 6 G3 down
+blueSpike 3 7 G3 up
 

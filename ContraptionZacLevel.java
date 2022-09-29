@@ -60,13 +60,15 @@ public class ContraptionZacLevel
                   
          int numObjects = scan.nextInt();
          
-         objects = new String[numObjects][4];
+         objects = new String[numObjects][5];
          
          for(int i = 0; i < numObjects; i++){
             objects[i][0] = scan.next(); //name
             objects[i][1] = scan.next(); //x
             objects[i][2] = scan.next(); //y
             objects[i][3] = scan.next(); //relationship
+            objects[i][3] = scan.next(); //save state
+
          }
       }
       catch(Exception e)
