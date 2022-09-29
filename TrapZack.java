@@ -42,6 +42,8 @@ public class TrapZack extends Application{
   //ContraptionZacLevel L1;
   ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
   ContraptionZacLevel L2 = new ContraptionZacLevel("Assets/Level2.txt");
+  ContraptionZacLevel L3 = new ContraptionZacLevel("Assets/Level3.txt");
+
   ContraptionZacLevel currentLevel = L1;
    
   StackPane root = new StackPane();
@@ -261,6 +263,8 @@ public class TrapZack extends Application{
                if (currentLevel == L1)
                {
                   currentLevel = L2;
+               }else{
+                  currentLevel = L3;
                }
             }
          }

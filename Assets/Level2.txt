@@ -1,5 +1,5 @@
 PlayerPosition
-2.5 9
+2 7
 Layout
 3
 9 6
@@ -11,9 +11,9 @@ T1 T1 E1 E1 T1 T1
 T1 T1 T1 T1 T1 T1
 T1 T1 T1 T1 T1 T1
 T1 T1 T1 T1 T1 T1
-E1 E1 E0.5 T1 E1.5 E1
+E1 E1 E0.5 PT1 E1.5 E1
 
 Objects
-27
+1
 springLeft2 8
 
