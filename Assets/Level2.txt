@@ -2,7 +2,7 @@ PlayerPosition
 2.5 9
 Layout
 3
-6 9
+9 6
 E1 E1 E0.5 XT1 E1.5 E1
 T1 T1 T1 T1 T1 T1
 T1 T1 T1 T1 T1 T1
