@@ -40,8 +40,8 @@ public class TrapZack extends Application{
   int frameCount = 0;
   
   //ContraptionZacLevel L1;
-  ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level Files/lvl1.txt");
-  ContraptionZacLevel L2 = new ContraptionZacLevel("Assets/Level Files/lvl2.txt");
+  ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
+  ContraptionZacLevel L2 = new ContraptionZacLevel("Assets/Level2.txt");
   ContraptionZacLevel currentLevel = L1;
    
   StackPane root = new StackPane();
@@ -75,10 +75,10 @@ public class TrapZack extends Application{
   VBox titleBox = new VBox(200, title, newGame, loadGame);
   
   //game
-  Image Water = new Image("Assets/Aseprite Sprites/Boat Game/Water.png", false);
-  Image Player1 = new Image("Assets/Aseprite Sprites/Boat Game/Boat1.png", false);
-  Image Player2 = new Image("Assets/Aseprite Sprites/Boat Game/Boat2.png", false);
-  Image Arrow = new Image("Assets/Aseprite Sprites/Boat Game/Arrow.png", false);
+  Image Water = new Image("Assets/Water.png", false);
+  Image Player1 = new Image("Assets/Boat1.png", false);
+  Image Player2 = new Image("Assets/Boat2.png", false);
+  Image Arrow = new Image("Assets/Arrow.png", false);
   Image PlayerImage = Player1;
    
    public void start(Stage stage){
