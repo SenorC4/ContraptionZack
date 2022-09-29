@@ -29,6 +29,12 @@ public class TrapZack extends Application{
   //Player x and y positions
   int Px = 400;
   int Py = 600;
+  //Player state machine holder
+  String state = "inControl";
+  //which direction is the player being sprung
+  String springDir = "R";
+  //how fast the player is being sprung
+  int launch = 20;
   //boolean holding when the player is first drawn
   boolean drewPlayer = false;
   //variables holding directional access
@@ -38,6 +44,8 @@ public class TrapZack extends Application{
   boolean canMoveDown = true;
   //variable to count the current frame rotation
   int frameCount = 0;
+  //boolean keeping track of initializing objects for the level
+  boolean initializedObjects = false;
   
   //ContraptionZacLevel L1;
   ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
@@ -84,6 +92,9 @@ public class TrapZack extends Application{
   Image Player2 = new Image("Assets/Boat2.png", false);
   Image Arrow = new Image("Assets/Arrow.png", false);
   Image PlayerImage = Player1;
+  
+  //Objects
+  ArrayList<GameSpring> listOfObjects = new ArrayList<GameSpring>();
    
    public void start(Stage stage){
    
@@ -191,6 +202,48 @@ public class TrapZack extends Application{
                      drewPlayer = true;
                   }
                }
+            }
+         }
+         
+         //Draw objects
+         String[][] objects = currentLevel.getObjects();
+         int numObjects = currentLevel.getNumObjects();
+         
+         if (!initializedObjects)
+         {
+            //go through the array
+            int count = 0;
+            for (int i = 0; i < numObjects; i++)
+            {
+               if (objects[i][0].equals("sr"))
+               {
+                  GameSpring gs = new GameSpring(Integer.parseInt(objects[i][1]), Integer.parseInt(objects[i][2]), objects[i][3]);
+                  listOfObjects.add(gs);
+                  //System.out.println(gs.getPx() + gs.getPy());
+                  count++;
+                  
+                  
+               }
+            }
+            initializedObjects = true;
+         }
+         
+         
+         //check all objects
+         for (int i = 0; i < listOfObjects.size(); i++)
+         {
+            GameSpring gs = listOfObjects.get(i);
+            gc.setFill(Color.GRAY);
+            gc.fillRect(levelOffsetX + gs.getPx(), levelOffsetY + gs.getPy(), 32, 32);
+            gc.setFill(Color.BLACK);
+            //System.out.println(Py - levelOffsetY - gs.getPy() - 16);
+            //if playercollides with middle of the spring
+            if (((Px - levelOffsetX - gs.getPx() - 16 < 16) && (Px - levelOffsetX - gs.getPx() - 16 > -16)) && ((Py - levelOffsetY - gs.getPy() - 16 < 16) && (Py - levelOffsetY - gs.getPy() - 16 > -16)))
+            {
+               gs.setSprung(true);
+               state = "sprung";
+               springDir = gs.getFacing();
+               launch = 20;
             }
          }
          
@@ -302,11 +355,30 @@ public class TrapZack extends Application{
             else 
                canMoveDown = true;
          }
-
-         //deal with objects
-         L1.getObjects();
+         
+         //During spring launch   
+         if (state == "sprung")
+         {
+            //Right
+            if (springDir.equals("R"))
+            {
+               if (!canMoveRight)
+               {
+                  state = "inControl";
+               }
+               else
+               {
+                  Px += 4;
+                  launch--;
+                  if (launch == 0)
+                  {
+                     state = "inControl";
+                  }
+               }
+            }
+         }
       }
-      
+            
       //count every five frames, swap image every cycle
       frameCount++;
       if (frameCount > 4)
@@ -346,35 +418,37 @@ public class TrapZack extends Application{
          }
          
          //Player Movement
-         if (!gamePaused)
+         //default state
+         if (state == "inControl")
          {
-            //Left
-            if (event.getCode() == KeyCode.A)
+            if (!gamePaused)
             {
-               if (canMoveLeft)
-                  Px -= 4;
-            }
-            //Right
-            if (event.getCode() == KeyCode.D)
-            {
-               if (canMoveRight)
-                  Px += 4;
-            }
-            //Up
-            if (event.getCode() == KeyCode.W)
-            {
-               if (canMoveUp)
-                  Py -= 4;
-            }
-            //Down
-            if (event.getCode() == KeyCode.S)
-            {
-               if (canMoveDown)
-                  Py += 4;
+               //Left
+               if (event.getCode() == KeyCode.A)
+               {
+                  if (canMoveLeft)
+                     Px -= 4;
+               }
+               //Right
+               if (event.getCode() == KeyCode.D)
+               {
+                  if (canMoveRight)
+                     Px += 4;
+               }
+               //Up
+               if (event.getCode() == KeyCode.W)
+               {
+                  if (canMoveUp)
+                     Py -= 4;
+               }
+               //Down
+               if (event.getCode() == KeyCode.S)
+               {
+                  if (canMoveDown)
+                     Py += 4;
+               }
             }
          }
-         
-         
       }
    }
    
