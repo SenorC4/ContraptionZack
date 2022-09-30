@@ -64,6 +64,8 @@ public class TrapZack extends Application{
   
 
   //assets for pause menu
+  int numberOfSaves = 0;
+  TextInputDialog td = new TextInputDialog();
   boolean gamePaused = false;
   boolean titleMenu = true;
   Button resume = new Button("Resume");
@@ -80,11 +82,22 @@ public class TrapZack extends Application{
   VBox vbox = new VBox (0, resume, save, load, restartA, restartL, end);
   
   //title menu
+  TextInputDialog ld = new TextInputDialog();
   Button newGame = new Button("New Game");
   Button loadGame = new Button("Load Game");
   Font comic = new Font("Comic Sans MS", 50);
+  Font font = new Font(20);
   Label title = new Label("Contraption Zack");
   VBox titleBox = new VBox(200, title, newGame, loadGame);
+  
+  //assets for load menu
+  Button save1 = new Button("");
+  Button save2 = new Button("");
+  Button save3 = new Button("");
+  Button save4 = new Button("");
+  Button save5 = new Button("");
+  
+  VBox saveBox = new VBox(0, save1, save2, save3, save4, save5);
   
   //game
   Image Water = new Image("Assets/Water.png", false);
@@ -99,6 +112,12 @@ public class TrapZack extends Application{
    public void start(Stage stage){
    
       //escape menu
+      save1.setOnAction(new ButtonListener());
+      save2.setOnAction(new ButtonListener());
+      save3.setOnAction(new ButtonListener());
+      save4.setOnAction(new ButtonListener());
+      save5.setOnAction(new ButtonListener());
+      
       resume.setMinWidth(100);
       save.setMinWidth(100);
       load.setMinWidth(100);
@@ -106,8 +125,12 @@ public class TrapZack extends Application{
       restartL.setMinWidth(100);
       end.setMinWidth(100);
       
+      save.setOnAction(new ButtonListener());
+      load.setOnAction(new ButtonListener());
       resume.setOnAction(new ButtonListener());
       end.setOnAction(new ButtonListener());
+      restartA.setOnAction(new ButtonListener());
+      restartL.setOnAction(new ButtonListener());
       root.setOnKeyPressed(new KeyListenerDown());
       
       
@@ -122,6 +145,7 @@ public class TrapZack extends Application{
       loadGame.setFont(comic);
       vbox.setAlignment(Pos.CENTER); 
       newGame.setOnAction(new ButtonListener());
+      loadGame.setOnAction(new ButtonListener());
       titleBox.setAlignment(Pos.CENTER);
       root.getChildren().add(titleBox);
       
@@ -137,6 +161,7 @@ public class TrapZack extends Application{
       //request focus for canvas
       canvas.requestFocus();
       titleBox.requestFocus();
+      newGame.requestFocus();
    }
    
    //main
@@ -196,8 +221,8 @@ public class TrapZack extends Application{
                   {
                      
                      
-                     Px = levelOffsetX + i*64 + 32;
-                     Py = levelOffsetY + j*64 + 28;
+                     Px = levelOffsetX + currentLevel.getPx()*64 + 32;
+                     Py = levelOffsetY + currentLevel.getPy()*64 + 28;
                      //boolean to hold if the player's position has been set yet
                      drewPlayer = true;
                   }
@@ -468,19 +493,58 @@ public class TrapZack extends Application{
          }
          else if (e.getSource() == save)
          {
+            currentLevel.setPx((Px/64)-1);
+            currentLevel.setPy((Py/64)-1);
+            td.setContentText("Type in the name for your saved game");
+            td.showAndWait();
+            String name = td.getEditor().getText();
+            currentLevel.saveLevel("SaveGames/" + name + ".txt");
             
-         }
-         else if (e.getSource() == load)
-         {
             
+            switch (numberOfSaves)
+            {
+               case 0:
+                  save1.setText(name);
+                  numberOfSaves++;
+                  break;
+               case 1:
+                  save2.setText(name);
+                  numberOfSaves++;
+                  break;
+               case 2:
+                  save3.setText(name);
+                  numberOfSaves++;
+                  break;
+               case 3:
+                  save4.setText(name);
+                  numberOfSaves++;
+                  break;
+               case 4:
+                  save5.setText(name);
+                  numberOfSaves++;
+                  break;
+            
+            }
+            
+            gamePaused = false;
+            root.getChildren().remove(vbox);
+            root.requestFocus();
          }
          else if (e.getSource() == restartA)
          {
-            
+            drewPlayer = false;
+            gamePaused = false;
+            currentLevel = new ContraptionZacLevel(currentLevel.getName());
+            root.getChildren().remove(vbox);
+            root.requestFocus();
          }
          else if (e.getSource() == restartL)
          {
-            
+            drewPlayer = false;
+            gamePaused = false;
+            currentLevel = new ContraptionZacLevel("Assets/Level1.txt");
+            root.getChildren().remove(vbox);
+            root.requestFocus();
          }
          
          if (e.getSource() == newGame);
@@ -498,10 +562,102 @@ public class TrapZack extends Application{
 
             root.requestFocus();
          }
+         
          if (e.getSource() == loadGame)
          {
             //add code to load the saved file
+            titleMenu = false;
+            //add code to load a saved file
+            root.getChildren().remove(titleBox);
+            FlowPane saveList = new FlowPane();
+            saveList.setAlignment(Pos.CENTER_LEFT);
+            
+            File directoryPath = new File("SaveGames/");
+            //List of all files and directories
+            String saves[] = directoryPath.list();
+            for (int i=0; i<saves.length; i++) 
+            {
+               
+               Label l = new Label(saves[i]);
+               l.setFont(font);
+               saveList.getChildren().add(l);
+               l = new Label("      ");
+               saveList.getChildren().add(l);
+               
+            }
+            root.getChildren().add(saveList);
+            ld.setContentText("Type in the saved game you want to load");
+            ld.showAndWait();
+            String chosenSave = ld.getEditor().getText();
+            currentLevel = new ContraptionZacLevel("SaveGames/"+chosenSave);
+            root.getChildren().remove(saveList);
+            drewPlayer = false;
+            //gamePaused = false;
+            ta = new AnimationHandler();
+            ta.start();
+            root.requestFocus();
          }
+         
+         
+         if (e.getSource() == load)
+         {
+            //resume.setText("Changed");
+            root.getChildren().remove(vbox);
+            root.getChildren().add(saveBox);
+            save1.requestFocus();
+            //System.out.println(save1.getText());
+            //System.out.println(save1.getText().equals(""));      
+         }
+         
+         
+         //loading the saves
+         if (e.getSource() == save1 && !save1.getText().equals(""))
+         {
+                  System.out.println(save1.getText());
+                  currentLevel = new ContraptionZacLevel("SaveGames/"+save1.getText()+".txt");
+                  root.getChildren().remove(saveBox);
+                  drewPlayer = false;
+                  gamePaused = false;
+                  root.requestFocus();
+         }
+         if (e.getSource() == save2 && !save2.getText().equals(""))
+         {
+                  System.out.println(save1.getText());
+                  currentLevel = new ContraptionZacLevel("SaveGames/"+save2.getText()+".txt");
+                  root.getChildren().remove(saveBox);
+                  drewPlayer = false;
+                  gamePaused = false;
+                  root.requestFocus();
+         }
+         if (e.getSource() == save3 && !save3.getText().equals(""))
+         {
+                  System.out.println(save1.getText());
+                  currentLevel = new ContraptionZacLevel("SaveGames/"+save3.getText()+".txt");
+                  root.getChildren().remove(saveBox);
+                  drewPlayer = false;
+                  gamePaused = false;
+                  root.requestFocus();
+         }
+         if (e.getSource() == save4 && !save4.getText().equals(""))
+         {
+                  System.out.println(save1.getText());
+                  currentLevel = new ContraptionZacLevel("SaveGames/"+save4.getText()+".txt");
+                  root.getChildren().remove(saveBox);
+                  drewPlayer = false;
+                  gamePaused = false;
+                  root.requestFocus();
+         }
+         if (e.getSource() == save5 && !save5.getText().equals(""))
+         {
+                  System.out.println(save1.getText());
+                  currentLevel = new ContraptionZacLevel("SaveGames/"+save5.getText()+".txt");
+                  root.getChildren().remove(saveBox);
+                  drewPlayer = false;
+                  gamePaused = false;
+                  root.requestFocus();
+         }
+         
+         
       }
    }
    

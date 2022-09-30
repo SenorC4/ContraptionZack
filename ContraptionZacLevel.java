@@ -9,6 +9,7 @@ public class ContraptionZacLevel
    int y;
    int Px;
    int Py;
+   int numObjects;
    String nextFile;
    String lastFile;
    
@@ -58,7 +59,7 @@ public class ContraptionZacLevel
          //get objects
          scan.next();
                   
-         int numObjects = scan.nextInt();
+         numObjects = scan.nextInt();
          
          objects = new String[numObjects][5];
          
@@ -80,6 +81,11 @@ public class ContraptionZacLevel
    public String[][] getData()
    {
       return data;
+   }
+   
+   public String getName()
+   {
+      return name;
    }
    
    public int getX()
@@ -107,6 +113,65 @@ public class ContraptionZacLevel
       return Px;
    }
    
+   public void setPy(int posY)
+   {
+      Py = posY;
+   }
+   
+   public void setPx(int posX)
+   {
+      Px = posX;
+   }
+
+   
+   public int getNumObjects()
+   {
+      return numObjects;
+   }
+   
+   public void saveLevel(String saveName)
+   {
+      try
+         {
+         //creates a file writer and rewrites every data member to a save file named by the user
+            Scanner read = new Scanner(new File(name));
+            FileWriter myWriter = new FileWriter(saveName);
+            myWriter.write("PlayerPosition\n");
+            myWriter.write(Px + " " + Py + "\n");
+            myWriter.write("Layout\n");
+            myWriter.write(lastFile + "\n");
+            myWriter.write(nextFile + "\n");
+            myWriter.write(y + " " + x + "\n");
+            
+            for(int i=0;i<y;i++)
+            {
+               for(int j=0;j<x;j++)
+               {
+                  myWriter.write(data[j][i] + " ");
+               }
+                myWriter.write("\n");
+            }
+            myWriter.write("\n");
+            myWriter.write("Objects\n");
+            myWriter.write(numObjects + "\n");
+            
+            for(int i = 0; i < numObjects; i++)
+            {
+               myWriter.write(objects[i][0]+ " ");
+               myWriter.write(objects[i][1]+ " ");
+               myWriter.write(objects[i][2]+ " ");
+               myWriter.write(objects[i][3]+ " ");
+               myWriter.write(objects[i][3]+ " ");
+               myWriter.write("\n");
+            }
+            myWriter.close(); 
+         }
+     catch (IOException e) 
+         {
+            System.out.println("An error occurred.");
+         }
+   }
+
    
    public String getNext(){
       return nextFile;
