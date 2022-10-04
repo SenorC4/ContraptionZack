@@ -1,0 +1,23 @@
+PlayerPosition
+128 320
+Layout
+Null
+Assets/Level2.txt
+6 5
+T1 T1 XT1 T1 T1
+T1 T1 T1 T1 T1
+T1 T1 T1 T1 T1
+T1 T1 T1 T1 T1
+T1 T1 T1 T1 T1
+T1 T1 PT1 T1 T1
+
+Objects
+8
+fw 0 256 E Null
+fw 64 256 E Null
+fw 128 256 E Null
+fw 192 256 E Null
+fw 256 256 E Null
+fw 320 256 E Null
+jb 256 224 E Null
+sr 100 100 R Null

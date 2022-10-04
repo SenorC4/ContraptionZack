@@ -160,7 +160,7 @@ public class TrapZack extends Application{
       
       //request focus for canvas
       canvas.requestFocus();
-      titleBox.requestFocus();
+      //titleBox.requestFocus();
       newGame.requestFocus();
    }
    
