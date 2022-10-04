@@ -234,6 +234,7 @@ public class TrapZack extends Application{
          String[][] objects = currentLevel.getObjects();
          int numObjects = currentLevel.getNumObjects();
          
+         
          if (!initializedObjects)
          {
             //go through the array
@@ -244,10 +245,10 @@ public class TrapZack extends Application{
                {
                   GameSpring gs = new GameSpring(Integer.parseInt(objects[i][1]), Integer.parseInt(objects[i][2]), objects[i][3]);
                   listOfObjects.add(gs);
-                  //System.out.println(gs.getPx() + gs.getPy());
+                  System.out.println(gs.getPx() + " " + gs.getPy());
                   count++;
                   
-                  
+                  System.out.println(objects[i][3]);
                }
             }
             initializedObjects = true;
@@ -289,6 +290,7 @@ public class TrapZack extends Application{
                //   currentLevel = L2;
                //}
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
+               initializedObjects = false;
                
             }
          }
@@ -315,6 +317,7 @@ public class TrapZack extends Application{
                   
                //Move to the next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
+               initializedObjects = false;
 
             }
          }
@@ -341,6 +344,7 @@ public class TrapZack extends Application{
                   
                //Move to the next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
+               initializedObjects = false;
             }
          }
          else
@@ -367,6 +371,7 @@ public class TrapZack extends Application{
                //Move to the next level
                if(currentLevel != L1){
                   currentLevel = new ContraptionZacLevel(currentLevel.getLast());
+                  initializedObjects = false;
                }
 
             }
