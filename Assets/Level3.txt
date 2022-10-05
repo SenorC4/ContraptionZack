@@ -1,14 +1,14 @@
 PlayerPosition
-2 7
+3 8
 Layout
 Assets/Level2.txt
 Assets/Level4.txt
-7 7
+9 7
 E1 XT1 E1 E1 E1 E1 E1 
 XT1 T1 T1 T1 T1 T1 T1
 T1 T1 T1 T1 T1 T1 T1 
-T1 T1 E1 E1 T1 T1 T1 
-T1 T1 E1 E1 T1 T1 T1 
+T1 T1 T1 T1 T1 T1 T1 
+T1 T1 T1 T1 T1 T1 T1 
 T1 T1 T1 T1 T1 T1 T1 
 T1 T1 T1 T1 T1 T1 T1 
 T1 T1 T1 T1 T1 T1 T1

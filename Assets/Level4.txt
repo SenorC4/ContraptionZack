@@ -1,23 +1,22 @@
+PlayerPosition
+5 0
 Layout
-6 5
-T T T T T
-T T T T T
-T T T T T
-T T T T T
-T T T T T
-T T T T T
+Assets/Level3.txt
+Assets/Level1.txt
+6 6
+T1 T1 T1 W1 T1 PT1
+XT1 T1 T1 W1 T1 T1
+T1 T1 T1 W1 T1 T1
+T1 T1 T1 W1 T1 T1
+XT1 T1 T1 W1 T1 T1
+T1 T1 T1 W1 T1 T1
 
-Walls
-6
-0 4
-1 4
-2 4
-3 4
-4 4
-5 4
-
-Object
-4 3.5
-
-Exit
-0 2
+Objects
+7
+halfwall 0 3 Empty Null
+halfwall 2 3 Empty Null
+springLeft 4 1 Empty down
+springRight 2 4 Empty down
+orangeButton 5 3 Empty Null
+grayButton 1 1 Empty down
+graySpike 1 3 Empty up

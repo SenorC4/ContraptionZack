@@ -60,7 +60,9 @@ public class TrapZack extends Application{
    
   StackPane root = new StackPane();
   Canvas canvas = new Canvas(800, 800);
+  
   GraphicsContext gc = canvas.getGraphicsContext2D();
+
   
   AnimationTimer ta;
   
@@ -112,7 +114,7 @@ public class TrapZack extends Application{
   ArrayList<GameSpring> listOfObjects = new ArrayList<GameSpring>();
    
    public void start(Stage stage){
-   
+      
       //escape menu
       save1.setOnAction(new ButtonListener());
       save2.setOnAction(new ButtonListener());
@@ -154,7 +156,7 @@ public class TrapZack extends Application{
             
       //default javafx stuff
       stage.setScene(scene);      
-      stage.setTitle("Square");      
+      stage.setTitle("Contraption Zack");      
       stage.show();
       
       //Keyboard lisetner
@@ -175,13 +177,13 @@ public class TrapZack extends Application{
    //animation
    public class AnimationHandler extends AnimationTimer{
       public void handle(long currentTimeInNanoSeconds){
-         draw(gc);
+           draw(gc);
       }   
    }
    
    //draw player movement and stuff
    public void draw(GraphicsContext gc){
-      root.setStyle("-fx-background-color: yellow");
+      root.setStyle("-fx-background-color: black");
 
       //if not in the title screen
       if(titleMenu == false){
@@ -191,7 +193,7 @@ public class TrapZack extends Application{
          int x = currentLevel.getX();
          int y = currentLevel.getY();
          
-         gc.setFill(Color.YELLOW);
+         gc.setFill(Color.BLACK);
          gc.fillRect(0,0,800,800);
          gc.setFill(Color.BLACK);
          
@@ -475,7 +477,10 @@ public class TrapZack extends Application{
       }
       //Draw player at its current position over the background
       //gc.drawImage(PlayerImage, Px, Py);
+      gc.setFill(Color.BROWN);
       gc.fillRect(Px - 32, Py - 32, 64, 64);
+      gc.setFill(Color.BLACK);
+
       
 
    }
