@@ -255,7 +255,7 @@ public class TrapZack extends Application{
             int count = 0;
             for (int i = 0; i < numObjects; i++)
             {
-               if (objects[i][0].equals("sr"))
+               if (objects[i][0].equals("springLeft") || objects[i][0].equals("springRight"))
                {
                   GameSpring gs = new GameSpring(Integer.parseInt(objects[i][1]), Integer.parseInt(objects[i][2]), objects[i][3]);
                   listOfObjects.add(gs);
@@ -392,7 +392,7 @@ public class TrapZack extends Application{
                gc.setFill(Color.GRAY);
             else
                gc.setFill(Color.WHITE);
-            gc.fillRect(levelOffsetX + gs.getPx(), levelOffsetY + gs.getPy(), 32, 32);
+            gc.fillRect(levelOffsetX + gs.getPx()*64, levelOffsetY + gs.getPy()*64, 32, 32);
             gc.setFill(Color.BLACK);
             //System.out.println(Py - levelOffsetY - gs.getPy() - 16);
             //if playercollides with middle of the spring
@@ -401,8 +401,8 @@ public class TrapZack extends Application{
                if (state != "sprung")
                {
                   //differences in x and y from the center of the object
-                  int xDiff = (Px - levelOffsetX - gs.getPx() - 16);
-                  int yDiff = (Py - levelOffsetY - gs.getPy() - 16);
+                  int xDiff = (Px - levelOffsetX - gs.getPx()*64 - 16);
+                  int yDiff = (Py - levelOffsetY - gs.getPy()*64 - 16);
                   //System.out.println(xDiff + " " + yDiff);
                   //if canMoveRight already false, dont do the check
                   //check right
@@ -441,7 +441,7 @@ public class TrapZack extends Application{
             }
             else
             {
-               if (((Px - levelOffsetX - gs.getPx() - 16 < 16) && (Px - levelOffsetX - gs.getPx() - 16 > -16)) && ((Py - levelOffsetY - gs.getPy() - 16 < 16) && (Py - levelOffsetY - gs.getPy() - 16 > -16)))
+               if (((Px - levelOffsetX - gs.getPx()*64 - 16 < 16) && (Px - levelOffsetX - gs.getPx()*64 - 16 > -16)) && ((Py - levelOffsetY - gs.getPy()*64 - 16 < 16) && (Py - levelOffsetY - gs.getPy()*64 - 16 > -16)))
                {
                   gs.setSprung(true);
                   state = "sprung";
@@ -472,6 +472,27 @@ public class TrapZack extends Application{
                   }
                }
             }
+            
+            if (springDir.equals("L"))
+            {
+               if (!canMoveRight)
+               {
+                  state = "inControl";
+               }
+               else
+               {
+                  Px -= 4;
+                  launch--;
+                  if (launch == 0)
+                  {
+                     state = "inControl";
+                  }
+               }
+            }
+
+            
+            
+            
          }
       }
             
