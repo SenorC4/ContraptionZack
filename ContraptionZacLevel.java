@@ -68,7 +68,7 @@ public class ContraptionZacLevel
             objects[i][1] = scan.next(); //x
             objects[i][2] = scan.next(); //y
             objects[i][3] = scan.next(); //relationship
-            objects[i][3] = scan.next(); //save state
+            objects[i][4] = scan.next(); //save state
 
          }
       }
