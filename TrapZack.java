@@ -26,6 +26,8 @@ public class TrapZack extends Application{
   int levelOffsetX = 100;
   int levelOffsetY = 100;
   
+  int test = 0;
+  
   //Player x and y positions
   int Px = 400;
   int Py = 600;
@@ -234,6 +236,7 @@ public class TrapZack extends Application{
          String[][] objects = currentLevel.getObjects();
          int numObjects = currentLevel.getNumObjects();
          
+         
          if (!initializedObjects)
          {
             //go through the array
@@ -244,34 +247,17 @@ public class TrapZack extends Application{
                {
                   GameSpring gs = new GameSpring(Integer.parseInt(objects[i][1]), Integer.parseInt(objects[i][2]), objects[i][3]);
                   listOfObjects.add(gs);
-                  //System.out.println(gs.getPx() + gs.getPy());
+                  System.out.println(gs.getPx() + " " + gs.getPy());
                   count++;
                   
-                  
+                  System.out.println(objects[i][3]);
                }
             }
             initializedObjects = true;
          }
          
-         
-         //check all objects
-         for (int i = 0; i < listOfObjects.size(); i++)
-         {
-            GameSpring gs = listOfObjects.get(i);
-            gc.setFill(Color.GRAY);
-            gc.fillRect(levelOffsetX + gs.getPx(), levelOffsetY + gs.getPy(), 32, 32);
-            gc.setFill(Color.BLACK);
-            //System.out.println(Py - levelOffsetY - gs.getPy() - 16);
-            //if playercollides with middle of the spring
-            if (((Px - levelOffsetX - gs.getPx() - 16 < 16) && (Px - levelOffsetX - gs.getPx() - 16 > -16)) && ((Py - levelOffsetY - gs.getPy() - 16 < 16) && (Py - levelOffsetY - gs.getPy() - 16 > -16)))
-            {
-               gs.setSprung(true);
-               state = "sprung";
-               springDir = gs.getFacing();
-               launch = 20;
-            }
-         }
-         
+    
+                  
          //check bounds left
          //if the player is trying to move outside the array
          if ((Px - 33 - levelOffsetX) <= 0)
@@ -289,6 +275,7 @@ public class TrapZack extends Application{
                //   currentLevel = L2;
                //}
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
+               initializedObjects = false;
                
             }
          }
@@ -315,6 +302,7 @@ public class TrapZack extends Application{
                   
                //Move to the next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
+               initializedObjects = false;
 
             }
          }
@@ -341,6 +329,7 @@ public class TrapZack extends Application{
                   
                //Move to the next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
+               initializedObjects = false;
             }
          }
          else
@@ -367,6 +356,7 @@ public class TrapZack extends Application{
                //Move to the next level
                if(currentLevel != L1){
                   currentLevel = new ContraptionZacLevel(currentLevel.getLast());
+                  initializedObjects = false;
                }
 
             }
@@ -380,6 +370,75 @@ public class TrapZack extends Application{
             else 
                canMoveDown = true;
          }
+         
+         //check all objects
+         for (int i = 0; i < listOfObjects.size(); i++)
+         {
+            GameSpring gs = listOfObjects.get(i);
+            //change color based upon whether it is sprung or not
+            if (gs.getSprung())
+               gc.setFill(Color.GRAY);
+            else
+               gc.setFill(Color.WHITE);
+            gc.fillRect(levelOffsetX + gs.getPx(), levelOffsetY + gs.getPy(), 32, 32);
+            gc.setFill(Color.BLACK);
+            //System.out.println(Py - levelOffsetY - gs.getPy() - 16);
+            //if playercollides with middle of the spring
+            if (gs.getSprung())
+            {
+               if (state != "sprung")
+               {
+                  //differences in x and y from the center of the object
+                  int xDiff = (Px - levelOffsetX - gs.getPx() - 16);
+                  int yDiff = (Py - levelOffsetY - gs.getPy() - 16);
+                  //System.out.println(xDiff + " " + yDiff);
+                  //if canMoveRight already false, dont do the check
+                  //check right
+                  if (canMoveRight)
+                  {
+                     if (((xDiff >= -48) && (xDiff <= 0)) && ((yDiff < 48) && (yDiff > -48)))
+                        canMoveRight = false;
+                     else
+                        canMoveUp = true;
+                  }
+                  //check left
+                  if (canMoveLeft)
+                  {
+                     if (((xDiff <= 48) && (xDiff >= 0)) && ((yDiff < 48) && (yDiff > -48)))
+                        canMoveLeft = false;
+                     else
+                        canMoveUp = true;
+                  }
+                  //check down
+                  if (canMoveDown)
+                  {
+                     if (((yDiff >= -48) && (yDiff <= 0)) && ((xDiff < 48) && (xDiff > -48)))
+                        canMoveDown = false;
+                     else
+                        canMoveUp = true;
+                  }
+                  //check up
+                  if (canMoveUp)
+                  {
+                     if (((yDiff <= 48) && (yDiff >= 0)) && ((xDiff < 48) && (xDiff > -48)))
+                        canMoveUp = false;
+                     else
+                        canMoveUp = true;
+                  }
+               }
+            }
+            else
+            {
+               if (((Px - levelOffsetX - gs.getPx() - 16 < 16) && (Px - levelOffsetX - gs.getPx() - 16 > -16)) && ((Py - levelOffsetY - gs.getPy() - 16 < 16) && (Py - levelOffsetY - gs.getPy() - 16 > -16)))
+               {
+                  gs.setSprung(true);
+                  state = "sprung";
+                  springDir = gs.getFacing();
+                  launch = 20;
+               }
+            }
+         }
+
          
          //During spring launch   
          if (state == "sprung")
