@@ -60,7 +60,9 @@ public class TrapZack extends Application{
    
   StackPane root = new StackPane();
   Canvas canvas = new Canvas(800, 800);
+  
   GraphicsContext gc = canvas.getGraphicsContext2D();
+
   
   AnimationTimer ta;
   
@@ -98,8 +100,13 @@ public class TrapZack extends Application{
   Button save3 = new Button("");
   Button save4 = new Button("");
   Button save5 = new Button("");
+  Button save6 = new Button("");
+  Button save7 = new Button("");
+  Button save8 = new Button("");
+  Button save9 = new Button("");
+  Button save10 = new Button("");
   
-  VBox saveBox = new VBox(0, save1, save2, save3, save4, save5);
+  VBox saveBox = new VBox(0, save1, save2, save3, save4, save5, save6, save7, save8, save9, save10);
   
   //game
   Image Water = new Image("Assets/Water.png", false);
@@ -112,13 +119,18 @@ public class TrapZack extends Application{
   ArrayList<GameSpring> listOfObjects = new ArrayList<GameSpring>();
    
    public void start(Stage stage){
-   
+      
       //escape menu
       save1.setOnAction(new ButtonListener());
       save2.setOnAction(new ButtonListener());
       save3.setOnAction(new ButtonListener());
       save4.setOnAction(new ButtonListener());
       save5.setOnAction(new ButtonListener());
+      save6.setOnAction(new ButtonListener());
+      save7.setOnAction(new ButtonListener());
+      save8.setOnAction(new ButtonListener());
+      save9.setOnAction(new ButtonListener());
+      save10.setOnAction(new ButtonListener());
       
       resume.setMinWidth(100);
       save.setMinWidth(100);
@@ -154,7 +166,7 @@ public class TrapZack extends Application{
             
       //default javafx stuff
       stage.setScene(scene);      
-      stage.setTitle("Square");      
+      stage.setTitle("Contraption Zack");      
       stage.show();
       
       //Keyboard lisetner
@@ -175,13 +187,13 @@ public class TrapZack extends Application{
    //animation
    public class AnimationHandler extends AnimationTimer{
       public void handle(long currentTimeInNanoSeconds){
-         draw(gc);
+           draw(gc);
       }   
    }
    
    //draw player movement and stuff
    public void draw(GraphicsContext gc){
-      root.setStyle("-fx-background-color: yellow");
+      root.setStyle("-fx-background-color: black");
 
       //if not in the title screen
       if(titleMenu == false){
@@ -191,7 +203,7 @@ public class TrapZack extends Application{
          int x = currentLevel.getX();
          int y = currentLevel.getY();
          
-         gc.setFill(Color.YELLOW);
+         gc.setFill(Color.BLACK);
          gc.fillRect(0,0,800,800);
          gc.setFill(Color.BLACK);
          
@@ -243,7 +255,7 @@ public class TrapZack extends Application{
             int count = 0;
             for (int i = 0; i < numObjects; i++)
             {
-               if (objects[i][0].equals("sr"))
+               if (objects[i][0].equals("springLeft") || objects[i][0].equals("springRight"))
                {
                   GameSpring gs = new GameSpring(Integer.parseInt(objects[i][1]), Integer.parseInt(objects[i][2]), objects[i][3]);
                   listOfObjects.add(gs);
@@ -380,7 +392,7 @@ public class TrapZack extends Application{
                gc.setFill(Color.GRAY);
             else
                gc.setFill(Color.WHITE);
-            gc.fillRect(levelOffsetX + gs.getPx(), levelOffsetY + gs.getPy(), 32, 32);
+            gc.fillRect(levelOffsetX + gs.getPx()*64, levelOffsetY + gs.getPy()*64, 32, 32);
             gc.setFill(Color.BLACK);
             //System.out.println(Py - levelOffsetY - gs.getPy() - 16);
             //if playercollides with middle of the spring
@@ -389,8 +401,8 @@ public class TrapZack extends Application{
                if (state != "sprung")
                {
                   //differences in x and y from the center of the object
-                  int xDiff = (Px - levelOffsetX - gs.getPx() - 16);
-                  int yDiff = (Py - levelOffsetY - gs.getPy() - 16);
+                  int xDiff = (Px - levelOffsetX - gs.getPx()*64 - 16);
+                  int yDiff = (Py - levelOffsetY - gs.getPy()*64 - 16);
                   //System.out.println(xDiff + " " + yDiff);
                   //if canMoveRight already false, dont do the check
                   //check right
@@ -429,7 +441,7 @@ public class TrapZack extends Application{
             }
             else
             {
-               if (((Px - levelOffsetX - gs.getPx() - 16 < 16) && (Px - levelOffsetX - gs.getPx() - 16 > -16)) && ((Py - levelOffsetY - gs.getPy() - 16 < 16) && (Py - levelOffsetY - gs.getPy() - 16 > -16)))
+               if (((Px - levelOffsetX - gs.getPx()*64 - 16 < 16) && (Px - levelOffsetX - gs.getPx()*64 - 16 > -16)) && ((Py - levelOffsetY - gs.getPy()*64 - 16 < 16) && (Py - levelOffsetY - gs.getPy()*64 - 16 > -16)))
                {
                   gs.setSprung(true);
                   state = "sprung";
@@ -460,6 +472,27 @@ public class TrapZack extends Application{
                   }
                }
             }
+            
+            if (springDir.equals("L"))
+            {
+               if (!canMoveRight)
+               {
+                  state = "inControl";
+               }
+               else
+               {
+                  Px -= 4;
+                  launch--;
+                  if (launch == 0)
+                  {
+                     state = "inControl";
+                  }
+               }
+            }
+
+            
+            
+            
          }
       }
             
@@ -475,7 +508,10 @@ public class TrapZack extends Application{
       }
       //Draw player at its current position over the background
       //gc.drawImage(PlayerImage, Px, Py);
+      gc.setFill(Color.BROWN);
       gc.fillRect(Px - 32, Py - 32, 64, 64);
+      gc.setFill(Color.BLACK);
+
       
 
    }
@@ -672,7 +708,6 @@ public class TrapZack extends Application{
          //loading the saves
          if (e.getSource() == save1 && !save1.getText().equals(""))
          {
-                  System.out.println(save1.getText());
                   currentLevel = new ContraptionZacLevel("SaveGames/"+save1.getText()+".txt");
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
@@ -681,7 +716,6 @@ public class TrapZack extends Application{
          }
          if (e.getSource() == save2 && !save2.getText().equals(""))
          {
-                  System.out.println(save1.getText());
                   currentLevel = new ContraptionZacLevel("SaveGames/"+save2.getText()+".txt");
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
@@ -690,7 +724,6 @@ public class TrapZack extends Application{
          }
          if (e.getSource() == save3 && !save3.getText().equals(""))
          {
-                  System.out.println(save1.getText());
                   currentLevel = new ContraptionZacLevel("SaveGames/"+save3.getText()+".txt");
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
@@ -699,7 +732,6 @@ public class TrapZack extends Application{
          }
          if (e.getSource() == save4 && !save4.getText().equals(""))
          {
-                  System.out.println(save1.getText());
                   currentLevel = new ContraptionZacLevel("SaveGames/"+save4.getText()+".txt");
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
@@ -708,8 +740,47 @@ public class TrapZack extends Application{
          }
          if (e.getSource() == save5 && !save5.getText().equals(""))
          {
-                  System.out.println(save1.getText());
                   currentLevel = new ContraptionZacLevel("SaveGames/"+save5.getText()+".txt");
+                  root.getChildren().remove(saveBox);
+                  drewPlayer = false;
+                  gamePaused = false;
+                  root.requestFocus();
+         }
+         if (e.getSource() == save6 && !save6.getText().equals(""))
+         {
+                  currentLevel = new ContraptionZacLevel("SaveGames/"+save6.getText()+".txt");
+                  root.getChildren().remove(saveBox);
+                  drewPlayer = false;
+                  gamePaused = false;
+                  root.requestFocus();
+         }
+         if (e.getSource() == save7 && !save7.getText().equals(""))
+         {
+                  currentLevel = new ContraptionZacLevel("SaveGames/"+save7.getText()+".txt");
+                  root.getChildren().remove(saveBox);
+                  drewPlayer = false;
+                  gamePaused = false;
+                  root.requestFocus();
+         }
+         if (e.getSource() == save8 && !save8.getText().equals(""))
+         {
+                  currentLevel = new ContraptionZacLevel("SaveGames/"+save8.getText()+".txt");
+                  root.getChildren().remove(saveBox);
+                  drewPlayer = false;
+                  gamePaused = false;
+                  root.requestFocus();
+         }
+         if (e.getSource() == save9 && !save9.getText().equals(""))
+         {
+                  currentLevel = new ContraptionZacLevel("SaveGames/"+save9.getText()+".txt");
+                  root.getChildren().remove(saveBox);
+                  drewPlayer = false;
+                  gamePaused = false;
+                  root.requestFocus();
+         }
+         if (e.getSource() == save10 && !save10.getText().equals(""))
+         {
+                  currentLevel = new ContraptionZacLevel("SaveGames/"+save10.getText()+".txt");
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;

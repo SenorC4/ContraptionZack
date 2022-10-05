@@ -161,7 +161,7 @@ public class ContraptionZacLevel
                myWriter.write(objects[i][1]+ " ");
                myWriter.write(objects[i][2]+ " ");
                myWriter.write(objects[i][3]+ " ");
-               myWriter.write(objects[i][3]+ " ");
+               myWriter.write(objects[i][4]+ " ");
                myWriter.write("\n");
             }
             myWriter.close(); 
