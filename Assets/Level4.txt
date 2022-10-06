@@ -17,6 +17,6 @@ halfwall 0 3 Empty Null
 halfwall 2 3 Empty Null
 springLeft 4 1 L down
 springRight 2 4 R down
-orangeButton 5 3 Empty Null
-grayButton 1 1 Empty down
-graySpike 1 3 Empty up
+orangeButton 5 3 O Empty Null
+grayButton 1 1 Gr Empty down
+graySpike 1 3 Gr Empty up
