@@ -320,7 +320,7 @@ public class TrapZack extends Application{
                listOfSprings.clear();
                   
                //Move to the next level
-               currentLevel = new ContraptionZacLevel(currentLevel.getNext());
+               currentLevel = new ContraptionZacLevel(currentLevel.getLast());
                initializedObjects = false;
 
             }

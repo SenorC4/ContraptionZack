@@ -1,9 +1,9 @@
 PlayerPosition
-3 7
+3 6
 Layout
 Assets/Level2.txt
 Assets/Level4.txt
-8 6
+8 7
 E1 XT1 E1 E1 E1 E1 E1 
 XT1 T1 T1 T1 T1 T1 T1
 T1 T1 T1 T1 T1 T1 T1 
@@ -14,7 +14,7 @@ T1 T1 T1 T1 T1 T1 T1
 T1 T1 T1 PT1 T1 T1 T1
 
 Objects
-
+27
 halfWall 0 1 Empty Null
 halfWall 1 1 Empty Null
 halfWall 0 2.5 Empty Null
