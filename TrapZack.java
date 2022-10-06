@@ -414,7 +414,7 @@ public class TrapZack extends Application{
                gc.setFill(Color.GRAY);
             else
                gc.setFill(Color.WHITE);
-            gc.fillRect(levelOffsetX + gs.getPx()*64, levelOffsetY + gs.getPy()*64, 32, 32);
+            gc.fillRect(levelOffsetX + gs.getPx()*64, levelOffsetY + gs.getPy()*64, 64, 64);
             gc.setFill(Color.BLACK);
             //System.out.println(Py - levelOffsetY - gs.getPy() - 16);
             //if playercollides with middle of the spring
@@ -423,14 +423,14 @@ public class TrapZack extends Application{
                if (state != "sprung")
                {
                   //differences in x and y from the center of the object
-                  int xDiff = (Px - levelOffsetX - gs.getPx()*64 - 16);
-                  int yDiff = (Py - levelOffsetY - gs.getPy()*64 - 16);
+                  int xDiff = (Px - levelOffsetX - gs.getPx()*64 - 32);
+                  int yDiff = (Py - levelOffsetY - gs.getPy()*64 - 32);
                   //System.out.println(xDiff + " " + yDiff);
                   //if canMoveRight already false, dont do the check
                   //check right
                   if (canMoveRight)
                   {
-                     if (((xDiff >= -48) && (xDiff <= 0)) && ((yDiff < 48) && (yDiff > -48)))
+                     if (((xDiff >= -64) && (xDiff <= 0)) && ((yDiff < 64) && (yDiff > -64)))
                         canMoveRight = false;
                      else
                         canMoveRight = true;
@@ -438,7 +438,7 @@ public class TrapZack extends Application{
                   //check left
                   if (canMoveLeft)
                   {
-                     if (((xDiff <= 48) && (xDiff >= 0)) && ((yDiff < 48) && (yDiff > -48)))
+                     if (((xDiff <= 64) && (xDiff >= 0)) && ((yDiff < 64) && (yDiff > -64)))
                         canMoveLeft = false;
                      else
                         canMoveLeft = true;
@@ -446,7 +446,7 @@ public class TrapZack extends Application{
                   //check down
                   if (canMoveDown)
                   {
-                     if (((yDiff >= -48) && (yDiff <= 0)) && ((xDiff < 48) && (xDiff > -48)))
+                     if (((yDiff >= -64) && (yDiff <= 0)) && ((xDiff < 64) && (xDiff > -64)))
                         canMoveDown = false;
                      else
                         canMoveDown = true;
@@ -454,7 +454,7 @@ public class TrapZack extends Application{
                   //check up
                   if (canMoveUp)
                   {
-                     if (((yDiff <= 48) && (yDiff >= 0)) && ((xDiff < 48) && (xDiff > -48)))
+                     if (((yDiff <= 64) && (yDiff >= 0)) && ((xDiff < 64) && (xDiff > -64)))
                         canMoveUp = false;
                      else
                         canMoveUp = true;
@@ -463,7 +463,7 @@ public class TrapZack extends Application{
             }
             else
             {
-               if (((Px - levelOffsetX - gs.getPx()*64 - 16 < 32) && (Px - levelOffsetX - gs.getPx()*64 - 16 > -32)) && ((Py - levelOffsetY - gs.getPy()*64 - 16 < 32) && (Py - levelOffsetY - gs.getPy()*64 - 16 > -32)))
+               if (((Px - levelOffsetX - gs.getPx()*64 - 32 < 64) && (Px - levelOffsetX - gs.getPx()*64 - 32 > -64)) && ((Py - levelOffsetY - gs.getPy()*64 - 32 < 64) && (Py - levelOffsetY - gs.getPy()*64 - 32 > -64)))
                {
                   gs.setSprung(true);
                   state = "sprung";
