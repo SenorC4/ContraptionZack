@@ -291,7 +291,6 @@ public class TrapZack extends Application{
          if (!initializedObjects)
          {
             //go through the array
-            int count = 0;
             for (int i = 0; i < numObjects; i++)
             {
                if (objects[i][0].equals("springLeft") || objects[i][0].equals("springRight"))
@@ -299,13 +298,12 @@ public class TrapZack extends Application{
                   GameSpring gs = new GameSpring(Integer.parseInt(objects[i][1]), Integer.parseInt(objects[i][2]), objects[i][3]);
                   mechanisms.add(gs);
                   listOfSprings.add(gs);
-                  System.out.println(gs.getPx() + " " + gs.getPy());
-                  count++;
-                  
-                  System.out.println(objects[i][3]);
                }
                
-               //if (objects.equals())
+               if (objects[i][0].equals("Button"))
+               {
+                  //GameButton gb = new GameButton(Double.ParseDouble(objects[i][
+               }
                
             }
             initializedObjects = true;

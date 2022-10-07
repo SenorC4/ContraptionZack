@@ -1,23 +1,23 @@
 
 public class GameButton extends mechanism{
 
-   int Px;
-   int Py;
+   double Px;
+   double Py;
    String color;
    boolean pushed = false;
 
-   public GameButton(int x, int y, String inputtedColor){
+   public GameButton(double x, double y, String inputtedColor){
       Px = x;
       Py = y;
       color = inputtedColor;
    }
 
-   public int getPx()
+   public double getPx()
    {
       return Px;
    }
    
-   public int getPy()
+   public double getPy()
    {
       return Py;
    }
