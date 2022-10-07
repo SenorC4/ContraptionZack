@@ -51,7 +51,7 @@ public class TrapZack extends Application{
   //boolean keeping track of initializing objects for the level
   boolean initializedObjects = false;
   
-  //ContraptionZacLevel L1;
+  //ContraptionZacLevel
   ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
   //ContraptionZacLevel L2 = new ContraptionZacLevel("Assets/Level2.txt");
   //ContraptionZacLevel L3 = new ContraptionZacLevel("Assets/Level3.txt");
@@ -115,7 +115,40 @@ public class TrapZack extends Application{
   Image Water = new Image("Assets/Water.png", false);
   Image Player1 = new Image("Assets/Boat1.png", false);
   Image Player2 = new Image("Assets/Boat2.png", false);
+  Image Henny = new Image("Assets/Henessy1.png", false);
+  Image Henny1 = new Image("Assets/Henessy2.png", false);
+  
+  //exit arrows
   Image Arrow = new Image("Assets/Arrow.png", false);
+  Image ArrowL = new Image("Assets/ArrowLeft.png", false);
+  Image ArrowR = new Image("Assets/ArrowRight.png", false);
+  Image ArrowB = new Image("Assets/ArrowBack.png", false);
+  
+  //spikessssss
+  Image BlueSpike = new Image("Assets/SpikesBlue.png", false);
+  Image vBlueSpike = new Image("Assets/vSpikesBlue.png", false);
+  Image GreenSpike = new Image("Assets/SpikesGreen.png", false);
+  Image vGreenSpike = new Image("Assets/vSpikesGreen.png", false);
+  Image OrangeSpike = new Image("Assets/SpikesOrange.png", false);
+  Image vOrangeSpike = new Image("Assets/vSpikesOrange.png", false);
+  Image PurpleSpike = new Image("Assets/SpikesPurple.png", false);
+  Image vPurpleSpike = new Image("Assets/vSpikesPurple.png", false);
+  Image YellowSpike = new Image("Assets/SpikesYellow.png", false);
+  Image vYellowSpike = new Image("Assets/vSpikesYellow.png", false);
+  
+  //buttons
+  Image BlueButton = new Image("Assets/ButtonBlueUnpressed.png", false);
+  Image BlueButtonPressed = new Image("Assets/ButtonBluePressed.png", false);
+  Image GreenButtonPressed = new Image("Assets/ButtonGreenPressed.png", false);
+  Image GreenButton = new Image("Assets/ButtonGreenUnpressed.png", false);
+  Image OrangeButtonPressed = new Image("Assets/ButtonOrangePressed.png", false);
+  Image OrangeButton = new Image("Assets/ButtonOrangeUnpressed.png", false);
+  Image PurpleButton = new Image("Assets/ButtonPurpleUnpressed.png", false);
+  Image PurpleButtonPressed = new Image("Assets/ButtonPurplePressed.png", false);
+  Image YellowButton = new Image("Assets/ButtonBlueUnpressed.png", false);
+  Image YellowButtonPressed = new Image("Assets/ButtonYellowPressed.png", false);
+  
+  
   Image PlayerImage = Player1;
   
   //Objects
@@ -293,11 +326,6 @@ public class TrapZack extends Application{
                //reset the object arrays
                listOfSprings.clear();
                   
-               //Move to the next level
-               //if (currentLevel == L1)
-               //{
-               //   currentLevel = L2;
-               //}
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
                
@@ -533,7 +561,7 @@ public class TrapZack extends Application{
             
       //count every five frames, swap image every cycle
       frameCount++;
-      if (frameCount > 4)
+      if (frameCount > 10)
       {
          frameCount = 0;
          if (PlayerImage == Player1)
