@@ -259,6 +259,14 @@ public class TrapZack extends Application{
                   gc.fillRect(levelOffsetX + i*64, levelOffsetY + j*64, 64, 64);
                   gc.setFill(Color.BLACK);
                }
+               //wall tile (Level 1 only)
+               if (data[i][j].equals("W1"))
+               {
+                  //gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
+                  gc.setFill(Color.YELLOW);
+                  gc.fillRect(levelOffsetX + i*64, levelOffsetY + j*64, 64, 64);
+                  gc.setFill(Color.BLACK);
+               }
                //Exit Arrow Tile
                else if (data[i][j].equals("XFT1"))
                {
@@ -342,7 +350,8 @@ public class TrapZack extends Application{
                
                //reset the object arrays
                listOfSprings.clear();
-                  
+                 
+               //load next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
                
