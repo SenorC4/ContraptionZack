@@ -28,6 +28,8 @@ public class TrapZack extends Application{
   
   int test = 0;
   
+  boolean reloaded = false;
+  
   //Player x and y positions
   int Px = 400;
   int Py = 600;
@@ -68,6 +70,7 @@ public class TrapZack extends Application{
   
 
   //assets for pause menu
+  ArrayList<mechanism> mechanisms = new ArrayList<mechanism>();
   int numberOfSaves = 0;
   TextInputDialog td = new TextInputDialog();
   boolean gamePaused = false;
@@ -194,7 +197,8 @@ public class TrapZack extends Application{
    //draw player movement and stuff
    public void draw(GraphicsContext gc){
       root.setStyle("-fx-background-color: black");
-
+      //System.out.println(currentLevel.getName());
+      
       //if not in the title screen
       if(titleMenu == false){
          //load the first level, get the data from the text file
@@ -258,6 +262,7 @@ public class TrapZack extends Application{
                if (objects[i][0].equals("springLeft") || objects[i][0].equals("springRight"))
                {
                   GameSpring gs = new GameSpring(Integer.parseInt(objects[i][1]), Integer.parseInt(objects[i][2]), objects[i][3]);
+                  mechanisms.add(gs);
                   listOfSprings.add(gs);
                   System.out.println(gs.getPx() + " " + gs.getPy());
                   count++;
@@ -266,6 +271,7 @@ public class TrapZack extends Application{
                }
             }
             initializedObjects = true;
+            reloaded = false;
          }
                   
          //check bounds left
@@ -406,73 +412,75 @@ public class TrapZack extends Application{
          }
          
          //check all springs
-         for (int i = 0; i < listOfSprings.size(); i++)
+         if (reloaded == false)
          {
-            GameSpring gs = listOfSprings.get(i);
-            //change color based upon whether it is sprung or not
-            if (gs.getSprung())
-               gc.setFill(Color.GRAY);
-            else
-               gc.setFill(Color.WHITE);
-            gc.fillRect(levelOffsetX + gs.getPx()*64, levelOffsetY + gs.getPy()*64, 64, 64);
-            gc.setFill(Color.BLACK);
-            //System.out.println(Py - levelOffsetY - gs.getPy() - 16);
-            //if playercollides with middle of the spring
-            if (gs.getSprung())
+            for (int i = 0; i < listOfSprings.size(); i++)
             {
-               if (state != "sprung")
+               GameSpring gs = listOfSprings.get(i);
+               //change color based upon whether it is sprung or not
+               if (gs.getSprung())
+                  gc.setFill(Color.GRAY);
+               else
+                  gc.setFill(Color.WHITE);
+               gc.fillRect(levelOffsetX + gs.getPx()*64, levelOffsetY + gs.getPy()*64, 64, 64);
+               gc.setFill(Color.BLACK);
+               //System.out.println(Py - levelOffsetY - gs.getPy() - 16);
+               //if playercollides with middle of the spring
+               if (gs.getSprung())
                {
-                  //differences in x and y from the center of the object
-                  int xDiff = (Px - levelOffsetX - gs.getPx()*64 - 32);
-                  int yDiff = (Py - levelOffsetY - gs.getPy()*64 - 32);
-                  //System.out.println(xDiff + " " + yDiff);
-                  //if canMoveRight already false, dont do the check
-                  //check right
-                  if (canMoveRight)
+                  if (state != "sprung")
                   {
-                     if (((xDiff >= -64) && (xDiff <= 0)) && ((yDiff < 64) && (yDiff > -64)))
-                        canMoveRight = false;
-                     else
-                        canMoveRight = true;
-                  }
-                  //check left
-                  if (canMoveLeft)
-                  {
-                     if (((xDiff <= 64) && (xDiff >= 0)) && ((yDiff < 64) && (yDiff > -64)))
-                        canMoveLeft = false;
-                     else
-                        canMoveLeft = true;
-                  }
-                  //check down
-                  if (canMoveDown)
-                  {
-                     if (((yDiff >= -64) && (yDiff <= 0)) && ((xDiff < 64) && (xDiff > -64)))
-                        canMoveDown = false;
-                     else
-                        canMoveDown = true;
-                  }
-                  //check up
-                  if (canMoveUp)
-                  {
-                     if (((yDiff <= 64) && (yDiff >= 0)) && ((xDiff < 64) && (xDiff > -64)))
-                        canMoveUp = false;
-                     else
-                        canMoveUp = true;
+                     //differences in x and y from the center of the object
+                     int xDiff = (Px - levelOffsetX - gs.getPx()*64 - 32);
+                     int yDiff = (Py - levelOffsetY - gs.getPy()*64 - 32);
+                     //System.out.println(xDiff + " " + yDiff);
+                     //if canMoveRight already false, dont do the check
+                     //check right
+                     if (canMoveRight)
+                     {
+                        if (((xDiff >= -64) && (xDiff <= 0)) && ((yDiff < 64) && (yDiff > -64)))
+                           canMoveRight = false;
+                        else
+                           canMoveRight = true;
+                     }
+                     //check left
+                     if (canMoveLeft)
+                     {
+                        if (((xDiff <= 64) && (xDiff >= 0)) && ((yDiff < 64) && (yDiff > -64)))
+                           canMoveLeft = false;
+                        else
+                           canMoveLeft = true;
+                     }
+                     //check down
+                     if (canMoveDown)
+                     {
+                        if (((yDiff >= -64) && (yDiff <= 0)) && ((xDiff < 64) && (xDiff > -64)))
+                           canMoveDown = false;
+                        else
+                           canMoveDown = true;
+                     }
+                     //check up
+                     if (canMoveUp)
+                     {
+                        if (((yDiff <= 64) && (yDiff >= 0)) && ((xDiff < 64) && (xDiff > -64)))
+                           canMoveUp = false;
+                        else
+                           canMoveUp = true;
+                     }
                   }
                }
-            }
-            else
-            {
-               if (((Px - levelOffsetX - gs.getPx()*64 - 32 < 64) && (Px - levelOffsetX - gs.getPx()*64 - 32 > -64)) && ((Py - levelOffsetY - gs.getPy()*64 - 32 < 64) && (Py - levelOffsetY - gs.getPy()*64 - 32 > -64)))
+               else
                {
-                  gs.setSprung(true);
-                  state = "sprung";
-                  springDir = gs.getFacing();
-                  launch = 40;
+                  if (((Px - levelOffsetX - gs.getPx()*64 - 32 < 64) && (Px - levelOffsetX - gs.getPx()*64 - 32 > -64)) && ((Py - levelOffsetY - gs.getPy()*64 - 32 < 64) && (Py - levelOffsetY - gs.getPy()*64 - 32 > -64)))
+                  {
+                     gs.setSprung(true);
+                     state = "sprung";
+                     springDir = gs.getFacing();
+                     launch = 40;
+                  }
                }
             }
          }
-
          
          //During spring launch   
          if (state == "sprung")
@@ -610,8 +618,8 @@ public class TrapZack extends Application{
          }
          else if (e.getSource() == save)
          {
-            currentLevel.setPx((Px/64)-1);
-            currentLevel.setPy((Py/64)-1);
+            currentLevel.setPx((Px/64)-2);
+            currentLevel.setPy((Py/64)-2);
             td.setContentText("Type in the name for your saved game");
             td.showAndWait();
             String name = td.getEditor().getText();
@@ -651,7 +659,18 @@ public class TrapZack extends Application{
          {
             drewPlayer = false;
             gamePaused = false;
+            //reloaded = true;
+            initializedObjects = false;
+            for (int i = 0; i < mechanisms.size(); i++)
+            {
+               (mechanisms.get(i)).reset();
+            }
+            mechanisms.clear();
+            
+            
+            
             currentLevel = new ContraptionZacLevel(currentLevel.getName());
+            System.out.println(currentLevel.getName());
             root.getChildren().remove(vbox);
             root.requestFocus();
          }
@@ -659,6 +678,8 @@ public class TrapZack extends Application{
          {
             drewPlayer = false;
             gamePaused = false;
+            reloaded = true;
+            //initializedObjects = false;
             currentLevel = new ContraptionZacLevel("Assets/Level1.txt");
             root.getChildren().remove(vbox);
             root.requestFocus();
@@ -684,6 +705,7 @@ public class TrapZack extends Application{
          {
             //add code to load the saved file
             titleMenu = false;
+            reloaded = true;
             //add code to load a saved file
             root.getChildren().remove(titleBox);
             FlowPane saveList = new FlowPane();
@@ -734,6 +756,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
+                  reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save2 && !save2.getText().equals(""))
@@ -742,6 +765,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
+                  reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save3 && !save3.getText().equals(""))
@@ -750,6 +774,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
+                  reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save4 && !save4.getText().equals(""))
@@ -758,6 +783,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
+                  reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save5 && !save5.getText().equals(""))
@@ -766,6 +792,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
+                  reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save6 && !save6.getText().equals(""))
@@ -774,6 +801,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
+                  reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save7 && !save7.getText().equals(""))
@@ -782,6 +810,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
+                  reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save8 && !save8.getText().equals(""))
@@ -790,6 +819,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
+                  reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save9 && !save9.getText().equals(""))
@@ -798,6 +828,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
+                  reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save10 && !save10.getText().equals(""))
@@ -806,6 +837,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
+                  reloaded = true;
                   root.requestFocus();
          }
          

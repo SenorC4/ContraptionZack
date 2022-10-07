@@ -1,7 +1,7 @@
 
 public class mechanism{
 
-   public mechanism(){
+   public void reset(){
    
    }
    

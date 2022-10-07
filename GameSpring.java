@@ -27,6 +27,11 @@ public class GameSpring extends mechanism{
       return facing;
    }
    
+   public void reset()
+   {
+      sprung = false;
+   }
+   
    public void setSprung(boolean s)
    {
       sprung = s;

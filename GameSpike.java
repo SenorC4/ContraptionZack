@@ -25,6 +25,11 @@ public class GameSpike extends mechanism{
       activated = a;
    }
    
+   public void reset()
+   {
+      activated = false;
+   }
+   
    public boolean getActivated()
    {
       return activated;

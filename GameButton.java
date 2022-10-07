@@ -20,6 +20,10 @@ public class GameButton extends mechanism{
       return Py;
    }
    
+   public void reset()
+   {
+      pushed = false;
+   }
    
    public void setPushed(boolean p)
    {
