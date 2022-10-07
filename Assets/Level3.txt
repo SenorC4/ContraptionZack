@@ -40,6 +40,6 @@ Button 4 3 Y upReset
 Spike 0 1 Y upReset
 Button 5.5 4.5 B upReset
 Spike 1 3.25 B upReset
-Button G upReset
-Spike G upReset
+Button 0 0 G upReset
+Spike 0 1 G upReset
 
