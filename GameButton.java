@@ -3,11 +3,13 @@ public class GameButton extends mechanism{
 
    int Px;
    int Py;
+   String color;
    boolean pushed = false;
 
-   public GameButton(int x, int y){
+   public GameButton(int x, int y, String inputtedColor){
       Px = x;
       Py = y;
+      color = inputtedColor;
    }
 
    public int getPx()
@@ -28,6 +30,11 @@ public class GameButton extends mechanism{
    public void setPushed(boolean p)
    {
       pushed = p;
+   }
+   
+   public String getColor()
+   {
+      return color;
    }
    
    public boolean getPushed()

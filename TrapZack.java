@@ -120,6 +120,8 @@ public class TrapZack extends Application{
   
   //Objects
   ArrayList<GameSpring> listOfSprings = new ArrayList<GameSpring>();
+  ArrayList<GameButton> buttonList = new ArrayList<GameButton>();
+  ArrayList<GameSpike> spikeList = new ArrayList<GameSpike>();
    
    public void start(Stage stage){
       
@@ -269,6 +271,9 @@ public class TrapZack extends Application{
                   
                   System.out.println(objects[i][3]);
                }
+               
+               //if (objects.equals())
+               
             }
             initializedObjects = true;
             reloaded = false;
