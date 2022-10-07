@@ -4,7 +4,7 @@ Layout
 Null
 Assets/Level2.txt
 6 5
-T1 T1 XT1 T1 T1
+T1 T1 XFT1 T1 T1
 T1 T1 T1 T1 T1
 T1 T1 T1 T1 T1
 T1 T1 T1 T1 T1

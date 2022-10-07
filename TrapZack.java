@@ -260,10 +260,20 @@ public class TrapZack extends Application{
                   gc.setFill(Color.BLACK);
                }
                //Exit Arrow Tile
-               else if (data[i][j].equals("XT1"))
+               else if (data[i][j].equals("XFT1"))
                {
                   gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
                   gc.drawImage(Arrow, levelOffsetX + i*64, levelOffsetY + j*64);
+               }
+               else if (data[i][j].equals("XLT1"))
+               {
+                  gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
+                  gc.drawImage(ArrowL, levelOffsetX + i*64, levelOffsetY + j*64);
+               }
+               else if (data[i][j].equals("XRT1"))
+               {
+                  gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
+                  gc.drawImage(ArrowR, levelOffsetX + i*64, levelOffsetY + j*64);
                }
                //Player Tile
                else if (data[i][j].equals("PT1"))
@@ -318,7 +328,7 @@ public class TrapZack extends Application{
          {
             canMoveLeft = false;
             //If the current tile is an exit tile and youre trying to leave
-            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1"))
+            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].matches("X.T1"))
             {
                //reset the visuals
                drewPlayer = false;
@@ -336,7 +346,7 @@ public class TrapZack extends Application{
             if (state == "inControl")
             {
                //if the players left is NOT a walkable tile
-               if (((!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("XT1"))))
+               if (((!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].matches("X.T1"))))
                   canMoveLeft = false;
                //if the players left is a walkable tile
                else 
@@ -350,7 +360,7 @@ public class TrapZack extends Application{
          {
             canMoveRight = false;
             //If the current tile is an exit tile and youre trying to leave
-            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1"))
+            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].matches("X.T1"))
             {
                //reset the visuals
                drewPlayer = false;
@@ -369,7 +379,7 @@ public class TrapZack extends Application{
             if (state == "inControl")
             {
                //if the players right is NOT a walkable tile
-               if (((!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("XT1"))))               canMoveRight = false;
+               if (((!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].matches("X.T1"))))               canMoveRight = false;
                //if the players right is a walkable tile
                else 
                   canMoveRight = true;
@@ -383,7 +393,7 @@ public class TrapZack extends Application{
          {
             canMoveUp = false;
             //If the current tile is an exit tile and youre trying to leave
-            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1"))
+            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].matches("X.T1"))
             {
                //reset the visuals
                drewPlayer = false;
@@ -401,7 +411,7 @@ public class TrapZack extends Application{
             if (state == "inControl")
             {
                //if the players up is NOT a walkable tile
-               if (((!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("XT1"))))
+               if (((!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].matches("X.T1"))))
                   canMoveUp = false;
                //if the players up is a walkable tile
                else 
@@ -415,7 +425,7 @@ public class TrapZack extends Application{
          {
             canMoveDown = false;
             //If the current tile is an exit tile and youre trying to leave
-            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("XT1") || data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("PT1"))
+            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].matches("X.T1") || data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("PT1"))
             {
                //reset the visuals
                drewPlayer = false;
@@ -436,7 +446,7 @@ public class TrapZack extends Application{
             if (state == "inControl")
             {
                //if the players down is NOT a walkable tile
-               if (((!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("XT1"))))
+               if (((!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].matches("X.T1"))))
                   canMoveDown = false;
                //if the players down is a walkable tile
                else 
