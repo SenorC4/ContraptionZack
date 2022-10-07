@@ -4,7 +4,7 @@ Layout
 Assets/Level1.txt
 Assets/Level3.txt
 9 6
-E1 E1 E0.5 XT1 E1.5 E1
+E1 E1 E0.5 XFT1 E1.5 E1
 T1 T1 T1 T1 T1 T1
 T1 T1 T1 T1 T1 T1
 T1 T1 E1 E1 T1 T1
