@@ -719,7 +719,7 @@ public class TrapZack extends Application{
             
             
             
-            currentLevel = new ContraptionZacLevel(currentLevel.getName());
+            currentLevel = new ContraptionZacLevel(currentLevel.getCurrent());
             System.out.println(currentLevel.getName());
             root.getChildren().remove(vbox);
             root.requestFocus();
@@ -806,7 +806,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  reloaded = true;
+                  //reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save2 && !save2.getText().equals(""))
@@ -815,7 +815,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  reloaded = true;
+                  //reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save3 && !save3.getText().equals(""))
@@ -824,7 +824,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  reloaded = true;
+                  //reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save4 && !save4.getText().equals(""))
@@ -833,7 +833,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  reloaded = true;
+                  //reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save5 && !save5.getText().equals(""))
@@ -842,7 +842,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  reloaded = true;
+                  //reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save6 && !save6.getText().equals(""))
@@ -851,7 +851,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  reloaded = true;
+                  //reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save7 && !save7.getText().equals(""))
@@ -860,7 +860,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  reloaded = true;
+                  //reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save8 && !save8.getText().equals(""))
@@ -869,7 +869,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  reloaded = true;
+                  //reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save9 && !save9.getText().equals(""))
@@ -878,7 +878,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  reloaded = true;
+                  //reloaded = true;
                   root.requestFocus();
          }
          if (e.getSource() == save10 && !save10.getText().equals(""))
@@ -887,7 +887,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  reloaded = true;
+                  //reloaded = true;
                   root.requestFocus();
          }
          

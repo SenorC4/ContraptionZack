@@ -3,6 +3,7 @@ PlayerPosition
 Layout
 Null
 Assets/Level2.txt
+Assets/Level1.txt
 6 5
 T1 T1 XFT1 T1 T1
 T1 T1 T1 T1 T1

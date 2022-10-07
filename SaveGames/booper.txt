@@ -1,0 +1,46 @@
+PlayerPosition
+0 5
+Layout
+Assets/Level1.txt
+Assets/Level3.txt
+9 6
+E1 E1 E0.5 XFT1 E1.5 E1 
+T1 T1 T1 T1 T1 T1 
+T1 T1 T1 T1 T1 T1 
+T1 T1 E1 E1 T1 T1 
+T1 T1 E1 E1 T1 T1 
+T1 T1 T1 T1 T1 T1 
+T1 T1 T1 T1 T1 T1 
+T1 T1 T1 T1 T1 T1 
+E1 E1 E0.5 PT1 E1.5 E1 
+
+Objects
+28
+halfWall 0 4 Empty Null 
+halfWall 1 6 Empty Null 
+halfWall 2 6 Empty Null 
+halfWall 3 6 Empty Null 
+halfWall 4 6 Empty Null 
+halfWall 5 4 Empty Null 
+springLeft 2 7 L down 
+springRight 4 7 R down 
+Button 5 7 P up 
+Button 1 5 P up 
+Spike 2.5 1.75 P up 
+Button 0.5 7 Y up 
+Button 3 5 Y up 
+Spike 0 6.75 Y up 
+Spike 5 6.75 Y down 
+Spike 2.5 1.5 Y up 
+Button 4 5 O up 
+Button 0.5 2.5 O up 
+Spike 4 4 O up 
+Spike 1 4 O up 
+Spike 2.5 1.25 O up 
+Button 2 5 B up 
+Button 4.5 2.5 up Spike 
+1 4.25 B up Spike 
+4.75 2 B up Spike 
+4 4.5 B down Spike 
+2 2 B down Spike 
+2.5 8 B up null 

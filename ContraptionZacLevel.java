@@ -12,6 +12,7 @@ public class ContraptionZacLevel
    int numObjects;
    String nextFile;
    String lastFile;
+   String currentFile;
    
    public String name;
    
@@ -38,6 +39,9 @@ public class ContraptionZacLevel
          
          //get next file to load
          nextFile = scan.next();
+         
+         //get the curretn file for restart
+         currentFile = scan.next();
          
          
          //get width and length of array
@@ -179,6 +183,10 @@ public class ContraptionZacLevel
    
    public String getLast(){
       return lastFile;
+   }
+   
+   public String getCurrent(){
+      return currentFile;
    }
 
 }
