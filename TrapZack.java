@@ -312,7 +312,16 @@ public class TrapZack extends Application{
                
                if (objects[i][0].equals("Button"))
                {
-                  //GameButton gb = new GameButton(Double.ParseDouble(objects[i][
+                  GameButton gb = new GameButton(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3]);
+                  mechanisms.add(gb);
+                  buttonList.add(gb);
+               }
+               
+               if (objects[i][0].equals("Spike"))
+               {
+                  GameSpike gsp = new GameSpike(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3]);
+                  mechanisms.add(gsp);
+                  spikeList.add(gsp);
                }
                
             }
