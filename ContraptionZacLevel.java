@@ -133,11 +133,13 @@ public class ContraptionZacLevel
       return numObjects;
    }
    
-   public void saveLevel(String saveName)
+   public void saveLevel(String saveName, ArrayList<mechanism> mechanisms)
    {
       try
          {
          //creates a file writer and rewrites every data member to a save file named by the user
+            int listSize = mechanisms.size();
+            int nonObjects = numObjects - listSize;
             Scanner read = new Scanner(new File(name));
             FileWriter myWriter = new FileWriter(saveName);
             myWriter.write("PlayerPosition\n");
@@ -166,7 +168,36 @@ public class ContraptionZacLevel
                myWriter.write(objects[i][1]+ " ");
                myWriter.write(objects[i][2]+ " ");
                myWriter.write(objects[i][3]+ " ");
-               myWriter.write(objects[i][4]+ " ");
+               //myWriter.write(objects[i][4]+ " ");
+               
+               if (i >= 0 && i < 22)
+               {
+                  System.out.println(mechanisms.get(i).getType());
+                  //System.out.println(objects[+nonObjects][2]);
+                  System.out.println((mechanisms.get(i)).getState());
+                  if ((mechanisms.get(i)).getState() == false && (mechanisms.get(i)).getType().equals("Button") )
+                  {
+                     myWriter.write("up ");
+                  }
+                  else if ((mechanisms.get(i)).getState() == true && (mechanisms.get(i)).getType().equals("Button"))
+                  {
+                     myWriter.write("down ");
+                  }
+                  else if ((mechanisms.get(i)).getState() == false && ((mechanisms.get(i)).getType().equals("Spike") || (mechanisms.get(i)).getType().equals("Spring")))
+                  {
+                     myWriter.write("down ");
+                  }
+                  else if ((mechanisms.get(i)).getState() == true && ((mechanisms.get(i)).getType().equals("Spike") || (mechanisms.get(i)).getType().equals("Spring")))
+                  {
+                     myWriter.write("up ");
+                  }
+               }
+               else
+               {
+                  myWriter.write(objects[i][4]+ " ");
+               }
+               
+               
                myWriter.write("\n");
             }
             myWriter.close(); 

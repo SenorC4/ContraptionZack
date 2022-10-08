@@ -233,7 +233,10 @@ public class TrapZack extends Application{
    public void draw(GraphicsContext gc){
       root.setStyle("-fx-background-color: black");
       //System.out.println(currentLevel.getName());
-      
+     /* System.out.println(mechanisms.size());
+      System.out.println(listOfSprings.size());
+      System.out.println(buttonList.size());
+      System.out.println(spikeList.size());*/
       //if not in the title screen
       if(titleMenu == false){
          //load the first level, get the data from the text file
@@ -268,6 +271,11 @@ public class TrapZack extends Application{
                   gc.setFill(Color.BLACK);
                }
                //Exit Arrow Tile
+               else if (data[i][j].equals("XT1"))
+               {
+                  gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
+                  gc.drawImage(Arrow, levelOffsetX + i*64, levelOffsetY + j*64);
+               }
                else if (data[i][j].equals("XFT1"))
                {
                   gc.drawImage(Water, levelOffsetX + i*64, levelOffsetY + j*64);
@@ -313,14 +321,14 @@ public class TrapZack extends Application{
             {
                if (objects[i][0].equals("springLeft") || objects[i][0].equals("springRight"))
                {
-                  GameSpring gs = new GameSpring(Integer.parseInt(objects[i][1]), Integer.parseInt(objects[i][2]), objects[i][3]);
+                  GameSpring gs = new GameSpring(Integer.parseInt(objects[i][1]), Integer.parseInt(objects[i][2]), objects[i][3], objects[i][4]);
                   mechanisms.add(gs);
                   listOfSprings.add(gs);
                }
                
                if (objects[i][0].equals("Button"))
                {               
-                  GameButton gb = new GameButton(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3]);
+                  GameButton gb = new GameButton(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3], objects[i][4]);
                   mechanisms.add(gb);
                   buttonList.add(gb);
                   
@@ -328,7 +336,7 @@ public class TrapZack extends Application{
                
                if (objects[i][0].equals("Spike"))
                {
-                  GameSpike gsp = new GameSpike(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3]);
+                  GameSpike gsp = new GameSpike(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3], objects[i][4]);
                   mechanisms.add(gsp);
                   spikeList.add(gsp);
                }
@@ -351,6 +359,7 @@ public class TrapZack extends Application{
                
                //reset the object arrays
                listOfSprings.clear();
+               mechanisms.clear();
                  
                //load next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
@@ -478,7 +487,7 @@ public class TrapZack extends Application{
             {
                GameSpring gs = listOfSprings.get(i);
                //change color based upon whether it is sprung or not
-               if (gs.getSprung())
+               if (gs.getState())
                   gc.setFill(Color.GRAY);
                else
                   gc.setFill(Color.WHITE);
@@ -486,7 +495,7 @@ public class TrapZack extends Application{
                gc.setFill(Color.BLACK);
                //System.out.println(Py - levelOffsetY - gs.getPy() - 16);
                //if playercollides with middle of the spring
-               if (gs.getSprung())
+               if (gs.getState())
                {
                   if (state != "sprung")
                   {
@@ -683,7 +692,7 @@ public class TrapZack extends Application{
             td.setContentText("Type in the name for your saved game");
             td.showAndWait();
             String name = td.getEditor().getText();
-            currentLevel.saveLevel("SaveGames/" + name + ".txt");
+            currentLevel.saveLevel("SaveGames/" + name + ".txt", mechanisms);
             
             
             switch (numberOfSaves)

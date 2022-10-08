@@ -6,10 +6,18 @@ public class GameSpike extends mechanism{
    String color;
    boolean activated = false;
 
-   public GameSpike(double x, double y, String inputtedColor){
+   public GameSpike(double x, double y, String inputtedColor, String state){
       Px = x;
       Py = y;
       color = inputtedColor;
+      if (state.equals("down"))
+      {
+         activated= false;
+      }
+      else 
+      {
+         activated = true;
+      }
    }
 
    public double getPx()
@@ -37,9 +45,14 @@ public class GameSpike extends mechanism{
       return color;
    }
    
-   public boolean getActivated()
+   public boolean getState()
    {
       return activated;
+   }
+   
+   public String getType()
+   {
+      return "Spike";
    }
 
 }
