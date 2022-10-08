@@ -14,7 +14,7 @@ public class GameSpring extends mechanism{
       {
          sprung= false;
       }
-      else if (state.equals("down"))
+      else if (state.equals("up"))
       {
          sprung = true;
       }

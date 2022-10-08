@@ -140,6 +140,7 @@ public class ContraptionZacLevel
          //creates a file writer and rewrites every data member to a save file named by the user
             int listSize = mechanisms.size();
             int nonObjects = numObjects - listSize;
+            int counter = 0;
             Scanner read = new Scanner(new File(name));
             FileWriter myWriter = new FileWriter(saveName);
             myWriter.write("PlayerPosition\n");
@@ -170,27 +171,28 @@ public class ContraptionZacLevel
                myWriter.write(objects[i][3]+ " ");
                //myWriter.write(objects[i][4]+ " ");
                
-               if (i >= 0 && i < 22)
+               if (i >= nonObjects && i < numObjects)
                {
-                  System.out.println(mechanisms.get(i).getType());
+                 // System.out.println(mechanisms.get(counter).getType());
                   //System.out.println(objects[+nonObjects][2]);
-                  System.out.println((mechanisms.get(i)).getState());
-                  if ((mechanisms.get(i)).getState() == false && (mechanisms.get(i)).getType().equals("Button") )
+                  //System.out.println((mechanisms.get(counter)).getState());
+                  if ((mechanisms.get(counter)).getState() == false && (mechanisms.get(counter)).getType().equals("Button") )
                   {
                      myWriter.write("up ");
                   }
-                  else if ((mechanisms.get(i)).getState() == true && (mechanisms.get(i)).getType().equals("Button"))
+                  else if ((mechanisms.get(counter)).getState() == true && (mechanisms.get(counter)).getType().equals("Button"))
                   {
                      myWriter.write("down ");
                   }
-                  else if ((mechanisms.get(i)).getState() == false && ((mechanisms.get(i)).getType().equals("Spike") || (mechanisms.get(i)).getType().equals("Spring")))
+                  else if ((mechanisms.get(counter)).getState() == false && ((mechanisms.get(counter)).getType().equals("Spike") || (mechanisms.get(counter)).getType().equals("Spring")))
                   {
                      myWriter.write("down ");
                   }
-                  else if ((mechanisms.get(i)).getState() == true && ((mechanisms.get(i)).getType().equals("Spike") || (mechanisms.get(i)).getType().equals("Spring")))
+                  else if ((mechanisms.get(counter)).getState() == true && ((mechanisms.get(counter)).getType().equals("Spike") || (mechanisms.get(counter)).getType().equals("Spring")))
                   {
                      myWriter.write("up ");
                   }
+                  counter++;
                }
                else
                {

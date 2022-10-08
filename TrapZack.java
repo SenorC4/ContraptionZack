@@ -322,6 +322,7 @@ public class TrapZack extends Application{
                if (objects[i][0].equals("springLeft") || objects[i][0].equals("springRight"))
                {
                   GameSpring gs = new GameSpring(Integer.parseInt(objects[i][1]), Integer.parseInt(objects[i][2]), objects[i][3], objects[i][4]);
+                  System.out.println(objects[i][4]);
                   mechanisms.add(gs);
                   listOfSprings.add(gs);
                }
@@ -483,9 +484,11 @@ public class TrapZack extends Application{
          //check all springs
          if (reloaded == false)
          {
+         //System.out.println("test");
             for (int i = 0; i < listOfSprings.size(); i++)
             {
                GameSpring gs = listOfSprings.get(i);
+              // System.out.println(gs.getState());
                //change color based upon whether it is sprung or not
                if (gs.getState())
                   gc.setFill(Color.GRAY);
@@ -822,9 +825,11 @@ public class TrapZack extends Application{
          if (e.getSource() == save1 && !save1.getText().equals(""))
          {
                   currentLevel = new ContraptionZacLevel("SaveGames/"+save1.getText()+".txt");
+                  System.out.println(save1.getText());
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
+                  initializedObjects = false;
                   reloaded = false;
                   root.requestFocus();
          }
