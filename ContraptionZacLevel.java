@@ -145,6 +145,7 @@ public class ContraptionZacLevel
             myWriter.write("Layout\n");
             myWriter.write(lastFile + "\n");
             myWriter.write(nextFile + "\n");
+            myWriter.write(currentFile + "\n");
             myWriter.write(y + " " + x + "\n");
             
             for(int i=0;i<y;i++)

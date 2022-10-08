@@ -766,7 +766,7 @@ public class TrapZack extends Application{
             //add code to load the saved file
             titleMenu = false;
             reloaded = true;
-            //add code to load a saved file
+           
             root.getChildren().remove(titleBox);
             FlowPane saveList = new FlowPane();
             saveList.setAlignment(Pos.CENTER_LEFT);
@@ -816,7 +816,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  //reloaded = true;
+                  reloaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save2 && !save2.getText().equals(""))
@@ -825,7 +825,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  //reloaded = true;
+                  reloaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save3 && !save3.getText().equals(""))
@@ -834,7 +834,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  //reloaded = true;
+                  reloaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save4 && !save4.getText().equals(""))
@@ -843,7 +843,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  //reloaded = true;
+                  reloaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save5 && !save5.getText().equals(""))
@@ -852,7 +852,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  //reloaded = true;
+                  reloaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save6 && !save6.getText().equals(""))
@@ -861,7 +861,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  //reloaded = true;
+                  reloaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save7 && !save7.getText().equals(""))
@@ -870,7 +870,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  //reloaded = true;
+                  reloaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save8 && !save8.getText().equals(""))
@@ -879,7 +879,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  //reloaded = true;
+                  reloaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save9 && !save9.getText().equals(""))
@@ -888,7 +888,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  //reloaded = true;
+                  reloaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save10 && !save10.getText().equals(""))
@@ -897,7 +897,7 @@ public class TrapZack extends Application{
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
-                  //reloaded = true;
+                  reloaded = false;
                   root.requestFocus();
          }
          
