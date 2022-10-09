@@ -140,8 +140,9 @@ public class TrapZack extends Application{
   
   Image DownSpike = new Image("Assets/SpikesDown.png", false);
   Image vDownSpike = new Image("Assets/vSpikesDown.png", false);
-
   
+  Image halfWall = new Image("Assets/halfWall.png", false);
+
   //buttons
   Image BlueButton = new Image("Assets/ButtonBlueUnpressed.png", false);
   Image BlueButtonPressed = new Image("Assets/ButtonBluePressed.png", false);
@@ -565,7 +566,7 @@ public class TrapZack extends Application{
                      break;
                   
                }                   
-            }
+            }w
             
             if (objects[i][0].equals("Spike"))
             {
@@ -595,6 +596,11 @@ public class TrapZack extends Application{
                  }
              }
              
+            if (objects[i][0].equals("halfWall"))
+            {
+               gc.drawImage(halfWall, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+            }
+                         
             if (objects[i][0].equals("JukeBox"))
             {
                gc.drawImage(Henny, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
