@@ -362,6 +362,18 @@ public class TrapZack extends Application{
                listOfSprings.clear();
                mechanisms.clear();
                  
+               if (currentLevel.getLast().equals("Assets/Level2.txt"))
+               {
+                  currentLevel.setPx(3);//3
+                  currentLevel.setPy(1);//1
+                  currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
+               } 
+               else if (currentLevel.getCurrent().equals("Assets/Level3.txt"))
+               {
+                     currentLevel.setPx(1);//3
+                     currentLevel.setPy(1);//1
+                     currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
+               } 
                //load next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
@@ -394,9 +406,20 @@ public class TrapZack extends Application{
                
                //reset the object arrays
                listOfSprings.clear();
-                  
+               mechanisms.clear();   
                //Move to the next level
-               currentLevel = new ContraptionZacLevel(currentLevel.getLast());
+               
+               if (currentLevel.getLast().equals("Assets/Level2.txt"))
+                  {
+                     
+                     currentLevel = new ContraptionZacLevel("Assets/Level2AutoSave.txt");
+                  }
+               else if (currentLevel.getLast().equals("Assets/Level3.txt"))
+               {
+                  currentLevel = new ContraptionZacLevel("Assets/Level3AutoSave.txt");
+               }
+
+               //currentLevel = new ContraptionZacLevel(currentLevel.getLast()+"AutoSave.txt");
                initializedObjects = false;
 
             }
@@ -406,7 +429,8 @@ public class TrapZack extends Application{
             if (state == "inControl")
             {
                //if the players right is NOT a walkable tile
-               if (((!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].matches("X.T1"))))               canMoveRight = false;
+               if (((!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].matches("X.T1"))))              
+                   canMoveRight = false;
                //if the players right is a walkable tile
                else 
                   canMoveRight = true;
@@ -427,7 +451,20 @@ public class TrapZack extends Application{
                
                //reset the object arrays
                listOfSprings.clear();
-                  
+               mechanisms.clear();   
+               
+               if (currentLevel.getCurrent().equals("Assets/Level2.txt"))
+               {
+                     currentLevel.setPx(3);//3
+                     currentLevel.setPy(1);//1
+                     currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
+               }
+               else if (currentLevel.getCurrent().equals("Assets/Level3.txt"))
+               {
+                     currentLevel.setPx(1);//3
+                     currentLevel.setPy(1);//1
+                     currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
+               }
                //Move to the next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
@@ -459,10 +496,19 @@ public class TrapZack extends Application{
                
                //reset the object arrays
                listOfSprings.clear();
-                  
+               mechanisms.clear();   
                //Move to the next level
                if(currentLevel != L1){
-                  currentLevel = new ContraptionZacLevel(currentLevel.getLast());
+                  if (currentLevel.getLast().equals("Assets/Level2.txt"))
+                  {
+                     
+                     currentLevel = new ContraptionZacLevel("Assets/Level2AutoSave.txt");
+                  }
+                  else if (currentLevel.getLast().equals("Assets/Level3.txt"))
+                  {
+                  currentLevel = new ContraptionZacLevel("Assets/Level3AutoSave.txt");
+                  }
+                  //currentLevel = new ContraptionZacLevel(currentLevel.getLast()+"AutoSave.txt");
                   initializedObjects = false;
                }
 
