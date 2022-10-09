@@ -116,7 +116,8 @@ public class TrapZack extends Application{
   Image PlayerImage = Player1;
   
   //Objects
-  ArrayList<GameSpring> listOfObjects = new ArrayList<GameSpring>();
+  ArrayList<GameSpring> listOfSprings = new ArrayList<GameSpring>();
+  ArrayList<GameButton> listOfButtons = new ArrayList<GameButton>();
    
    public void start(Stage stage){
       
@@ -255,20 +256,51 @@ public class TrapZack extends Application{
             int count = 0;
             for (int i = 0; i < numObjects; i++)
             {
+               //springs
                if (objects[i][0].equals("springLeft") || objects[i][0].equals("springRight"))
                {
                   GameSpring gs = new GameSpring(Integer.parseInt(objects[i][1]), Integer.parseInt(objects[i][2]), objects[i][3]);
-                  listOfObjects.add(gs);
+                  listOfSprings.add(gs);
                   System.out.println(gs.getPx() + " " + gs.getPy());
                   count++;
                   
                   System.out.println(objects[i][3]);
                }
+               //buttons
+               if (objects[i][0].equals("purpleButton") || objects[i][0].equals("yellowButton") || objects[i][0].equals("orangeButton") || objects[i][0].equals("greenButton"))
+               {
+                  //check last parameter for if the button has a timer and whether it starts pushed or not
+                  boolean timer = false;
+                  boolean pushed = false;
+                  if (objects[i][4].equals("up"))
+                  {
+                     timer = false;
+                     pushed = false;
+                  }
+                  else if (objects[i][4].equals("down"))
+                  {
+                     timer = false;
+                     pushed = true;
+                  }
+                  else if (objects[i][4].equals("upReset"))
+                  {
+                     timer = true;
+                     pushed = false;
+                  }
+                  else if (objects[i][4].equals("downReset"))
+                  {
+                     timer = true;
+                     pushed = true;
+                  }
+                  
+                  //initialize the button
+                  GameButton gb = new GameButton(Integer.parseInt(objects[i][1]), Integer.parseInt(objects[i][2]), objects[i][3], timer, pushed);
+                  listOfButtons.add(gb);
+                  count++;
+               }
             }
             initializedObjects = true;
          }
-         
-    
                   
          //check bounds left
          //if the player is trying to move outside the array
@@ -280,6 +312,9 @@ public class TrapZack extends Application{
             {
                //reset the visuals
                drewPlayer = false;
+               
+               //reset the object arrays
+               listOfSprings.clear();
                   
                //Move to the next level
                //if (currentLevel == L1)
@@ -293,12 +328,15 @@ public class TrapZack extends Application{
          }
          else
          {
-            //if the players left is NOT a walkable tile
-            if (((!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("XT1"))))
-               canMoveLeft = false;
-            //if the players left is a walkable tile
-            else 
-               canMoveLeft = true;
+            if (state == "inControl")
+            {
+               //if the players left is NOT a walkable tile
+               if (((!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("XT1"))))
+                  canMoveLeft = false;
+               //if the players left is a walkable tile
+               else 
+                  canMoveLeft = true;
+            }
          }
             
          //check bounds right
@@ -311,6 +349,9 @@ public class TrapZack extends Application{
             {
                //reset the visuals
                drewPlayer = false;
+               
+               //reset the object arrays
+               listOfSprings.clear();
                   
                //Move to the next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
@@ -320,17 +361,20 @@ public class TrapZack extends Application{
          }
          else
          {
-            //if the players right is NOT a walkable tile
-            if (((!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("XT1"))))               canMoveRight = false;
-            //if the players right is a walkable tile
-            else 
-               canMoveRight = true;
+            if (state == "inControl")
+            {
+               //if the players right is NOT a walkable tile
+               if (((!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("XT1"))))               canMoveRight = false;
+               //if the players right is a walkable tile
+               else 
+                  canMoveRight = true;
+            }
          }
          
          //check bounds up
          //if the player is trying to move outside the array
          //System.out.println((Py-32-levelOffsetY)/64);
-         if ((Py - 33 - levelOffsetY) < 0)
+         if ((Py - 33 - levelOffsetY) <= 0)
          {
             canMoveUp = false;
             //If the current tile is an exit tile and youre trying to leave
@@ -338,6 +382,9 @@ public class TrapZack extends Application{
             {
                //reset the visuals
                drewPlayer = false;
+               
+               //reset the object arrays
+               listOfSprings.clear();
                   
                //Move to the next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
@@ -346,12 +393,15 @@ public class TrapZack extends Application{
          }
          else
          {
-            //if the players up is NOT a walkable tile
-            if (((!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("XT1"))))
-               canMoveUp = false;
-            //if the players up is a walkable tile
-            else 
-               canMoveUp = true;
+            if (state == "inControl")
+            {
+               //if the players up is NOT a walkable tile
+               if (((!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("XT1"))))
+                  canMoveUp = false;
+               //if the players up is a walkable tile
+               else 
+                  canMoveUp = true;
+            }
          }
             
          //check bounds Down
@@ -364,6 +414,9 @@ public class TrapZack extends Application{
             {
                //reset the visuals
                drewPlayer = false;
+               
+               //reset the object arrays
+               listOfSprings.clear();
                   
                //Move to the next level
                if(currentLevel != L1){
@@ -375,24 +428,27 @@ public class TrapZack extends Application{
          }
          else
          {
-            //if the players down is NOT a walkable tile
-            if (((!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("XT1"))))
-               canMoveDown = false;
-            //if the players down is a walkable tile
-            else 
-               canMoveDown = true;
+            if (state == "inControl")
+            {
+               //if the players down is NOT a walkable tile
+               if (((!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("XT1"))) || ((!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("XT1"))))
+                  canMoveDown = false;
+               //if the players down is a walkable tile
+               else 
+                  canMoveDown = true;
+            }
          }
          
-         //check all objects
-         for (int i = 0; i < listOfObjects.size(); i++)
+         //check all springs
+         for (int i = 0; i < listOfSprings.size(); i++)
          {
-            GameSpring gs = listOfObjects.get(i);
+            GameSpring gs = listOfSprings.get(i);
             //change color based upon whether it is sprung or not
             if (gs.getSprung())
                gc.setFill(Color.GRAY);
             else
                gc.setFill(Color.WHITE);
-            gc.fillRect(levelOffsetX + gs.getPx()*64, levelOffsetY + gs.getPy()*64, 32, 32);
+            gc.fillRect(levelOffsetX + gs.getPx()*64, levelOffsetY + gs.getPy()*64, 64, 64);
             gc.setFill(Color.BLACK);
             //System.out.println(Py - levelOffsetY - gs.getPy() - 16);
             //if playercollides with middle of the spring
@@ -401,38 +457,38 @@ public class TrapZack extends Application{
                if (state != "sprung")
                {
                   //differences in x and y from the center of the object
-                  int xDiff = (Px - levelOffsetX - gs.getPx()*64 - 16);
-                  int yDiff = (Py - levelOffsetY - gs.getPy()*64 - 16);
+                  int xDiff = (Px - levelOffsetX - gs.getPx()*64 - 32);
+                  int yDiff = (Py - levelOffsetY - gs.getPy()*64 - 32);
                   //System.out.println(xDiff + " " + yDiff);
                   //if canMoveRight already false, dont do the check
                   //check right
                   if (canMoveRight)
                   {
-                     if (((xDiff >= -48) && (xDiff <= 0)) && ((yDiff < 48) && (yDiff > -48)))
+                     if (((xDiff >= -64) && (xDiff <= 0)) && ((yDiff < 64) && (yDiff > -64)))
                         canMoveRight = false;
                      else
-                        canMoveUp = true;
+                        canMoveRight = true;
                   }
                   //check left
                   if (canMoveLeft)
                   {
-                     if (((xDiff <= 48) && (xDiff >= 0)) && ((yDiff < 48) && (yDiff > -48)))
+                     if (((xDiff <= 64) && (xDiff >= 0)) && ((yDiff < 64) && (yDiff > -64)))
                         canMoveLeft = false;
                      else
-                        canMoveUp = true;
+                        canMoveLeft = true;
                   }
                   //check down
                   if (canMoveDown)
                   {
-                     if (((yDiff >= -48) && (yDiff <= 0)) && ((xDiff < 48) && (xDiff > -48)))
+                     if (((yDiff >= -64) && (yDiff <= 0)) && ((xDiff < 64) && (xDiff > -64)))
                         canMoveDown = false;
                      else
-                        canMoveUp = true;
+                        canMoveDown = true;
                   }
                   //check up
                   if (canMoveUp)
                   {
-                     if (((yDiff <= 48) && (yDiff >= 0)) && ((xDiff < 48) && (xDiff > -48)))
+                     if (((yDiff <= 64) && (yDiff >= 0)) && ((xDiff < 64) && (xDiff > -64)))
                         canMoveUp = false;
                      else
                         canMoveUp = true;
@@ -441,16 +497,17 @@ public class TrapZack extends Application{
             }
             else
             {
-               if (((Px - levelOffsetX - gs.getPx()*64 - 16 < 16) && (Px - levelOffsetX - gs.getPx()*64 - 16 > -16)) && ((Py - levelOffsetY - gs.getPy()*64 - 16 < 16) && (Py - levelOffsetY - gs.getPy()*64 - 16 > -16)))
+               if (((Px - levelOffsetX - gs.getPx()*64 - 32 < 64) && (Px - levelOffsetX - gs.getPx()*64 - 32 > -64)) && ((Py - levelOffsetY - gs.getPy()*64 - 32 < 64) && (Py - levelOffsetY - gs.getPy()*64 - 32 > -64)))
                {
                   gs.setSprung(true);
                   state = "sprung";
                   springDir = gs.getFacing();
-                  launch = 20;
+                  launch = 40;
                }
             }
          }
 
+         //check all buttons
          
          //During spring launch   
          if (state == "sprung")
@@ -475,7 +532,7 @@ public class TrapZack extends Application{
             
             if (springDir.equals("L"))
             {
-               if (!canMoveRight)
+               if (!canMoveLeft)
                {
                   state = "inControl";
                }
