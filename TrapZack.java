@@ -51,6 +51,9 @@ public class TrapZack extends Application{
   boolean canMoveDown = true;
   //variable to count the current frame rotation
   int frameCount = 0;
+  //count frames for gate open/close
+  int gateCount = 0;
+  int gateNumber = 0;
   //boolean keeping track of initializing objects for the level
   boolean initializedObjects = false;
   
@@ -169,6 +172,7 @@ public class TrapZack extends Application{
   ArrayList<GameSpring> listOfSprings = new ArrayList<GameSpring>();
   ArrayList<GameButton> buttonList = new ArrayList<GameButton>();
   ArrayList<GameSpike> spikeList = new ArrayList<GameSpike>();
+  ArrayList<GameGate> gateList = new ArrayList<GameGate>();
    
    public void start(Stage stage){
       
@@ -355,6 +359,13 @@ public class TrapZack extends Application{
                   GameSpike gsp = new GameSpike(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3], objects[i][4]);
                   mechanisms.add(gsp);
                   spikeList.add(gsp);
+               }
+               
+               if (objects[i][0].equals("gate"))
+               {
+                   GameGate ggate = new GameGate(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3], objects[i][4]);
+                   mechanisms.add(ggate);
+                   gateList.add(ggate);
                }
                
             }
@@ -645,7 +656,26 @@ public class TrapZack extends Application{
             
             if (objects[i][0].equals("gate"))
             {
-               gc.drawImage(vDownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               
+               if(currentLevel.getCurrent().equals("Assets/Level3.txt")){
+                  gateCount++;
+                  if(gateCount > 180){
+                     if(objects[i][3].equals(gateNumber)){
+                        objects[i][4] = "up";
+                     }
+                     gateNumber++;
+                     if(objects[i][3].equals(gateNumber)){
+                        objects[i][4] = "down";
+                     }
+                     
+                     if(gateNumber == 3){
+                        gateNumber = 0;
+                     }
+                  }
+               }
+               if(objects[i][4].equals("up")){
+                  gc.drawImage(vDownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               }
             }
                          
             if (objects[i][0].equals("JukeBox"))
@@ -884,7 +914,9 @@ public class TrapZack extends Application{
          }
       }
             
-      //count every five frames, swap image every cycle
+      
+      
+      
       frameCount++;
       if (frameCount > 20)
       {
@@ -900,7 +932,8 @@ public class TrapZack extends Application{
             Bottle = Henny1;
          else{
             Bottle = Henny;
-         }   
+         }
+            
             
       }
       //Draw player at its current position over the background
