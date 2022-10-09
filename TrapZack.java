@@ -605,6 +605,11 @@ public class TrapZack extends Application{
             {
                gc.drawImage(Henny, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
             }
+            
+            if (objects[i][0].equals("boat"))
+            {
+               gc.drawImage(PlayerImage, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+            }
 
          }
          

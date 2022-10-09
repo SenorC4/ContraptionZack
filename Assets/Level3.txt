@@ -14,7 +14,7 @@ T1 T1 T1 T1 T1
 T1 T1 PT1 T1 T1
 
 Objects
-27
+28
 halfWall 0 2.5 Empty Null
 halfWall 1 2.5 Empty Null
 halfWall 0 4 Empty Null
@@ -32,6 +32,7 @@ gate 2 1 empty upTimer
 gate 2 3 empty upTimer
 gate 3 1 empty upTimer
 gate 3 3 empty upTimer
+boat 4 1 empty NULL
 Button 0 4.75 P upReset
 Button 4.25 3.25 P upReset
 Spike 2 2.5 P upReset
