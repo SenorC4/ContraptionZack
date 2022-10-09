@@ -12,7 +12,7 @@ public class GameSpike extends mechanism{
       color = inputtedColor;
       if (state.equals("down"))
       {
-         activated= false;
+         activated = false;
       }
       else 
       {

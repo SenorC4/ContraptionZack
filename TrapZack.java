@@ -691,7 +691,7 @@ public class TrapZack extends Application{
          }
          
          
-         
+         //wall collsions 
          for (int i = 0; i < numObjects; i++)
          {
             if (objects[i][0].equals("halfWall"))
@@ -699,7 +699,7 @@ public class TrapZack extends Application{
             //System.out.println("Testiing");
                 xDiff = (int)(Px - levelOffsetX - (Double.parseDouble(objects[i][1])*64));
                 yDiff = (int)(Py - levelOffsetY - (Double.parseDouble(objects[i][2])*64));
-                System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
+                //System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
                 //System.out.println(objects[i][0] + " " + ((Double.parseDouble(objects[i][1])*64) + " " + (Double.parseDouble(objects[i][2])*64)));
                      if (canMoveRight)
                      {
@@ -723,7 +723,7 @@ public class TrapZack extends Application{
                      //check down
                      if (canMoveDown)
                      {
-                        if (((yDiff >= -32) && (yDiff <= 0)) && ((xDiff <= 32) && (xDiff > -32)))
+                        if (((yDiff >= -32) && (yDiff <= 0)) && ((xDiff <= 95) && (xDiff > -32)))
                            canMoveDown = false;
                         else
                            canMoveDown = true;
@@ -738,13 +738,58 @@ public class TrapZack extends Application{
                         else
                            canMoveUp = true;
                            //System.out.println("goooood " + xDiff + "   " + yDiff);
-                     }
-                  
-               
-               
+                     }  
             }
          
          }
+         
+         
+         
+         
+         
+         
+         
+         
+         //spike collisions
+         
+         for (int i = 0; i < spikeList.size(); i++)
+         {
+            if ((spikeList.get(i)).getState() == true)
+            {
+             
+            //System.out.println("Testiing");
+                xDiff = (int)(Px - levelOffsetX - ((spikeList.get(i)).getPx()*64));
+                yDiff = (int)(Py - levelOffsetY - ((spikeList.get(i)).getPy()*64));
+                //System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
+                //System.out.println(objects[i][0] + " " + ((Double.parseDouble(objects[i][1])*64) + " " + (Double.parseDouble(objects[i][2])*64)));
+                     
+                     //check down
+                     if (canMoveDown)
+                     {
+                        if (((yDiff >= -16) && (yDiff <= 0)) && ((xDiff <= 32) && (xDiff > -32)))
+                           canMoveDown = false;
+                        else
+                           canMoveDown = true;
+                     }
+                     //check up
+                     if (canMoveUp)
+                     {
+                        if (((yDiff <= 64) && (yDiff > 0)) && ((xDiff < 96) && (xDiff > -32))){
+                           canMoveUp = false;
+                           //System.out.println("baaad " +xDiff + "   " + yDiff);
+                           }
+                        else
+                           canMoveUp = true;
+                           //System.out.println("goooood " + xDiff + "   " + yDiff);
+                     }  
+            }
+         
+         }
+         
+         
+         
+         
+         
          
          
          
