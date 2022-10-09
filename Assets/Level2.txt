@@ -6,7 +6,7 @@ Assets/Level3.txt
 Assets/Level2.txt
 9 6
 E1 E1 E0.5 XFT1 E1.5 E1
-T1 T1 T1 T1 T1 T1
+E1 E1 E1 T1 E1 E1
 T1 T1 T1 T1 T1 T1
 T1 T1 E1 E1 T1 T1
 T1 T1 E1 E1 T1 T1
@@ -24,9 +24,9 @@ halfWall 3 6 Empty Null
 halfWall 4 6 Empty Null
 halfWall 5 4 Empty Null
 springLeft 2 7 L down
-springRight 4 7 R down 
+springRight 3 7 R down 
 Button 5 7 P up
-Button 1 5 P up
+Button 1 4.5 P up
 Spike 2.5 1.75 P up
 Button 0.5 7 Y up
 Button 3 5 Y up

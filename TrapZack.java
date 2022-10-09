@@ -135,6 +135,12 @@ public class TrapZack extends Application{
   Image vPurpleSpike = new Image("Assets/vSpikesPurple.png", false);
   Image YellowSpike = new Image("Assets/SpikesYellow.png", false);
   Image vYellowSpike = new Image("Assets/vSpikesYellow.png", false);
+  Image GraySpike = new Image("Assets/SpikesGray.png", false);
+  Image vGraySpike = new Image("Assets/vSpikesGray.png", false);
+  
+  Image DownSpike = new Image("Assets/SpikesDown.png", false);
+  Image vDownSpike = new Image("Assets/vSpikesDown.png", false);
+
   
   //buttons
   Image BlueButton = new Image("Assets/ButtonBlueUnpressed.png", false);
@@ -145,8 +151,10 @@ public class TrapZack extends Application{
   Image OrangeButton = new Image("Assets/ButtonOrangeUnpressed.png", false);
   Image PurpleButton = new Image("Assets/ButtonPurpleUnpressed.png", false);
   Image PurpleButtonPressed = new Image("Assets/ButtonPurplePressed.png", false);
-  Image YellowButton = new Image("Assets/ButtonBlueUnpressed.png", false);
+  Image YellowButton = new Image("Assets/ButtonYellowUnpressed.png", false);
   Image YellowButtonPressed = new Image("Assets/ButtonYellowPressed.png", false);
+  Image GrayButton = new Image("Assets/ButtonGrayUnpressed.png", false);
+  Image GrayButtonPressed = new Image("Assets/ButtonGrayPressed.png", false);
   
   
   Image PlayerImage = Player1;
@@ -328,7 +336,8 @@ public class TrapZack extends Application{
                }
                
                if (objects[i][0].equals("Button"))
-               {               
+               {  
+                               
                   GameButton gb = new GameButton(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3], objects[i][4]);
                   mechanisms.add(gb);
                   buttonList.add(gb);
@@ -526,6 +535,73 @@ public class TrapZack extends Application{
                   canMoveDown = true;
             }
          }
+         
+         //draw all objects 
+         //go through the array
+         for (int i = 0; i < numObjects; i++)
+         {
+                          
+            if (objects[i][0].equals("Button"))
+            {  
+               
+               switch(objects[i][3]){
+                  case "B":
+                     gc.drawImage(BlueButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                     break;
+                  case "Y":
+                     gc.drawImage(YellowButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                     break;
+                  case "O":
+                     gc.drawImage(OrangeButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                     break;
+                  case "P":
+                     gc.drawImage(PurpleButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                     break;
+                  case "G":
+                     gc.drawImage(GreenButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                     break;
+                  case "Gr":
+                     gc.drawImage(GrayButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                     break;
+                  
+               }                   
+            }
+            
+            if (objects[i][0].equals("Spike"))
+            {
+                if(objects[i][4].equals("down")){
+                        gc.drawImage(DownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                }else{
+                  switch(objects[i][3]){
+                        case "B":
+                           gc.drawImage(BlueSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                           break;
+                        case "Y":
+                           gc.drawImage(YellowSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                           break;
+                        case "O":
+                           gc.drawImage(OrangeSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                           break;
+                        case "P":
+                           gc.drawImage(PurpleSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                           break;
+                        case "G":
+                           gc.drawImage(GreenSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                           break;
+                        case "Gr":
+                           gc.drawImage(GraySpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                           break;    
+                   }
+                 }
+             }
+             
+            if (objects[i][0].equals("JukeBox"))
+            {
+               gc.drawImage(Henny, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+            }
+
+         }
+         
          
          //check all springs
          if (reloaded == false)
