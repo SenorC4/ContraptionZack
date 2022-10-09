@@ -322,6 +322,7 @@ public class TrapZack extends Application{
          }
          
          //Draw objects
+         //System.out.println(Px + "    " + Py);
          String[][] objects = currentLevel.getObjects();
          int numObjects = currentLevel.getNumObjects();
          
@@ -371,9 +372,7 @@ public class TrapZack extends Application{
                //reset the visuals
                drewPlayer = false;
                
-               //reset the object arrays
-               listOfSprings.clear();
-               mechanisms.clear();
+               
                  
                if (currentLevel.getLast().equals("Assets/Level2.txt"))
                {
@@ -385,8 +384,12 @@ public class TrapZack extends Application{
                {
                      currentLevel.setPx(1);//3
                      currentLevel.setPy(1);//1
-                     currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
+                     currentLevel.saveLevel("Assets/Level3AutoSave.txt", mechanisms);
                } 
+               
+               //reset the object arrays
+               listOfSprings.clear();
+               mechanisms.clear();
                //load next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
@@ -412,26 +415,28 @@ public class TrapZack extends Application{
          {
             canMoveRight = false;
             //If the current tile is an exit tile and youre trying to leave
-            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].matches("X.T1"))
+            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].matches("X.T1") || data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("PT1"))
             {
                //reset the visuals
                drewPlayer = false;
                
-               //reset the object arrays
-               listOfSprings.clear();
-               mechanisms.clear();   
+                System.out.println("crash1");
                //Move to the next level
                
                if (currentLevel.getLast().equals("Assets/Level2.txt"))
                   {
-                     
+                     System.out.println("crash2");
                      currentLevel = new ContraptionZacLevel("Assets/Level2AutoSave.txt");
                   }
                else if (currentLevel.getLast().equals("Assets/Level3.txt"))
                {
+                  System.out.println("crash3");
                   currentLevel = new ContraptionZacLevel("Assets/Level3AutoSave.txt");
                }
 
+               //reset the object arrays
+               listOfSprings.clear();
+               mechanisms.clear(); 
                //currentLevel = new ContraptionZacLevel(currentLevel.getLast()+"AutoSave.txt");
                initializedObjects = false;
 
@@ -474,7 +479,7 @@ public class TrapZack extends Application{
                {
                      currentLevel.setPx(1);//3
                      currentLevel.setPy(1);//1
-                     currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
+                     currentLevel.saveLevel("Assets/Level3AutoSave.txt", mechanisms);
                }
                //reset the object arrays
                listOfSprings.clear();
@@ -507,21 +512,21 @@ public class TrapZack extends Application{
             {
                //reset the visuals
                drewPlayer = false;
-               
-               //reset the object arrays
-               listOfSprings.clear();
-               mechanisms.clear();   
+               System.out.println("tessst");
+                
                //Move to the next level
                if(currentLevel != L1 && !currentLevel.getCurrent().equals("Assets/Level2.txt")){
                   if (currentLevel.getLast().equals("Assets/Level2.txt"))
                   {
-                     
                      currentLevel = new ContraptionZacLevel("Assets/Level2AutoSave.txt");
                   }
                   else if (currentLevel.getLast().equals("Assets/Level3.txt"))
                   {
-                  currentLevel = new ContraptionZacLevel("Assets/Level3AutoSave.txt");
+                     currentLevel = new ContraptionZacLevel("Assets/Level3AutoSave.txt");
                   }
+                   //reset the object arrays
+                  listOfSprings.clear();
+                  mechanisms.clear(); 
                   //currentLevel = new ContraptionZacLevel(currentLevel.getLast()+"AutoSave.txt");
                   initializedObjects = false;
                }
