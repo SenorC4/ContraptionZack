@@ -566,7 +566,7 @@ public class TrapZack extends Application{
                      break;
                   
                }                   
-            }w
+            }
             
             if (objects[i][0].equals("Spike"))
             {
