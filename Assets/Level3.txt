@@ -40,7 +40,7 @@ Button 0 3.25 Y upReset
 Button 4.25 4.75 Y upReset
 Spike 2 2.75 Y upReset
 Button 3.5 3.25 B upReset
-Spike 1.5 1.5 B upReset
+Spike 1.5 1.75 vB upReset
 Button 0.75 4.75 G upReset
-Spike 2.75 1.5 G upReset
+Spike 2.75 1.75 vG upReset
 JukeBox 4 1.4 null null

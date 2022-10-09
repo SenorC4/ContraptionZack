@@ -1,5 +1,5 @@
 PlayerPosition
-3 1
+1 1
 Layout
 Assets/Level2.txt
 Assets/Level4.txt
@@ -40,6 +40,6 @@ Button 0 3.25 Y upReset
 Button 4.25 4.75 Y upReset 
 Spike 2 2.75 Y upReset 
 Button 3.5 3.25 B upReset 
-Spike 1.5 1.5 B upReset 
+Spike 1.5 1.5 vB upReset 
 Button 0.75 4.75 G upReset 
-Spike 2.75 1.5 G upReset 
+Spike 2.75 1.5 vG upReset 

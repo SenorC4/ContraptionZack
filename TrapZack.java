@@ -121,6 +121,7 @@ public class TrapZack extends Application{
   Image Henny = new Image("Assets/Henessy1.png", false);
   Image Henny1 = new Image("Assets/Henessy2.png", false);
   
+  
   //exit arrows
   Image Arrow = new Image("Assets/Arrow.png", false);
   Image ArrowL = new Image("Assets/ArrowLeft.png", false);
@@ -162,6 +163,7 @@ public class TrapZack extends Application{
   
   
   Image PlayerImage = Player1;
+  Image Bottle = Henny;
   
   //Objects
   ArrayList<GameSpring> listOfSprings = new ArrayList<GameSpring>();
@@ -574,11 +576,19 @@ public class TrapZack extends Application{
             if (objects[i][0].equals("Spike"))
             {
                 if(objects[i][4].equals("down")){
-                        gc.drawImage(DownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        if(objects[i][3].matches("v.")){
+                           gc.drawImage(vDownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+
+                        }else{
+                           gc.drawImage(DownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        }
                 }else{
                   switch(objects[i][3]){
                         case "B":
                            gc.drawImage(BlueSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                           break;
+                        case "vB":
+                           gc.drawImage(vBlueSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;
                         case "Y":
                            gc.drawImage(YellowSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
@@ -591,6 +601,9 @@ public class TrapZack extends Application{
                            break;
                         case "G":
                            gc.drawImage(GreenSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                           break;
+                        case "vG":
+                           gc.drawImage(vGreenSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;
                         case "Gr":
                            gc.drawImage(GraySpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
@@ -606,7 +619,7 @@ public class TrapZack extends Application{
                          
             if (objects[i][0].equals("JukeBox"))
             {
-               gc.drawImage(Henny, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               gc.drawImage(Bottle, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
             }
             
             if (objects[i][0].equals("boat"))
@@ -842,13 +855,22 @@ public class TrapZack extends Application{
             
       //count every five frames, swap image every cycle
       frameCount++;
-      if (frameCount > 10)
+      if (frameCount > 20)
       {
+         //animate boat
          frameCount = 0;
          if (PlayerImage == Player1)
             PlayerImage = Player2;
          else if (PlayerImage == Player2)
             PlayerImage = Player1;
+            
+        //animate bottle
+        if (Bottle == Henny)
+            Bottle = Henny1;
+         else{
+            Bottle = Henny;
+         }   
+            
       }
       //Draw player at its current position over the background
       //gc.drawImage(PlayerImage, Px, Py);
