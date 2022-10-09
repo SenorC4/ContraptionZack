@@ -464,9 +464,7 @@ public class TrapZack extends Application{
                //reset the visuals
                drewPlayer = false;
                
-               //reset the object arrays
-               listOfSprings.clear();
-               mechanisms.clear();   
+                  
                
                if (currentLevel.getCurrent().equals("Assets/Level2.txt"))
                {
@@ -480,6 +478,9 @@ public class TrapZack extends Application{
                      currentLevel.setPy(1);//1
                      currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
                }
+               //reset the object arrays
+               listOfSprings.clear();
+               mechanisms.clear();
                //Move to the next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
@@ -513,7 +514,7 @@ public class TrapZack extends Application{
                listOfSprings.clear();
                mechanisms.clear();   
                //Move to the next level
-               if(currentLevel != L1){
+               if(currentLevel != L1 && !currentLevel.getCurrent().equals("Assets/Level2.txt")){
                   if (currentLevel.getLast().equals("Assets/Level2.txt"))
                   {
                      
@@ -526,7 +527,7 @@ public class TrapZack extends Application{
                   //currentLevel = new ContraptionZacLevel(currentLevel.getLast()+"AutoSave.txt");
                   initializedObjects = false;
                }
-
+               initializedObjects = false;
             }
          }
          else
@@ -765,7 +766,7 @@ public class TrapZack extends Application{
          
          //spike collisions
          
-         for (int i = 0; i < spikeList.size(); i++)
+        /* for (int i = 0; i < spikeList.size(); i++)
          {
             if ((spikeList.get(i)).getState() == true)
             {
@@ -797,7 +798,7 @@ public class TrapZack extends Application{
                      }  
             }
          
-         }
+         }*/
          
          
          
