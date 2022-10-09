@@ -4,12 +4,21 @@ public class GameSpring extends mechanism{
    int Px;
    int Py;
    String facing;
-   boolean sprung = false;
+   boolean sprung;
    
-   public GameSpring(int x, int y, String face){
+   public GameSpring(int x, int y, String face, String state){
       Px = x;
       Py = y;
       facing = face;
+      if (state.equals("down"))
+      {
+         sprung= false;
+      }
+      else if (state.equals("up"))
+      {
+         sprung = true;
+      }
+      
    }
 
    public int getPx()
@@ -27,13 +36,23 @@ public class GameSpring extends mechanism{
       return facing;
    }
    
+   public void reset()
+   {
+      sprung = false;
+   }
+   
    public void setSprung(boolean s)
    {
       sprung = s;
    }
    
-   public boolean getSprung()
+   public boolean getState()
    {
       return sprung;
+   }
+   
+   public String getType()
+   {
+      return "Spring";
    }
 }

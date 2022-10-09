@@ -1,38 +1,39 @@
 
 public class GameButton extends mechanism{
 
-   int Px;
-   int Py;
-   boolean pushed = false;
-   boolean timer = false;
-   String color = "Y";
+   double Px;
+   double Py;
+   String color;
+   boolean pushed;
 
-   public GameButton(int x, int y, String c, boolean t, boolean p){
+   public GameButton(double x, double y, String inputtedColor, String state){
       Px = x;
       Py = y;
-      color = c;
-      timer = t;
-      pushed = p;
+      color = inputtedColor;
+      
+      if (state.equals("up"))
+      {
+         pushed = false;
+      }
+      else 
+      {
+         pushed = true;
+      }
    }
 
-   public int getPx()
+   public double getPx()
    {
       return Px;
    }
    
-   public int getPy()
+   public double getPy()
    {
       return Py;
    }
    
-   public String getColor()
+   public void reset()
    {
-      return color;
-   }
-   
-   public boolean getTimer()
-   {
-      return timer;
+      pushed = false;
    }
    
    public void setPushed(boolean p)
@@ -40,9 +41,19 @@ public class GameButton extends mechanism{
       pushed = p;
    }
    
-   public boolean getPushed()
+   public String getColor()
+   {
+      return color;
+   }
+   
+   public boolean getState()
    {
       return pushed;
+   }
+   
+   public String getType()
+   {
+      return "Button";
    }
 
 }

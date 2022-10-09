@@ -12,6 +12,7 @@ public class ContraptionZacLevel
    int numObjects;
    String nextFile;
    String lastFile;
+   String currentFile;
    
    public String name;
    
@@ -38,6 +39,9 @@ public class ContraptionZacLevel
          
          //get next file to load
          nextFile = scan.next();
+         
+         //get the curretn file for restart
+         currentFile = scan.next();
          
          
          //get width and length of array
@@ -129,11 +133,14 @@ public class ContraptionZacLevel
       return numObjects;
    }
    
-   public void saveLevel(String saveName)
+   public void saveLevel(String saveName, ArrayList<mechanism> mechanisms)
    {
       try
          {
          //creates a file writer and rewrites every data member to a save file named by the user
+            int listSize = mechanisms.size();
+            int nonObjects = numObjects - listSize;
+            int counter = 0;
             Scanner read = new Scanner(new File(name));
             FileWriter myWriter = new FileWriter(saveName);
             myWriter.write("PlayerPosition\n");
@@ -141,6 +148,7 @@ public class ContraptionZacLevel
             myWriter.write("Layout\n");
             myWriter.write(lastFile + "\n");
             myWriter.write(nextFile + "\n");
+            myWriter.write(currentFile + "\n");
             myWriter.write(y + " " + x + "\n");
             
             for(int i=0;i<y;i++)
@@ -161,7 +169,37 @@ public class ContraptionZacLevel
                myWriter.write(objects[i][1]+ " ");
                myWriter.write(objects[i][2]+ " ");
                myWriter.write(objects[i][3]+ " ");
-               myWriter.write(objects[i][4]+ " ");
+               //myWriter.write(objects[i][4]+ " ");
+               
+               if (i >= nonObjects && i < numObjects)
+               {
+                 // System.out.println(mechanisms.get(counter).getType());
+                  //System.out.println(objects[+nonObjects][2]);
+                  //System.out.println((mechanisms.get(counter)).getState());
+                  if ((mechanisms.get(counter)).getState() == false && (mechanisms.get(counter)).getType().equals("Button") )
+                  {
+                     myWriter.write("up ");
+                  }
+                  else if ((mechanisms.get(counter)).getState() == true && (mechanisms.get(counter)).getType().equals("Button"))
+                  {
+                     myWriter.write("down ");
+                  }
+                  else if ((mechanisms.get(counter)).getState() == false && ((mechanisms.get(counter)).getType().equals("Spike") || (mechanisms.get(counter)).getType().equals("Spring")))
+                  {
+                     myWriter.write("down ");
+                  }
+                  else if ((mechanisms.get(counter)).getState() == true && ((mechanisms.get(counter)).getType().equals("Spike") || (mechanisms.get(counter)).getType().equals("Spring")))
+                  {
+                     myWriter.write("up ");
+                  }
+                  counter++;
+               }
+               else
+               {
+                  myWriter.write(objects[i][4]+ " ");
+               }
+               
+               
                myWriter.write("\n");
             }
             myWriter.close(); 
@@ -179,6 +217,10 @@ public class ContraptionZacLevel
    
    public String getLast(){
       return lastFile;
+   }
+   
+   public String getCurrent(){
+      return currentFile;
    }
 
 }

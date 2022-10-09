@@ -1,21 +1,31 @@
 
 public class GameSpike extends mechanism{
 
-   int Px;
-   int Py;
+   double Px;
+   double Py;
+   String color;
    boolean activated = false;
 
-   public GameSpike(int x, int y){
+   public GameSpike(double x, double y, String inputtedColor, String state){
       Px = x;
       Py = y;
+      color = inputtedColor;
+      if (state.equals("down"))
+      {
+         activated= false;
+      }
+      else 
+      {
+         activated = true;
+      }
    }
 
-   public int getPx()
+   public double getPx()
    {
       return Px;
    }
    
-   public int getPy()
+   public double getPy()
    {
       return Py;
    }
@@ -25,9 +35,24 @@ public class GameSpike extends mechanism{
       activated = a;
    }
    
-   public boolean getActivated()
+   public void reset()
+   {
+      activated = false;
+   }
+   
+   public String getColor()
+   {
+      return color;
+   }
+   
+   public boolean getState()
    {
       return activated;
+   }
+   
+   public String getType()
+   {
+      return "Spike";
    }
 
 }
