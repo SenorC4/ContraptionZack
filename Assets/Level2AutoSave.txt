@@ -24,7 +24,7 @@ halfWall 3 6.5 Empty Null
 halfWall 4 6.5 Empty Null 
 halfWall 5 4.5 Empty Null 
 springLeft 2 7 L down 
-springRight 4 7 R down 
+springRight 4 7 R up 
 Button 5 7 P up 
 Button 1 5.5 P up 
 Spike 2.5 1 P up 
