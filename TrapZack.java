@@ -342,7 +342,7 @@ public class TrapZack extends Application{
                if (objects[i][0].equals("springLeft") || objects[i][0].equals("springRight"))
                {
                   GameSpring gs = new GameSpring(Integer.parseInt(objects[i][1]), Integer.parseInt(objects[i][2]), objects[i][3], objects[i][4]);
-                  System.out.println(objects[i][4]);
+                  //System.out.println(objects[i][4]);
                   mechanisms.add(gs);
                   listOfSprings.add(gs);
                }
@@ -557,7 +557,7 @@ public class TrapZack extends Application{
                           
             if (objects[i][0].equals("Button"))
             {  
-               if (objects[i][4].equals("up"))
+               if (objects[i][4].equals("down"))
                {
                   switch(objects[i][3])
                   {
@@ -576,7 +576,7 @@ public class TrapZack extends Application{
                      case "G":
                         gc.drawImage(GreenButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                         break;
-                     case "Gr":
+                     case "X":
                         gc.drawImage(GrayButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                         break;
                   }
@@ -600,7 +600,7 @@ public class TrapZack extends Application{
                      case "G":
                         gc.drawImage(GreenButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                         break;
-                     case "Gr":
+                     case "X":
                         gc.drawImage(GrayButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                         break;
 
@@ -640,7 +640,7 @@ public class TrapZack extends Application{
                          case "vG":
                            gc.drawImage(vGreenSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;
-                        case "Gr":
+                        case "X":
                            gc.drawImage(GraySpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;    
                    }
@@ -662,7 +662,6 @@ public class TrapZack extends Application{
                      
                      if(Integer.parseInt(objects[i][3]) == oldGate){
                         objects[i][4] = "down";
-                        System.out.println(oldGate + " down");
                         oldGate++;
                         gateCount = 0;
                      }
@@ -670,9 +669,7 @@ public class TrapZack extends Application{
                      if(oldGate > 3){
                         oldGate = 0;
                      }
-                     
-                     
-                    
+      
                   }
                }
                if(objects[i][4].equals("up")){
@@ -682,7 +679,9 @@ public class TrapZack extends Application{
                          
             if (objects[i][0].equals("JukeBox"))
             {
+               
                gc.drawImage(Bottle, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                  
             }
             
             if (objects[i][0].equals("boat"))
@@ -702,7 +701,7 @@ public class TrapZack extends Application{
             for (int i = 0; i < listOfSprings.size(); i++)
             {
                GameSpring gs = listOfSprings.get(i);
-              // System.out.println(gs.getState());
+              //System.out.println(gs.getState());
                //change color based upon whether it is sprung or not
                if (gs.getState())
                   gc.setFill(Color.GRAY);
@@ -863,7 +862,7 @@ public class TrapZack extends Application{
                   {
                      xDiff = (int)(Px - levelOffsetX - (Double.parseDouble(objects[i][1])*64 + 8));
                      yDiff = (int)(Py - levelOffsetY - (Double.parseDouble(objects[i][2])*64 + 32));
-                     System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
+                     //System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
                      //System.out.println(objects[i][0] + " " + ((Double.parseDouble(objects[i][1])*64) + " " + (Double.parseDouble(objects[i][2])*64)));
                      if (canMoveRight)
                      {
@@ -909,7 +908,7 @@ public class TrapZack extends Application{
                   {
                      xDiff = (int)(Px - levelOffsetX - (Double.parseDouble(objects[i][1])*64 + 32));
                      yDiff = (int)(Py - levelOffsetY - (Double.parseDouble(objects[i][2])*64 + 8));
-                     System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
+                     //System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
                      //System.out.println(objects[i][0] + " " + ((Double.parseDouble(objects[i][1])*64) + " " + (Double.parseDouble(objects[i][2])*64)));
                      if (canMoveRight)
                      {
@@ -1157,7 +1156,7 @@ public class TrapZack extends Application{
             
             
             currentLevel = new ContraptionZacLevel(currentLevel.getCurrent());
-            System.out.println(currentLevel.getName());
+            //System.out.println(currentLevel.getName());
             root.getChildren().remove(vbox);
             root.requestFocus();
          }
@@ -1242,7 +1241,7 @@ public class TrapZack extends Application{
          if (e.getSource() == save1 && !save1.getText().equals(""))
          {
                   currentLevel = new ContraptionZacLevel("SaveGames/"+save1.getText()+".txt");
-                  System.out.println(save1.getText());
+                  //System.out.println(save1.getText());
                   root.getChildren().remove(saveBox);
                   drewPlayer = false;
                   gamePaused = false;
