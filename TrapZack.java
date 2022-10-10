@@ -313,7 +313,7 @@ public class TrapZack extends Application{
                      
                      
                      Px = levelOffsetX + currentLevel.getPx()*64 + 32;
-                     Py = levelOffsetY + currentLevel.getPy()*64 + 28;
+                     Py = levelOffsetY + currentLevel.getPy()*64 + 32;
                      //boolean to hold if the player's position has been set yet
                      drewPlayer = true;
                   }
@@ -363,7 +363,7 @@ public class TrapZack extends Application{
                   
          //check bounds left
          //if the player is trying to move outside the array
-         if ((Px - 33 - levelOffsetX) <= 0)
+         if ((Px - 17 - levelOffsetX) <= 0)
          {
             canMoveLeft = false;
             //If the current tile is an exit tile and youre trying to leave
@@ -399,7 +399,7 @@ public class TrapZack extends Application{
             if (state == "inControl")
             {
                //if the players left is NOT a walkable tile
-               if (((!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].matches("X.T1"))))
+               if (((!data[(Px - 17 - levelOffsetX)/64][(Py - 15 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 17 - levelOffsetX)/64][(Py - 15 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 17 - levelOffsetX)/64][(Py - 15 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px - 17 - levelOffsetX)/64][(Py + 15 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 17 - levelOffsetX)/64][(Py + 15 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 17 - levelOffsetX)/64][(Py + 15 - levelOffsetY)/64].matches("X.T1"))))
                   canMoveLeft = false;
                //if the players left is a walkable tile
                else 
@@ -409,7 +409,7 @@ public class TrapZack extends Application{
             
          //check bounds right
          //if the player is trying to move outside the array
-         if ((Px + 33  - levelOffsetX)/64 >= x)
+         if ((Px + 17  - levelOffsetX)/64 >= x)
          {
             canMoveRight = false;
             //If the current tile is an exit tile and youre trying to leave
@@ -443,7 +443,7 @@ public class TrapZack extends Application{
             if (state == "inControl")
             {
                //if the players right is NOT a walkable tile
-               if (((!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].matches("X.T1"))))              
+               if (((!data[(Px + 17 - levelOffsetX)/64][(Py - 15 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 17 - levelOffsetX)/64][(Py - 16 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 17 - levelOffsetX)/64][(Py - 15 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 17 - levelOffsetX)/64][(Py + 15 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 17 - levelOffsetX)/64][(Py + 15 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 17 - levelOffsetX)/64][(Py + 15 - levelOffsetY)/64].matches("X.T1"))))              
                    canMoveRight = false;
                //if the players right is a walkable tile
                else 
@@ -454,7 +454,7 @@ public class TrapZack extends Application{
          //check bounds up
          //if the player is trying to move outside the array
          //System.out.println((Py-32-levelOffsetY)/64);
-         if ((Py - 33 - levelOffsetY) <= 0)
+         if ((Py - 17 - levelOffsetY) <= 0)
          {
             canMoveUp = false;
             //If the current tile is an exit tile and youre trying to leave
@@ -489,7 +489,7 @@ public class TrapZack extends Application{
             if (state == "inControl")
             {
                //if the players up is NOT a walkable tile
-               if (((!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].matches("X.T1"))))
+               if (((!data[(Px - 15 - levelOffsetX)/64][(Py - 17 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 15 - levelOffsetX)/64][(Py - 17 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 15 - levelOffsetX)/64][(Py - 17 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 15 - levelOffsetX)/64][(Py - 17 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 15 - levelOffsetX)/64][(Py - 17 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 15 - levelOffsetX)/64][(Py - 17 - levelOffsetY)/64].matches("X.T1"))))
                   canMoveUp = false;
                //if the players up is a walkable tile
                else 
@@ -499,7 +499,7 @@ public class TrapZack extends Application{
             
          //check bounds Down
          //if the player is trying to move outside the array
-         if ((Py + 33 - levelOffsetY)/64 >= y)
+         if ((Py + 17 - levelOffsetY)/64 >= y)
          {
             canMoveDown = false;
             //If the current tile is an exit tile and youre trying to leave
@@ -533,7 +533,7 @@ public class TrapZack extends Application{
             if (state == "inControl")
             {
                //if the players down is NOT a walkable tile
-               if (((!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].matches("X.T1"))))
+               if (((!data[(Px - 15 - levelOffsetX)/64][(Py + 17 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 15 - levelOffsetX)/64][(Py + 17 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 15 - levelOffsetX)/64][(Py + 17 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 15 - levelOffsetX)/64][(Py + 17 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 15 - levelOffsetX)/64][(Py + 17 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 15 - levelOffsetX)/64][(Py + 17 - levelOffsetY)/64].matches("X.T1"))))
                   canMoveDown = false;
                //if the players down is a walkable tile
                else 
@@ -548,27 +548,54 @@ public class TrapZack extends Application{
                           
             if (objects[i][0].equals("Button"))
             {  
-               
-               switch(objects[i][3]){
-                  case "B":
-                     gc.drawImage(BlueButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "Y":
-                     gc.drawImage(YellowButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "O":
-                     gc.drawImage(OrangeButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "P":
-                     gc.drawImage(PurpleButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "G":
-                     gc.drawImage(GreenButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "Gr":
-                     gc.drawImage(GrayButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  
+               if (objects[i][4].equals("up"))
+               {
+                  switch(objects[i][3])
+                  {
+                     case "B":
+                        gc.drawImage(BlueButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "Y":
+                        gc.drawImage(YellowButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "O":
+                        gc.drawImage(OrangeButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "P":
+                        gc.drawImage(PurpleButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "G":
+                        gc.drawImage(GreenButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "Gr":
+                        gc.drawImage(GrayButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                  }
+               }
+               else
+               {
+                  switch(objects[i][3])
+                  {
+                     case "B":
+                        gc.drawImage(BlueButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "Y":
+                        gc.drawImage(YellowButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "O":
+                        gc.drawImage(OrangeButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "P":
+                        gc.drawImage(PurpleButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "G":
+                        gc.drawImage(GreenButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "Gr":
+                        gc.drawImage(GrayButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+
+                  }                  
                }                   
             }
             
@@ -647,7 +674,7 @@ public class TrapZack extends Application{
                      //check right
                      if (canMoveRight)
                      {
-                        if (((xDiff >= -64) && (xDiff <= 0)) && ((yDiff < 64) && (yDiff > -64)))
+                        if (((xDiff >= -48) && (xDiff <= 0)) && ((yDiff < 48) && (yDiff > -48)))
                            canMoveRight = false;
                         else
                            canMoveRight = true;
@@ -655,7 +682,7 @@ public class TrapZack extends Application{
                      //check left
                      if (canMoveLeft)
                      {
-                        if (((xDiff <= 64) && (xDiff >= 0)) && ((yDiff < 64) && (yDiff > -64)))
+                        if (((xDiff <= 48) && (xDiff >= 0)) && ((yDiff < 48) && (yDiff > -48)))
                            canMoveLeft = false;
                         else
                            canMoveLeft = true;
@@ -663,7 +690,7 @@ public class TrapZack extends Application{
                      //check down
                      if (canMoveDown)
                      {
-                        if (((yDiff >= -64) && (yDiff <= 0)) && ((xDiff < 64) && (xDiff > -64)))
+                        if (((yDiff >= -48) && (yDiff <= 0)) && ((xDiff < 48) && (xDiff > -48)))
                            canMoveDown = false;
                         else
                            canMoveDown = true;
@@ -671,7 +698,7 @@ public class TrapZack extends Application{
                      //check up
                      if (canMoveUp)
                      {
-                        if (((yDiff <= 64) && (yDiff >= 0)) && ((xDiff < 64) && (xDiff > -64)))
+                        if (((yDiff <= 48) && (yDiff >= 0)) && ((xDiff < 48) && (xDiff > -48)))
                            canMoveUp = false;
                         else
                            canMoveUp = true;
@@ -680,11 +707,13 @@ public class TrapZack extends Application{
                }
                else
                {
-                  if (((Px - levelOffsetX - gs.getPx()*64 - 32 < 64) && (Px - levelOffsetX - gs.getPx()*64 - 32 > -64)) && ((Py - levelOffsetY - gs.getPy()*64 - 32 < 64) && (Py - levelOffsetY - gs.getPy()*64 - 32 > -64)))
+                  if (((Px - levelOffsetX - gs.getPx()*64 - 32 < 32) && (Px - levelOffsetX - gs.getPx()*64 - 32 > -32)) && ((Py - levelOffsetY - gs.getPy()*64 - 32 < 32) && (Py - levelOffsetY - gs.getPy()*64 - 32 > -32)))
                   {
                      gs.setSprung(true);
                      state = "sprung";
                      springDir = gs.getFacing();
+                     Px = gs.getPx()*64 + levelOffsetX + 32;
+                     Py = gs.getPy()*64 + levelOffsetY + 32;
                      launch = 40;
                   }
                }
@@ -693,18 +722,20 @@ public class TrapZack extends Application{
          
          
          
+         
+         
          for (int i = 0; i < numObjects; i++)
          {
             if (objects[i][0].equals("halfWall"))
             {
             //System.out.println("Testiing");
-                xDiff = (int)(Px - levelOffsetX - (Double.parseDouble(objects[i][1])*64));
-                yDiff = (int)(Py - levelOffsetY - (Double.parseDouble(objects[i][2])*64));
+                xDiff = (int)(Px - levelOffsetX - (Double.parseDouble(objects[i][1])*64 + 32));
+                yDiff = (int)(Py - levelOffsetY - (Double.parseDouble(objects[i][2])*64 + 16));
                 System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
                 //System.out.println(objects[i][0] + " " + ((Double.parseDouble(objects[i][1])*64) + " " + (Double.parseDouble(objects[i][2])*64)));
                      if (canMoveRight)
                      {
-                        if (((xDiff >= -64) && (xDiff <= 64)) && ((yDiff < 64) && (yDiff > -32)))
+                        if (((xDiff >= -48) && (xDiff <= 0)) && ((yDiff < 32) && (yDiff > -32)))
                            canMoveRight = false;
                         else
                            canMoveRight = true;
@@ -712,7 +743,7 @@ public class TrapZack extends Application{
                      //check left
                      if (canMoveLeft)
                      {
-                        if (((xDiff <= 128) && (xDiff >= -128)) && ((yDiff < 64) && (yDiff > -32))){
+                        if (((xDiff <= 48) && (xDiff >= 0)) && ((yDiff < 32) && (yDiff > -32))){
                            canMoveLeft = false;
                            //System.out.println("baaad " +xDiff + "   " + yDiff);
                            }
@@ -724,7 +755,7 @@ public class TrapZack extends Application{
                      //check down
                      if (canMoveDown)
                      {
-                        if (((yDiff >= -32) && (yDiff <= 0)) && ((xDiff <= 32) && (xDiff > -32)))
+                        if (((yDiff >= -32) && (yDiff <= 0)) && ((xDiff <= 48) && (xDiff > -48)))
                            canMoveDown = false;
                         else
                            canMoveDown = true;
@@ -732,7 +763,7 @@ public class TrapZack extends Application{
                      //check up
                      if (canMoveUp)
                      {
-                        if (((yDiff <= 64) && (yDiff > 0)) && ((xDiff < 96) && (xDiff > -32))){
+                        if (((yDiff <= 32) && (yDiff >= 0)) && ((xDiff < 48) && (xDiff > -48))){
                            canMoveUp = false;
                            //System.out.println("baaad " +xDiff + "   " + yDiff);
                            }
@@ -745,6 +776,33 @@ public class TrapZack extends Application{
                
             }
          
+            if (objects[i][0].equals("Button"))
+            {
+               if (objects[i][4].equals("up"))
+               {
+                  if (((Px - levelOffsetX - (Double.parseDouble(objects[i][1]) *64) - 32 < 32) && (Px - levelOffsetX - (Double.parseDouble(objects[i][1]) *64) - 32 > -32)) && ((Py - levelOffsetY - (Double.parseDouble(objects[i][2]) *64) - 32 < 32) && (Py - levelOffsetY - (Double.parseDouble(objects[i][2]) *64) - 32 > -32)))
+                  {
+                     objects[i][4] = "down";
+                     for (int j = 0; j < numObjects; j++)
+                     {
+                        if (objects[j][0].equals("Spike"))
+                        {
+                           if (objects[i][3].equals(objects[j][3]))
+                           {
+                              if (objects[j][4].equals("up"))
+                              {
+                                 objects[j][4] = "down";
+                              }
+                              else if (objects[j][4].equals("down"))
+                              {
+                                 objects[j][4] = "up";
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
          }
          
          
@@ -809,7 +867,7 @@ public class TrapZack extends Application{
       //Draw player at its current position over the background
       //gc.drawImage(PlayerImage, Px, Py);
       gc.setFill(Color.BROWN);
-      gc.fillRect(Px - 32, Py - 32, 64, 64);
+      gc.fillRect(Px - 16, Py - 16, 32, 32);
       gc.setFill(Color.BLACK);
 
       
