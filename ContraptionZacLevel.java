@@ -192,6 +192,15 @@ public class ContraptionZacLevel
                   {
                      myWriter.write("up ");
                   }
+                  else if ((mechanisms.get(counter)).getState() == false && ((mechanisms.get(counter)).getType().equals("Gate")))
+                  {
+                     myWriter.write("down ");
+                  }
+                  else if ((mechanisms.get(counter)).getState() == true && ((mechanisms.get(counter)).getType().equals("Gate")))
+                  {
+                     myWriter.write("up ");
+                  }
+
                   counter++;
                }
                else

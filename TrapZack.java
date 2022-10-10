@@ -253,11 +253,6 @@ public class TrapZack extends Application{
    //draw player movement and stuff
    public void draw(GraphicsContext gc){
       root.setStyle("-fx-background-color: black");
-      //System.out.println(currentLevel.getName());
-     /* System.out.println(mechanisms.size());
-      System.out.println(listOfSprings.size());
-      System.out.println(buttonList.size());
-      System.out.println(spikeList.size());*/
       //if not in the title screen
       if(titleMenu == false){
          //load the first level, get the data from the text file
@@ -401,12 +396,7 @@ public class TrapZack extends Application{
                   currentLevel.setPy(1);//1
                   currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
                } 
-               else if (currentLevel.getCurrent().equals("Assets/Level3.txt"))
-               {
-                     currentLevel.setPx(1);//3
-                     currentLevel.setPy(1);//1
-                     currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
-               } 
+                
                //load next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
@@ -432,7 +422,7 @@ public class TrapZack extends Application{
          {
             canMoveRight = false;
             //If the current tile is an exit tile and youre trying to leave
-            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].matches("X.T1"))
+            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].matches("X.T1")|| data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("PT1"))
             {
                //reset the visuals
                drewPlayer = false;
@@ -493,12 +483,7 @@ public class TrapZack extends Application{
                      currentLevel.setPy(1);//1
                      currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
                }
-               else if (currentLevel.getCurrent().equals("Assets/Level3.txt"))
-               {
-                     currentLevel.setPx(1);//3
-                     currentLevel.setPy(1);//1
-                     currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
-               }
+               
                //Move to the next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
@@ -875,6 +860,8 @@ public class TrapZack extends Application{
          
          
          
+         
+         
          //During spring launch   
          if (state == "sprung")
          {
@@ -1017,6 +1004,7 @@ public class TrapZack extends Application{
          }
          else if (e.getSource() == save)
          {
+           // mechanisms.clear()
             currentLevel.setPx((Px/64)-2);
             currentLevel.setPy((Py/64)-2);
             td.setContentText("Type in the name for your saved game");
@@ -1145,6 +1133,7 @@ public class TrapZack extends Application{
             root.getChildren().remove(vbox);
             root.getChildren().add(saveBox);
             save1.requestFocus();
+            //loaded = false;
             //System.out.println(save1.getText());
             //System.out.println(save1.getText().equals(""));      
          }
