@@ -1203,6 +1203,7 @@ public class TrapZack extends Application{
             td.setContentText("Type in the name for your saved game");
             td.showAndWait();
             String name = td.getEditor().getText();
+          
             currentLevel.saveLevel("SaveGames/" + name + ".txt", mechanisms);
             
             
@@ -1228,7 +1229,26 @@ public class TrapZack extends Application{
                   save5.setText(name);
                   numberOfSaves++;
                   break;
-            
+               case 5:
+                  save6.setText(name);
+                  numberOfSaves++;
+                  break;
+               case 6:
+                  save7.setText(name);
+                  numberOfSaves++;
+                  break; 
+               case 7:
+                  save8.setText(name);
+                  numberOfSaves++;
+                  break;
+               case 8:
+                  save9.setText(name);
+                  numberOfSaves++;
+                  break;
+               case 9:
+                  save10.setText(name);
+                  numberOfSaves++;
+                  break;           
             }
             
             gamePaused = false;
@@ -1326,6 +1346,7 @@ public class TrapZack extends Application{
             root.getChildren().remove(vbox);
             root.getChildren().add(saveBox);
             save1.requestFocus();
+            
             //loaded = false;
             //System.out.println(save1.getText());
             //System.out.println(save1.getText().equals(""));      
@@ -1342,6 +1363,7 @@ public class TrapZack extends Application{
                   gamePaused = false;
                   initializedObjects = false;
                   reloaded = false;
+                  loaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save2 && !save2.getText().equals(""))
@@ -1351,6 +1373,7 @@ public class TrapZack extends Application{
                   drewPlayer = false;
                   gamePaused = false;
                   reloaded = false;
+                  loaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save3 && !save3.getText().equals(""))
@@ -1360,6 +1383,7 @@ public class TrapZack extends Application{
                   drewPlayer = false;
                   gamePaused = false;
                   reloaded = false;
+                  loaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save4 && !save4.getText().equals(""))
@@ -1369,6 +1393,7 @@ public class TrapZack extends Application{
                   drewPlayer = false;
                   gamePaused = false;
                   reloaded = false;
+                  loaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save5 && !save5.getText().equals(""))
@@ -1378,6 +1403,7 @@ public class TrapZack extends Application{
                   drewPlayer = false;
                   gamePaused = false;
                   reloaded = false;
+                  loaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save6 && !save6.getText().equals(""))
@@ -1387,6 +1413,7 @@ public class TrapZack extends Application{
                   drewPlayer = false;
                   gamePaused = false;
                   reloaded = false;
+                  loaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save7 && !save7.getText().equals(""))
@@ -1396,6 +1423,7 @@ public class TrapZack extends Application{
                   drewPlayer = false;
                   gamePaused = false;
                   reloaded = false;
+                  loaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save8 && !save8.getText().equals(""))
@@ -1405,6 +1433,7 @@ public class TrapZack extends Application{
                   drewPlayer = false;
                   gamePaused = false;
                   reloaded = false;
+                  loaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save9 && !save9.getText().equals(""))
@@ -1414,6 +1443,7 @@ public class TrapZack extends Application{
                   drewPlayer = false;
                   gamePaused = false;
                   reloaded = false;
+                  loaded = false;
                   root.requestFocus();
          }
          if (e.getSource() == save10 && !save10.getText().equals(""))
@@ -1423,6 +1453,7 @@ public class TrapZack extends Application{
                   drewPlayer = false;
                   gamePaused = false;
                   reloaded = false;
+                  loaded = false;
                   root.requestFocus();
          }
          

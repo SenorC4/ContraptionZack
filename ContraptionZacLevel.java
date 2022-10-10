@@ -73,7 +73,6 @@ public class ContraptionZacLevel
             objects[i][2] = scan.next(); //y
             objects[i][3] = scan.next(); //relationship
             objects[i][4] = scan.next(); //save state
-
          }
       }
       catch(Exception e)
@@ -169,13 +168,10 @@ public class ContraptionZacLevel
                myWriter.write(objects[i][1]+ " ");
                myWriter.write(objects[i][2]+ " ");
                myWriter.write(objects[i][3]+ " ");
-               //myWriter.write(objects[i][4]+ " ");
+               myWriter.write(objects[i][4]+ " ");
                
-               if (i >= nonObjects && i < numObjects)
+               /*if (i >= nonObjects && i < numObjects)
                {
-                 // System.out.println(mechanisms.get(counter).getType());
-                  //System.out.println(objects[+nonObjects][2]);
-                  //System.out.println((mechanisms.get(counter)).getState());
                   if ((mechanisms.get(counter)).getState() == false && (mechanisms.get(counter)).getType().equals("Button") )
                   {
                      myWriter.write("up ");
@@ -206,7 +202,7 @@ public class ContraptionZacLevel
                else
                {
                   myWriter.write(objects[i][4]+ " ");
-               }
+               }*/
                
                
                myWriter.write("\n");
