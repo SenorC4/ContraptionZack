@@ -790,6 +790,16 @@ public class TrapZack extends Application{
                   {
                      gs.setSprung(true);
                      state = "sprung";
+                     
+                     for (int h = 0; h < numObjects; h++)
+                     {
+                        if ((objects[h][0].equals("springLeft") || objects[h][0].equals("springRight")) && Integer.parseInt(objects[h][1]) == gs.getPx() && Integer.parseInt(objects[h][2]) == gs.getPy())
+                        {
+                           objects[h][4] = "up";
+                        }
+                     
+                     }
+                     
                      springDir = gs.getFacing();
                      Px = gs.getPx()*64 + levelOffsetX + 32;
                      Py = gs.getPy()*64 + levelOffsetY + 32;
