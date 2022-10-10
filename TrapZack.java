@@ -1058,6 +1058,7 @@ public class TrapZack extends Application{
          {
             drewPlayer = false;
             gamePaused = false;
+            loaded = false;
             //reloaded = true;
             initializedObjects = false;
             for (int i = 0; i < mechanisms.size(); i++)
@@ -1078,6 +1079,7 @@ public class TrapZack extends Application{
             drewPlayer = false;
             gamePaused = false;
             reloaded = true;
+            loaded = false;
             //initializedObjects = false;
             currentLevel = new ContraptionZacLevel("Assets/Level1.txt");
             root.getChildren().remove(vbox);
