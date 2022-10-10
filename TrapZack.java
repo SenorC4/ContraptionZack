@@ -781,6 +781,8 @@ public class TrapZack extends Application{
             //System.out.println("Testiing");
                 xDiff = (int)(Px - levelOffsetX - (Double.parseDouble(objects[i][1])*64 + 32));
                 yDiff = (int)(Py - levelOffsetY - (Double.parseDouble(objects[i][2])*64 + 16));
+
+
                 //System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
                 //System.out.println(objects[i][0] + " " + ((Double.parseDouble(objects[i][1])*64) + " " + (Double.parseDouble(objects[i][2])*64)));
                      if (canMoveRight)
