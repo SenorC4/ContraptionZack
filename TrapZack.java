@@ -51,16 +51,8 @@ public class TrapZack extends Application{
   boolean canMoveDown = true;
   //variable to count the current frame rotation
   int frameCount = 0;
-  //count frames for gate open/close
-  int gateCount = 0;
-  int gateNumber = 0;
-  int oldGate = 0;
   //boolean keeping track of initializing objects for the level
   boolean initializedObjects = false;
-  //boolean to keep track if objects were grabbed
-  boolean loaded = false;
-  int numObjects = 0;
-  String[][] objects;
   
   //ContraptionZacLevel
   ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
@@ -169,14 +161,12 @@ public class TrapZack extends Application{
   Image GrayButtonPressed = new Image("Assets/ButtonGrayPressed.png", false);
   
   
-   Image PlayerImage = Player1;
-   Image Bottle = Henny;
+  Image PlayerImage = Player1;
   
-   //Objects
-   ArrayList<GameSpring> listOfSprings = new ArrayList<GameSpring>();
-   ArrayList<GameButton> buttonList = new ArrayList<GameButton>();
-   ArrayList<GameSpike> spikeList = new ArrayList<GameSpike>();
-   ArrayList<GameGate> gateList = new ArrayList<GameGate>();
+  //Objects
+  ArrayList<GameSpring> listOfSprings = new ArrayList<GameSpring>();
+  ArrayList<GameButton> buttonList = new ArrayList<GameButton>();
+  ArrayList<GameSpike> spikeList = new ArrayList<GameSpike>();
    
    public void start(Stage stage){
       
@@ -331,13 +321,10 @@ public class TrapZack extends Application{
             }
          }
          
-         //Draw objects if level is loaded --------------------------------------------------------------------------------
+         //Draw objects
+         String[][] objects = currentLevel.getObjects();
+         int numObjects = currentLevel.getNumObjects();
          
-         if(!loaded){
-            objects = currentLevel.getObjects();
-            numObjects = currentLevel.getNumObjects();
-            loaded = true;
-         }
          
          if (!initializedObjects)
          {
@@ -367,13 +354,6 @@ public class TrapZack extends Application{
                   GameSpike gsp = new GameSpike(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3], objects[i][4]);
                   mechanisms.add(gsp);
                   spikeList.add(gsp);
-               }
-               
-                if (objects[i][0].equals("gate"))
-               {
-                   GameGate ggate = new GameGate(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3], objects[i][4]);
-                   mechanisms.add(ggate);
-                   gateList.add(ggate);
                }
                
             }
@@ -411,7 +391,6 @@ public class TrapZack extends Application{
                //load next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
-               loaded = false;
                
             }
          }
@@ -456,7 +435,6 @@ public class TrapZack extends Application{
 
                //currentLevel = new ContraptionZacLevel(currentLevel.getLast()+"AutoSave.txt");
                initializedObjects = false;
-               loaded = false;
 
             }
          }
@@ -504,7 +482,6 @@ public class TrapZack extends Application{
                //Move to the next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
-               loaded = false;
             }
          }
          else
@@ -549,9 +526,6 @@ public class TrapZack extends Application{
                   initializedObjects = false;
                }
 
-               initializedObjects = false;
-               loaded = false;
-
             }
          }
          else
@@ -574,8 +548,34 @@ public class TrapZack extends Application{
                           
             if (objects[i][0].equals("Button"))
             {  
-               if(objects[i][4].equals("up")){
-                  switch(objects[i][3]){
+               if (objects[i][4].equals("up"))
+               {
+                  switch(objects[i][3])
+                  {
+                     case "B":
+                        gc.drawImage(BlueButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "Y":
+                        gc.drawImage(YellowButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "O":
+                        gc.drawImage(OrangeButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "P":
+                        gc.drawImage(PurpleButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "G":
+                        gc.drawImage(GreenButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "Gr":
+                        gc.drawImage(GrayButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                  }
+               }
+               else
+               {
+                  switch(objects[i][3])
+                  {
                      case "B":
                         gc.drawImage(BlueButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                         break;
@@ -594,52 +594,19 @@ public class TrapZack extends Application{
                      case "Gr":
                         gc.drawImage(GrayButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                         break;
-                     
-                  }
-                  
-               }else if(objects[i][4].equals("down")){
-                  switch(objects[i][3]){
-                   case "B":
-                     gc.drawImage(BlueButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "Y":
-                     gc.drawImage(YellowButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "O":
-                     gc.drawImage(OrangeButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "P":
-                     gc.drawImage(PurpleButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "G":
-                     gc.drawImage(GreenButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "Gr":
-                     gc.drawImage(GrayButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  
-                  }
-               
-               }
-                                   
+
+                  }                  
+               }                   
             }
             
             if (objects[i][0].equals("Spike"))
             {
                 if(objects[i][4].equals("down")){
-                        if(objects[i][3].matches("v.")){
-                           gc.drawImage(vDownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-
-                        }else{
-                           gc.drawImage(DownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                        }
-               }else{
+                        gc.drawImage(DownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                }else{
                   switch(objects[i][3]){
                         case "B":
                            gc.drawImage(BlueSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                           break;
-                        case "vB":
-                           gc.drawImage(vBlueSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;
                         case "Y":
                            gc.drawImage(YellowSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
@@ -653,9 +620,6 @@ public class TrapZack extends Application{
                         case "G":
                            gc.drawImage(GreenSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;
-                         case "vG":
-                           gc.drawImage(vGreenSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                           break;
                         case "Gr":
                            gc.drawImage(GraySpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;    
@@ -667,39 +631,10 @@ public class TrapZack extends Application{
             {
                gc.drawImage(halfWall, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
             }
-
-            gateCount++;
-            if (objects[i][0].equals("gate"))
-            {
-                
-               if(currentLevel.getCurrent().equals("Assets/Level3.txt")){
-                  
-                  if(gateCount > 6000){
-                     
-                     if(Integer.parseInt(objects[i][3]) == oldGate){
-                        objects[i][4] = "down";
-                        System.out.println(oldGate + " down");
-                        oldGate++;
-                        gateCount = 0;
-                     }
-                     
-                     if(oldGate > 3){
-                        oldGate = 0;
-                     }
-                     
-                     
-                    
-                  }
-               }
-               if(objects[i][4].equals("up")){
-                  gc.drawImage(vDownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-               }
-            }
-
                          
             if (objects[i][0].equals("JukeBox"))
             {
-               gc.drawImage(Bottle, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               gc.drawImage(Henny, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
             }
             
             if (objects[i][0].equals("boat"))
@@ -787,6 +722,8 @@ public class TrapZack extends Application{
          
          
          
+         
+         
          for (int i = 0; i < numObjects; i++)
          {
             if (objects[i][0].equals("halfWall"))
@@ -839,44 +776,34 @@ public class TrapZack extends Application{
                
             }
          
-         }
-         
-         
-         //spike collisions
-         
-        /* for (int i = 0; i < spikeList.size(); i++)
-         {
-            if ((spikeList.get(i)).getState() == true)
+            if (objects[i][0].equals("Button"))
             {
-             
-            //System.out.println("Testiing");
-                xDiff = (int)(Px - levelOffsetX - ((spikeList.get(i)).getPx()*64));
-                yDiff = (int)(Py - levelOffsetY - ((spikeList.get(i)).getPy()*64));
-                //System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
-                //System.out.println(objects[i][0] + " " + ((Double.parseDouble(objects[i][1])*64) + " " + (Double.parseDouble(objects[i][2])*64)));
-                     
-                     //check down
-                     if (canMoveDown)
+               if (objects[i][4].equals("up"))
+               {
+                  if (((Px - levelOffsetX - (Double.parseDouble(objects[i][1]) *64) - 32 < 32) && (Px - levelOffsetX - (Double.parseDouble(objects[i][1]) *64) - 32 > -32)) && ((Py - levelOffsetY - (Double.parseDouble(objects[i][2]) *64) - 32 < 32) && (Py - levelOffsetY - (Double.parseDouble(objects[i][2]) *64) - 32 > -32)))
+                  {
+                     objects[i][4] = "down";
+                     for (int j = 0; j < numObjects; j++)
                      {
-                        if (((yDiff >= -16) && (yDiff <= 0)) && ((xDiff <= 32) && (xDiff > -32)))
-                           canMoveDown = false;
-                        else
-                           canMoveDown = true;
+                        if (objects[j][0].equals("Spike"))
+                        {
+                           if (objects[i][3].equals(objects[j][3]))
+                           {
+                              if (objects[j][4].equals("up"))
+                              {
+                                 objects[j][4] = "down";
+                              }
+                              else if (objects[j][4].equals("down"))
+                              {
+                                 objects[j][4] = "up";
+                              }
+                           }
+                        }
                      }
-                     //check up
-                     if (canMoveUp)
-                     {
-                        if (((yDiff <= 64) && (yDiff > 0)) && ((xDiff < 96) && (xDiff > -32))){
-                           canMoveUp = false;
-                           //System.out.println("baaad " +xDiff + "   " + yDiff);
+                  }
+               }
             }
-                        else
-                           canMoveUp = true;
-                           //System.out.println("goooood " + xDiff + "   " + yDiff);
-                     }  
-            }
-         
-         }*/
+         }
          
          
          
@@ -936,16 +863,7 @@ public class TrapZack extends Application{
             PlayerImage = Player2;
          else if (PlayerImage == Player2)
             PlayerImage = Player1;
-            
-         //animate bottle
-         if (Bottle == Henny)
-            Bottle = Henny1;
-         else{
-            Bottle = Henny;
-         }   
       }
-      
-      
       //Draw player at its current position over the background
       //gc.drawImage(PlayerImage, Px, Py);
       gc.setFill(Color.BROWN);
