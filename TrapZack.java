@@ -1240,7 +1240,7 @@ public class TrapZack extends Application{
             drewPlayer = false;
             gamePaused = false;
             loaded = false;
-            //reloaded = true;
+            reloaded = true;
             initializedObjects = false;
             for (int i = 0; i < mechanisms.size(); i++)
             {
