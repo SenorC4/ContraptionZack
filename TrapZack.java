@@ -658,10 +658,38 @@ public class TrapZack extends Application{
                 
                if(currentLevel.getCurrent().equals("Assets/Level3.txt")){
                   
+                  if (gateCount > 500)
+                  {
+                        for (int j = 0; j < numObjects; j++)
+                        {
+                           if (objects[j][0].equals("gate"))
+                           {
+                              if (objects[j][4].equals("downFrame"))
+                                 objects[j][4] = "down";
+                              if (objects[j][4].equals("upFrame"))
+                                 objects[j][4] = "up";
+                           }
+                        }
+                  }
+                  
                   if(gateCount > 6000){
                      
                      if(Integer.parseInt(objects[i][3]) == oldGate){
-                        objects[i][4] = "down";
+                        objects[i][4] = "downFrame";
+                        for (int j = 0; j < numObjects; j++)
+                        {
+                           if (objects[j][0].equals("gate"))
+                           {
+                              if (Integer.parseInt(objects[j][3]) != oldGate)
+                              {
+                                 if (objects[j][4].equals("down"))
+                                 {
+                                    objects[j][4] = "upFrame";
+                                 }
+                              }
+                           }
+                        }
+                        //System.out.println(oldGate + " down");
                         oldGate++;
                         gateCount = 0;
                      }
@@ -672,9 +700,11 @@ public class TrapZack extends Application{
       
                   }
                }
-               if(objects[i][4].equals("up")){
-                  gc.drawImage(vDownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-               }
+               if ((objects[i][4].equals("downFrame")) || (objects[i][4].equals("upFrame")))
+                  gc.drawImage(Henny, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               else if (objects[i][4].equals("up") )
+                  gc.drawImage(vYellowSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               
             }
                          
             if (objects[i][0].equals("JukeBox"))
@@ -947,6 +977,71 @@ public class TrapZack extends Application{
                         else
                            canMoveUp = true;
                            //System.out.println("goooood " + xDiff + "   " + yDiff);
+                     }
+                  }
+               }
+            }
+            
+            if (objects[i][0].equals("gate"))
+            {
+               if (objects[i][4].equals("up"))
+               {
+                     xDiff = (int)(Px - levelOffsetX - (Double.parseDouble(objects[i][1])*64 + 8));
+                     yDiff = (int)(Py - levelOffsetY - (Double.parseDouble(objects[i][2])*64 + 32));
+                     System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
+                     //System.out.println(objects[i][0] + " " + ((Double.parseDouble(objects[i][1])*64) + " " + (Double.parseDouble(objects[i][2])*64)));
+                     if (canMoveRight)
+                     {
+                        if (((xDiff >= -24) && (xDiff <= 0)) && ((yDiff < 48) && (yDiff > -48)))
+                           canMoveRight = false;
+                        else
+                           canMoveRight = true;
+                     }
+                     //check left
+                     if (canMoveLeft)
+                     {
+                        if (((xDiff <= 24) && (xDiff >= 0)) && ((yDiff < 48) && (yDiff > -48))){
+                           canMoveLeft = false;
+                           //System.out.println("baaad " +xDiff + "   " + yDiff);
+                           }
+                        else{
+                           canMoveLeft = true;
+                           //System.out.println("goooood " + xDiff + "   " + yDiff);
+                           }
+                     }
+                     //check down
+                     if (canMoveDown)
+                     {
+                        if (((yDiff >= -48) && (yDiff <= 0)) && ((xDiff < 24) && (xDiff > -24)))
+                           canMoveDown = false;
+                        else
+                           canMoveDown = true;
+                     }
+                     //check up
+                     if (canMoveUp)
+                     {
+                        if (((yDiff <= 48) && (yDiff >= 0)) && ((xDiff < 24) && (xDiff > -24))){
+                           canMoveUp = false;
+                           //System.out.println("baaad " +xDiff + "   " + yDiff);
+                           }
+                        else
+                           canMoveUp = true;
+                           //System.out.println("goooood " + xDiff + "   " + yDiff);
+                     }
+
+               }
+               //launch player
+               if ((!objects[i][4].equals("up")) || (!objects[i][4].equals("down")))
+               {
+                  if (((xDiff < 23) && (xDiff > -23)) && ((yDiff < 48) && (yDiff > -48)))
+                  {
+                     if (Integer.parseInt(objects[i][3]) < 2)
+                     {
+                        Px = (int)(levelOffsetX + (Double.parseDouble(objects[i][1])*64 + 48));
+                     }
+                     else
+                     {
+                        Px = (int)(levelOffsetX + (Double.parseDouble(objects[i][1])*64 - 24));
                      }
                   }
                }

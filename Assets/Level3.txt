@@ -30,8 +30,8 @@ halfWall 4 5.5 Empty Null
 halfWall 2 1 empty Null
 gate 1.7 4.5 0 down
 gate 1.7 3 1 up
-gate 2.8 4.5 2 up
-gate 2.8 3 3 up
+gate 3 4.5 2 up
+gate 3 3 3 up
 boat 4 1 empty NULL
 Button 0 4.75 P up
 Button 4.25 3.25 P up
