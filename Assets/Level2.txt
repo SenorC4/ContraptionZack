@@ -27,22 +27,22 @@ springLeft 2 7 L down
 springRight 4 7 R down 
 Button 5 7 P up
 Button 1 5.5 P up
-Spike 2.5 1 P up
+Spike 3 1 P up
 Button 0.5 7 Y up
 Button 3 5.5 Y up
 Spike 0 6.75 Y up
 Spike 5 6.75 Y down
-Spike 2.5 1.5 Y up
+Spike 3 1.5 Y up
 Button 4 5.5 O up
 Button 0.5 2.5 O up
 Spike 4 4.5 O up
 Spike 1 4.5 O up
-Spike 2.5 1.25 O up 
+Spike 3 1.25 O up 
 Button 2 5.5 B up
 Button 4.5 2.5 B up
 Spike 1 4.75 B up
 Spike 3.75 2 vB up
 Spike 4 4.75 B down
 Spike 2 2 vB down
-Spike 2.5 1.75 B up
+Spike 3 1.75 B up
 
