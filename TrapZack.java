@@ -51,8 +51,16 @@ public class TrapZack extends Application{
   boolean canMoveDown = true;
   //variable to count the current frame rotation
   int frameCount = 0;
+  //count frames for gate open/close
+  int gateCount = 0;
+  int gateNumber = 0;
+  int oldGate = 0;
   //boolean keeping track of initializing objects for the level
   boolean initializedObjects = false;
+   //boolean to keep track if objects were grabbed
+  boolean loaded = false;
+  int numObjects = 0;
+  String[][] objects;
   
   //ContraptionZacLevel
   ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
@@ -161,13 +169,14 @@ public class TrapZack extends Application{
   Image GrayButtonPressed = new Image("Assets/ButtonGrayPressed.png", false);
   
   
-  Image PlayerImage = Player1;
+   Image PlayerImage = Player1;
+   Image Bottle = Henny;
   
   //Objects
   ArrayList<GameSpring> listOfSprings = new ArrayList<GameSpring>();
   ArrayList<GameButton> buttonList = new ArrayList<GameButton>();
   ArrayList<GameSpike> spikeList = new ArrayList<GameSpike>();
-   
+  ArrayList<GameGate> gateList = new ArrayList<GameGate>();   
    public void start(Stage stage){
       
       //escape menu
@@ -322,8 +331,11 @@ public class TrapZack extends Application{
          }
          
          //Draw objects
-         String[][] objects = currentLevel.getObjects();
-         int numObjects = currentLevel.getNumObjects();
+          if(!loaded){
+            objects = currentLevel.getObjects();
+            numObjects = currentLevel.getNumObjects();
+            loaded = true;
+         }
          
          
          if (!initializedObjects)
@@ -354,6 +366,13 @@ public class TrapZack extends Application{
                   GameSpike gsp = new GameSpike(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3], objects[i][4]);
                   mechanisms.add(gsp);
                   spikeList.add(gsp);
+               }
+               
+                if (objects[i][0].equals("gate"))
+               {
+                   GameGate ggate = new GameGate(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3], objects[i][4]);
+                   mechanisms.add(ggate);
+                   gateList.add(ggate);
                }
                
             }
@@ -391,7 +410,7 @@ public class TrapZack extends Application{
                //load next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
-               
+               loaded = false;
             }
          }
          else
@@ -435,6 +454,7 @@ public class TrapZack extends Application{
 
                //currentLevel = new ContraptionZacLevel(currentLevel.getLast()+"AutoSave.txt");
                initializedObjects = false;
+               loaded = false;
 
             }
          }
@@ -482,6 +502,7 @@ public class TrapZack extends Application{
                //Move to the next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
+               loaded = false;
             }
          }
          else
@@ -524,6 +545,7 @@ public class TrapZack extends Application{
                   }
                   //currentLevel = new ContraptionZacLevel(currentLevel.getLast()+"AutoSave.txt");
                   initializedObjects = false;
+                  loaded = false;
                }
 
             }
@@ -602,11 +624,19 @@ public class TrapZack extends Application{
             if (objects[i][0].equals("Spike"))
             {
                 if(objects[i][4].equals("down")){
+                    if(objects[i][3].matches("v.")){
+                        gc.drawImage(vDownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+
+                     }else{
                         gc.drawImage(DownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                     }
                 }else{
                   switch(objects[i][3]){
                         case "B":
                            gc.drawImage(BlueSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                           break;
+                        case "vB":
+                           gc.drawImage(vBlueSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;
                         case "Y":
                            gc.drawImage(YellowSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
@@ -620,6 +650,9 @@ public class TrapZack extends Application{
                         case "G":
                            gc.drawImage(GreenSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;
+                         case "vG":
+                           gc.drawImage(vGreenSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                           break;
                         case "Gr":
                            gc.drawImage(GraySpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;    
@@ -631,18 +664,48 @@ public class TrapZack extends Application{
             {
                gc.drawImage(halfWall, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
             }
+            
+            gateCount++;
+            if (objects[i][0].equals("gate"))
+            {
+                
+               if(currentLevel.getCurrent().equals("Assets/Level3.txt")){
+                  
+                  if(gateCount > 6000){
+                     
+                     if(Integer.parseInt(objects[i][3]) == oldGate){
+                        objects[i][4] = "down";
+                        System.out.println(oldGate + " down");
+                        oldGate++;
+                        gateCount = 0;
+                     }
+                     
+                     if(oldGate > 3){
+                        oldGate = 0;
+                     }
+                     
+                     
+                    
+                  }
+               }
+               if(objects[i][4].equals("up")){
+                  gc.drawImage(vDownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               }
+            }
                          
             if (objects[i][0].equals("JukeBox"))
             {
-               gc.drawImage(Henny, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               gc.drawImage(Bottle, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
             }
             
             if (objects[i][0].equals("boat"))
             {
-               gc.drawImage(PlayerImage, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               gc.drawImage(Bottle, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
             }
 
          }
+         
+         
          
          
          //check all springs
@@ -856,13 +919,19 @@ public class TrapZack extends Application{
             
       //count every five frames, swap image every cycle
       frameCount++;
-      if (frameCount > 10)
+      if (frameCount > 20)
       {
          frameCount = 0;
          if (PlayerImage == Player1)
             PlayerImage = Player2;
          else if (PlayerImage == Player2)
             PlayerImage = Player1;
+          //animate bottle
+         if (Bottle == Henny)
+            Bottle = Henny1;
+         else{
+            Bottle = Henny;
+         }
       }
       //Draw player at its current position over the background
       //gc.drawImage(PlayerImage, Px, Py);

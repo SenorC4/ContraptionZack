@@ -33,15 +33,15 @@ gate 1.7 3 1 up
 gate 2.8 4.5 2 up
 gate 2.8 3 3 up
 boat 4 1 empty NULL
-Button 0 4.75 P upReset
-Button 4.25 3.25 P upReset
-Spike 2 2.5 P upReset
-Button 0 3.25 Y upReset
-Button 4.25 4.75 Y upReset
-Spike 2 2.75 Y upReset
-Button 3.5 3.25 B upReset
-Spike 1.75 1.5 vB upReset
-Button 0.75 4.75 G upReset
-Spike 2.75 1.5 G upReset
-Spike 3 1.5 vG upReset
+Button 0 4.75 P up
+Button 4.25 3.25 P up
+Spike 2 2.5 P up
+Button 0 3.25 Y up
+Button 4.25 4.75 Y up
+Spike 2 2.75 Y up
+Button 3.5 3.25 B up
+Spike 1.75 1.5 vB up
+Button 0.75 4.75 G up
+Spike 2.75 1.5 G up
+Spike 3 1.5 vG up
 
