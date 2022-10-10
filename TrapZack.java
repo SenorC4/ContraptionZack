@@ -51,8 +51,16 @@ public class TrapZack extends Application{
   boolean canMoveDown = true;
   //variable to count the current frame rotation
   int frameCount = 0;
+  //count frames for gate open/close
+  int gateCount = 0;
+  int gateNumber = 0;
+  int oldGate = 0;
   //boolean keeping track of initializing objects for the level
   boolean initializedObjects = false;
+   //boolean to keep track if objects were grabbed
+  boolean loaded = false;
+  int numObjects = 0;
+  String[][] objects;
   
   //ContraptionZacLevel
   ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
@@ -161,13 +169,14 @@ public class TrapZack extends Application{
   Image GrayButtonPressed = new Image("Assets/ButtonGrayPressed.png", false);
   
   
-  Image PlayerImage = Player1;
+   Image PlayerImage = Player1;
+   Image Bottle = Henny;
   
   //Objects
   ArrayList<GameSpring> listOfSprings = new ArrayList<GameSpring>();
   ArrayList<GameButton> buttonList = new ArrayList<GameButton>();
   ArrayList<GameSpike> spikeList = new ArrayList<GameSpike>();
-   
+  ArrayList<GameGate> gateList = new ArrayList<GameGate>();   
    public void start(Stage stage){
       
       //escape menu
@@ -244,11 +253,6 @@ public class TrapZack extends Application{
    //draw player movement and stuff
    public void draw(GraphicsContext gc){
       root.setStyle("-fx-background-color: black");
-      //System.out.println(currentLevel.getName());
-     /* System.out.println(mechanisms.size());
-      System.out.println(listOfSprings.size());
-      System.out.println(buttonList.size());
-      System.out.println(spikeList.size());*/
       //if not in the title screen
       if(titleMenu == false){
          //load the first level, get the data from the text file
@@ -313,7 +317,7 @@ public class TrapZack extends Application{
                      
                      
                      Px = levelOffsetX + currentLevel.getPx()*64 + 32;
-                     Py = levelOffsetY + currentLevel.getPy()*64 + 28;
+                     Py = levelOffsetY + currentLevel.getPy()*64 + 32;
                      //boolean to hold if the player's position has been set yet
                      drewPlayer = true;
                   }
@@ -322,8 +326,11 @@ public class TrapZack extends Application{
          }
          
          //Draw objects
-         String[][] objects = currentLevel.getObjects();
-         int numObjects = currentLevel.getNumObjects();
+          if(!loaded){
+            objects = currentLevel.getObjects();
+            numObjects = currentLevel.getNumObjects();
+            loaded = true;
+         }
          
          
          if (!initializedObjects)
@@ -356,6 +363,13 @@ public class TrapZack extends Application{
                   spikeList.add(gsp);
                }
                
+                if (objects[i][0].equals("gate"))
+               {
+                   GameGate ggate = new GameGate(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3], objects[i][4]);
+                   mechanisms.add(ggate);
+                   gateList.add(ggate);
+               }
+               
             }
             initializedObjects = true;
             reloaded = false;
@@ -363,7 +377,7 @@ public class TrapZack extends Application{
                   
          //check bounds left
          //if the player is trying to move outside the array
-         if ((Px - 33 - levelOffsetX) <= 0)
+         if ((Px - 17 - levelOffsetX) <= 0)
          {
             canMoveLeft = false;
             //If the current tile is an exit tile and youre trying to leave
@@ -382,16 +396,11 @@ public class TrapZack extends Application{
                   currentLevel.setPy(1);//1
                   currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
                } 
-               else if (currentLevel.getCurrent().equals("Assets/Level3.txt"))
-               {
-                     currentLevel.setPx(1);//3
-                     currentLevel.setPy(1);//1
-                     currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
-               } 
+                
                //load next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
-               
+               loaded = false;
             }
          }
          else
@@ -399,7 +408,7 @@ public class TrapZack extends Application{
             if (state == "inControl")
             {
                //if the players left is NOT a walkable tile
-               if (((!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].matches("X.T1"))))
+               if (((!data[(Px - 17 - levelOffsetX)/64][(Py - 15 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 17 - levelOffsetX)/64][(Py - 15 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 17 - levelOffsetX)/64][(Py - 15 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px - 17 - levelOffsetX)/64][(Py + 15 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 17 - levelOffsetX)/64][(Py + 15 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 17 - levelOffsetX)/64][(Py + 15 - levelOffsetY)/64].matches("X.T1"))))
                   canMoveLeft = false;
                //if the players left is a walkable tile
                else 
@@ -409,11 +418,11 @@ public class TrapZack extends Application{
             
          //check bounds right
          //if the player is trying to move outside the array
-         if ((Px + 33  - levelOffsetX)/64 >= x)
+         if ((Px + 17  - levelOffsetX)/64 >= x)
          {
             canMoveRight = false;
             //If the current tile is an exit tile and youre trying to leave
-            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].matches("X.T1"))
+            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].matches("X.T1")|| data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("PT1"))
             {
                //reset the visuals
                drewPlayer = false;
@@ -435,6 +444,7 @@ public class TrapZack extends Application{
 
                //currentLevel = new ContraptionZacLevel(currentLevel.getLast()+"AutoSave.txt");
                initializedObjects = false;
+               loaded = false;
 
             }
          }
@@ -443,7 +453,7 @@ public class TrapZack extends Application{
             if (state == "inControl")
             {
                //if the players right is NOT a walkable tile
-               if (((!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py - 31 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 33 - levelOffsetX)/64][(Py + 31 - levelOffsetY)/64].matches("X.T1"))))              
+               if (((!data[(Px + 17 - levelOffsetX)/64][(Py - 15 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 17 - levelOffsetX)/64][(Py - 16 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 17 - levelOffsetX)/64][(Py - 15 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 17 - levelOffsetX)/64][(Py + 15 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 17 - levelOffsetX)/64][(Py + 15 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 17 - levelOffsetX)/64][(Py + 15 - levelOffsetY)/64].matches("X.T1"))))              
                    canMoveRight = false;
                //if the players right is a walkable tile
                else 
@@ -454,7 +464,7 @@ public class TrapZack extends Application{
          //check bounds up
          //if the player is trying to move outside the array
          //System.out.println((Py-32-levelOffsetY)/64);
-         if ((Py - 33 - levelOffsetY) <= 0)
+         if ((Py - 17 - levelOffsetY) <= 0)
          {
             canMoveUp = false;
             //If the current tile is an exit tile and youre trying to leave
@@ -473,15 +483,11 @@ public class TrapZack extends Application{
                      currentLevel.setPy(1);//1
                      currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
                }
-               else if (currentLevel.getCurrent().equals("Assets/Level3.txt"))
-               {
-                     currentLevel.setPx(1);//3
-                     currentLevel.setPy(1);//1
-                     currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
-               }
+               
                //Move to the next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
+               loaded = false;
             }
          }
          else
@@ -489,7 +495,7 @@ public class TrapZack extends Application{
             if (state == "inControl")
             {
                //if the players up is NOT a walkable tile
-               if (((!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py - 33 - levelOffsetY)/64].matches("X.T1"))))
+               if (((!data[(Px - 15 - levelOffsetX)/64][(Py - 17 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 15 - levelOffsetX)/64][(Py - 17 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 15 - levelOffsetX)/64][(Py - 17 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 15 - levelOffsetX)/64][(Py - 17 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 15 - levelOffsetX)/64][(Py - 17 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 15 - levelOffsetX)/64][(Py - 17 - levelOffsetY)/64].matches("X.T1"))))
                   canMoveUp = false;
                //if the players up is a walkable tile
                else 
@@ -499,7 +505,7 @@ public class TrapZack extends Application{
             
          //check bounds Down
          //if the player is trying to move outside the array
-         if ((Py + 33 - levelOffsetY)/64 >= y)
+         if ((Py + 17 - levelOffsetY)/64 >= y)
          {
             canMoveDown = false;
             //If the current tile is an exit tile and youre trying to leave
@@ -512,7 +518,8 @@ public class TrapZack extends Application{
                listOfSprings.clear();
                mechanisms.clear();   
                //Move to the next level
-               if(currentLevel != L1){
+               if(currentLevel != L1 && !currentLevel.getCurrent().equals("Assets/Level2.txt")){
+               //System.out.println("Test");
                   if (currentLevel.getLast().equals("Assets/Level2.txt"))
                   {
                      
@@ -524,8 +531,10 @@ public class TrapZack extends Application{
                   }
                   //currentLevel = new ContraptionZacLevel(currentLevel.getLast()+"AutoSave.txt");
                   initializedObjects = false;
+                  loaded = false;
                }
-
+               initializedObjects = false;
+                  loaded = false;
             }
          }
          else
@@ -533,7 +542,7 @@ public class TrapZack extends Application{
             if (state == "inControl")
             {
                //if the players down is NOT a walkable tile
-               if (((!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 31 - levelOffsetX)/64][(Py + 33 - levelOffsetY)/64].matches("X.T1"))))
+               if (((!data[(Px - 15 - levelOffsetX)/64][(Py + 17 - levelOffsetY)/64].equals("PT1")) && (!data[(Px - 15 - levelOffsetX)/64][(Py + 17 - levelOffsetY)/64].equals("T1")) && (!data[(Px - 15 - levelOffsetX)/64][(Py + 17 - levelOffsetY)/64].matches("X.T1"))) || ((!data[(Px + 15 - levelOffsetX)/64][(Py + 17 - levelOffsetY)/64].equals("PT1")) && (!data[(Px + 15 - levelOffsetX)/64][(Py + 17 - levelOffsetY)/64].equals("T1")) && (!data[(Px + 15 - levelOffsetX)/64][(Py + 17 - levelOffsetY)/64].matches("X.T1"))))
                   canMoveDown = false;
                //if the players down is a walkable tile
                else 
@@ -548,38 +557,73 @@ public class TrapZack extends Application{
                           
             if (objects[i][0].equals("Button"))
             {  
-               
-               switch(objects[i][3]){
-                  case "B":
-                     gc.drawImage(BlueButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "Y":
-                     gc.drawImage(YellowButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "O":
-                     gc.drawImage(OrangeButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "P":
-                     gc.drawImage(PurpleButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "G":
-                     gc.drawImage(GreenButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  case "Gr":
-                     gc.drawImage(GrayButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
-                     break;
-                  
+               if (objects[i][4].equals("up"))
+               {
+                  switch(objects[i][3])
+                  {
+                     case "B":
+                        gc.drawImage(BlueButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "Y":
+                        gc.drawImage(YellowButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "O":
+                        gc.drawImage(OrangeButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "P":
+                        gc.drawImage(PurpleButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "G":
+                        gc.drawImage(GreenButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "Gr":
+                        gc.drawImage(GrayButtonPressed, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                  }
+               }
+               else
+               {
+                  switch(objects[i][3])
+                  {
+                     case "B":
+                        gc.drawImage(BlueButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "Y":
+                        gc.drawImage(YellowButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "O":
+                        gc.drawImage(OrangeButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "P":
+                        gc.drawImage(PurpleButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "G":
+                        gc.drawImage(GreenButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+                     case "Gr":
+                        gc.drawImage(GrayButton, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                        break;
+
+                  }                  
                }                   
             }
             
             if (objects[i][0].equals("Spike"))
             {
                 if(objects[i][4].equals("down")){
+                    if(objects[i][3].matches("v.")){
+                        gc.drawImage(vDownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+
+                     }else{
                         gc.drawImage(DownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                     }
                 }else{
                   switch(objects[i][3]){
                         case "B":
                            gc.drawImage(BlueSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                           break;
+                        case "vB":
+                           gc.drawImage(vBlueSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;
                         case "Y":
                            gc.drawImage(YellowSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
@@ -593,6 +637,9 @@ public class TrapZack extends Application{
                         case "G":
                            gc.drawImage(GreenSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;
+                         case "vG":
+                           gc.drawImage(vGreenSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                           break;
                         case "Gr":
                            gc.drawImage(GraySpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;    
@@ -604,18 +651,48 @@ public class TrapZack extends Application{
             {
                gc.drawImage(halfWall, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
             }
+            
+            gateCount++;
+            if (objects[i][0].equals("gate"))
+            {
+                
+               if(currentLevel.getCurrent().equals("Assets/Level3.txt")){
+                  
+                  if(gateCount > 6000){
+                     
+                     if(Integer.parseInt(objects[i][3]) == oldGate){
+                        objects[i][4] = "down";
+                        System.out.println(oldGate + " down");
+                        oldGate++;
+                        gateCount = 0;
+                     }
+                     
+                     if(oldGate > 3){
+                        oldGate = 0;
+                     }
+                     
+                     
+                    
+                  }
+               }
+               if(objects[i][4].equals("up")){
+                  gc.drawImage(vDownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               }
+            }
                          
             if (objects[i][0].equals("JukeBox"))
             {
-               gc.drawImage(Henny, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               gc.drawImage(Bottle, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
             }
             
             if (objects[i][0].equals("boat"))
             {
-               gc.drawImage(PlayerImage, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               gc.drawImage(Bottle, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
             }
 
          }
+         
+         
          
          
          //check all springs
@@ -647,7 +724,7 @@ public class TrapZack extends Application{
                      //check right
                      if (canMoveRight)
                      {
-                        if (((xDiff >= -64) && (xDiff <= 0)) && ((yDiff < 64) && (yDiff > -64)))
+                        if (((xDiff >= -48) && (xDiff <= 0)) && ((yDiff < 48) && (yDiff > -48)))
                            canMoveRight = false;
                         else
                            canMoveRight = true;
@@ -655,7 +732,7 @@ public class TrapZack extends Application{
                      //check left
                      if (canMoveLeft)
                      {
-                        if (((xDiff <= 64) && (xDiff >= 0)) && ((yDiff < 64) && (yDiff > -64)))
+                        if (((xDiff <= 48) && (xDiff >= 0)) && ((yDiff < 48) && (yDiff > -48)))
                            canMoveLeft = false;
                         else
                            canMoveLeft = true;
@@ -663,7 +740,7 @@ public class TrapZack extends Application{
                      //check down
                      if (canMoveDown)
                      {
-                        if (((yDiff >= -64) && (yDiff <= 0)) && ((xDiff < 64) && (xDiff > -64)))
+                        if (((yDiff >= -48) && (yDiff <= 0)) && ((xDiff < 48) && (xDiff > -48)))
                            canMoveDown = false;
                         else
                            canMoveDown = true;
@@ -671,7 +748,7 @@ public class TrapZack extends Application{
                      //check up
                      if (canMoveUp)
                      {
-                        if (((yDiff <= 64) && (yDiff >= 0)) && ((xDiff < 64) && (xDiff > -64)))
+                        if (((yDiff <= 48) && (yDiff >= 0)) && ((xDiff < 48) && (xDiff > -48)))
                            canMoveUp = false;
                         else
                            canMoveUp = true;
@@ -680,11 +757,13 @@ public class TrapZack extends Application{
                }
                else
                {
-                  if (((Px - levelOffsetX - gs.getPx()*64 - 32 < 64) && (Px - levelOffsetX - gs.getPx()*64 - 32 > -64)) && ((Py - levelOffsetY - gs.getPy()*64 - 32 < 64) && (Py - levelOffsetY - gs.getPy()*64 - 32 > -64)))
+                  if (((Px - levelOffsetX - gs.getPx()*64 - 32 < 32) && (Px - levelOffsetX - gs.getPx()*64 - 32 > -32)) && ((Py - levelOffsetY - gs.getPy()*64 - 32 < 32) && (Py - levelOffsetY - gs.getPy()*64 - 32 > -32)))
                   {
                      gs.setSprung(true);
                      state = "sprung";
                      springDir = gs.getFacing();
+                     Px = gs.getPx()*64 + levelOffsetX + 32;
+                     Py = gs.getPy()*64 + levelOffsetY + 32;
                      launch = 40;
                   }
                }
@@ -693,18 +772,20 @@ public class TrapZack extends Application{
          
          
          
+         
+         
          for (int i = 0; i < numObjects; i++)
          {
             if (objects[i][0].equals("halfWall"))
             {
             //System.out.println("Testiing");
-                xDiff = (int)(Px - levelOffsetX - (Double.parseDouble(objects[i][1])*64));
-                yDiff = (int)(Py - levelOffsetY - (Double.parseDouble(objects[i][2])*64));
-                System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
+                xDiff = (int)(Px - levelOffsetX - (Double.parseDouble(objects[i][1])*64 + 32));
+                yDiff = (int)(Py - levelOffsetY - (Double.parseDouble(objects[i][2])*64 + 16));
+                //System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
                 //System.out.println(objects[i][0] + " " + ((Double.parseDouble(objects[i][1])*64) + " " + (Double.parseDouble(objects[i][2])*64)));
                      if (canMoveRight)
                      {
-                        if (((xDiff >= -64) && (xDiff <= 64)) && ((yDiff < 64) && (yDiff > -32)))
+                        if (((xDiff >= -48) && (xDiff <= 0)) && ((yDiff < 32) && (yDiff > -32)))
                            canMoveRight = false;
                         else
                            canMoveRight = true;
@@ -712,7 +793,7 @@ public class TrapZack extends Application{
                      //check left
                      if (canMoveLeft)
                      {
-                        if (((xDiff <= 128) && (xDiff >= -128)) && ((yDiff < 64) && (yDiff > -32))){
+                        if (((xDiff <= 48) && (xDiff >= 0)) && ((yDiff < 32) && (yDiff > -32))){
                            canMoveLeft = false;
                            //System.out.println("baaad " +xDiff + "   " + yDiff);
                            }
@@ -724,7 +805,7 @@ public class TrapZack extends Application{
                      //check down
                      if (canMoveDown)
                      {
-                        if (((yDiff >= -32) && (yDiff <= 0)) && ((xDiff <= 32) && (xDiff > -32)))
+                        if (((yDiff >= -32) && (yDiff <= 0)) && ((xDiff <= 48) && (xDiff > -48)))
                            canMoveDown = false;
                         else
                            canMoveDown = true;
@@ -732,7 +813,7 @@ public class TrapZack extends Application{
                      //check up
                      if (canMoveUp)
                      {
-                        if (((yDiff <= 64) && (yDiff > 0)) && ((xDiff < 96) && (xDiff > -32))){
+                        if (((yDiff <= 32) && (yDiff >= 0)) && ((xDiff < 48) && (xDiff > -48))){
                            canMoveUp = false;
                            //System.out.println("baaad " +xDiff + "   " + yDiff);
                            }
@@ -745,7 +826,36 @@ public class TrapZack extends Application{
                
             }
          
+            if (objects[i][0].equals("Button"))
+            {
+               if (objects[i][4].equals("up"))
+               {
+                  if (((Px - levelOffsetX - (Double.parseDouble(objects[i][1]) *64) - 32 < 32) && (Px - levelOffsetX - (Double.parseDouble(objects[i][1]) *64) - 32 > -32)) && ((Py - levelOffsetY - (Double.parseDouble(objects[i][2]) *64) - 32 < 32) && (Py - levelOffsetY - (Double.parseDouble(objects[i][2]) *64) - 32 > -32)))
+                  {
+                     objects[i][4] = "down";
+                     for (int j = 0; j < numObjects; j++)
+                     {
+                        if (objects[j][0].equals("Spike"))
+                        {
+                           if (objects[i][3].equals(objects[j][3]))
+                           {
+                              if (objects[j][4].equals("up"))
+                              {
+                                 objects[j][4] = "down";
+                              }
+                              else if (objects[j][4].equals("down"))
+                              {
+                                 objects[j][4] = "up";
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
          }
+         
+         
          
          
          
@@ -798,18 +908,24 @@ public class TrapZack extends Application{
             
       //count every five frames, swap image every cycle
       frameCount++;
-      if (frameCount > 10)
+      if (frameCount > 20)
       {
          frameCount = 0;
          if (PlayerImage == Player1)
             PlayerImage = Player2;
          else if (PlayerImage == Player2)
             PlayerImage = Player1;
+          //animate bottle
+         if (Bottle == Henny)
+            Bottle = Henny1;
+         else{
+            Bottle = Henny;
+         }
       }
       //Draw player at its current position over the background
       //gc.drawImage(PlayerImage, Px, Py);
       gc.setFill(Color.BROWN);
-      gc.fillRect(Px - 32, Py - 32, 64, 64);
+      gc.fillRect(Px - 16, Py - 16, 32, 32);
       gc.setFill(Color.BLACK);
 
       
@@ -888,6 +1004,7 @@ public class TrapZack extends Application{
          }
          else if (e.getSource() == save)
          {
+           // mechanisms.clear()
             currentLevel.setPx((Px/64)-2);
             currentLevel.setPy((Py/64)-2);
             td.setContentText("Type in the name for your saved game");
@@ -929,6 +1046,7 @@ public class TrapZack extends Application{
          {
             drewPlayer = false;
             gamePaused = false;
+            loaded = false;
             //reloaded = true;
             initializedObjects = false;
             for (int i = 0; i < mechanisms.size(); i++)
@@ -949,6 +1067,7 @@ public class TrapZack extends Application{
             drewPlayer = false;
             gamePaused = false;
             reloaded = true;
+            loaded = false;
             //initializedObjects = false;
             currentLevel = new ContraptionZacLevel("Assets/Level1.txt");
             root.getChildren().remove(vbox);
@@ -1014,6 +1133,7 @@ public class TrapZack extends Application{
             root.getChildren().remove(vbox);
             root.getChildren().add(saveBox);
             save1.requestFocus();
+            //loaded = false;
             //System.out.println(save1.getText());
             //System.out.println(save1.getText().equals(""));      
          }
