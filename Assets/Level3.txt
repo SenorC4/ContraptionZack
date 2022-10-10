@@ -14,7 +14,7 @@ T1 T1 T1 T1 T1
 T1 T1 PT1 T1 T1
 
 Objects
-29
+28
 halfWall 0 2.5 Empty Null
 halfWall 1 2.5 Empty Null
 halfWall 0 4 Empty Null
@@ -42,6 +42,5 @@ Spike 2 2.75 Y up
 Button 3.5 3.25 B up
 Spike 1.75 1.5 vB up
 Button 0.75 4.75 G up
-Spike 2.75 1.5 G up
 Spike 3 1.5 vG up
 
