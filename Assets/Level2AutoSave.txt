@@ -29,10 +29,10 @@ Button 5 7 P down
 Button 1 5.5 P up 
 Spike 3 1 P down 
 Button 0.5 7 Y up 
-Button 3 5.5 Y up 
-Spike 0 6.75 Y up 
-Spike 5 6.75 Y down 
-Spike 3 1.5 Y up 
+Button 3 5.5 Y down 
+Spike 0 6.75 Y down 
+Spike 5 6.75 Y up 
+Spike 3 1.5 Y down 
 Button 4 5.5 O down 
 Button 0.5 2.5 O up 
 Spike 4 4.5 O down 

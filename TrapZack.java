@@ -533,7 +533,8 @@ public class TrapZack extends Application{
                listOfSprings.clear();
                mechanisms.clear();   
                //Move to the next level
-               if(currentLevel != L1){
+               if(currentLevel != L1 && !currentLevel.getCurrent().equals("Assets/Level2.txt")){
+               //System.out.println("Test");
                   if (currentLevel.getLast().equals("Assets/Level2.txt"))
                   {
                      
@@ -547,7 +548,8 @@ public class TrapZack extends Application{
                   initializedObjects = false;
                   loaded = false;
                }
-
+               initializedObjects = false;
+                  loaded = false;
             }
          }
          else
@@ -794,7 +796,7 @@ public class TrapZack extends Application{
             //System.out.println("Testiing");
                 xDiff = (int)(Px - levelOffsetX - (Double.parseDouble(objects[i][1])*64 + 32));
                 yDiff = (int)(Py - levelOffsetY - (Double.parseDouble(objects[i][2])*64 + 16));
-                System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
+                //System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
                 //System.out.println(objects[i][0] + " " + ((Double.parseDouble(objects[i][1])*64) + " " + (Double.parseDouble(objects[i][2])*64)));
                      if (canMoveRight)
                      {
