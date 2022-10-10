@@ -685,6 +685,8 @@ public class TrapZack extends Application{
                      gs.setSprung(true);
                      state = "sprung";
                      springDir = gs.getFacing();
+                     Px = gs.getPx()*64 + levelOffsetX + 32;
+                     Py = gs.getPy()*64 + levelOffsetY + 32;
                      launch = 40;
                   }
                }
