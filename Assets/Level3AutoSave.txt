@@ -1,46 +1,47 @@
 PlayerPosition
-3 6
+1 1
 Layout
 Assets/Level2.txt
 Assets/Level4.txt
 Assets/Level3.txt
-8 7
-E1 XFT1 E1 E1 E1 E1 E1 
-XLT1 T1 T1 T1 T1 T1 T1
-T1 T1 T1 T1 T1 T1 T1 
-T1 T1 T1 T1 T1 T1 T1 
-T1 T1 T1 T1 T1 T1 T1 
-T1 T1 T1 T1 T1 T1 T1 
-T1 T1 T1 T1 T1 T1 T1
-T1 T1 T1 PT1 T1 T1 T1
+7 5
+E1 XFT1 E1 E1 E1
+XLT1 T1 T1 T1 T1
+T1 T1 T1 T1 T1 
+T1 T1 T1 T1 T1
+T1 T1 T1 T1 T1
+T1 T1 T1 T1 T1
+T1 T1 PT1 T1 T1
 
 Objects
-27
-halfWall 0 1 Empty Null
-halfWall 1 1 Empty Null
+29
 halfWall 0 2.5 Empty Null
 halfWall 1 2.5 Empty Null
 halfWall 0 4 Empty Null
 halfWall 1 4 Empty Null
-halfWall 4 1 Empty Null
-halfWall 5 1 Empty Null
+halfWall 0 5.5 Empty Null
+halfWall 1 5.5 Empty Null
+halfWall 3 2.5 Empty Null
 halfWall 4 2.5 Empty Null
-halfWall 5 2.5 Empty Null
+halfWall 3 4 Empty Null
 halfWall 4 4 Empty Null
-halfWall 5 4 Empty Null
-halfWall 2 5.5 empty Null
-gate 2 1 empty upTimer
-gate 2 3 empty upTimer
-gate 3 1 empty upTimer
-gate 3 3 empty upTimer
-Button 0 1 P upReset
-Button 2 3 P upReset
-Spike 2.5 7.75 P upReset
-Button 1.5 1 Y upReset
-Button 4 3 Y upReset
-Spike 0 1 Y upReset
-Button 5.5 4.5 B upReset
-Spike 1 3.25 B upReset
-Button G upReset
-Spike G upReset
+halfWall 3 5.5 Empty Null
+halfWall 4 5.5 Empty Null
+halfWall 2 1 empty Null
+gate 1.7 4.5 0 down
+gate 1.7 3 1 up
+gate 2.8 4.5 2 up
+gate 2.8 3 3 up
+boat 4 1 empty NULL
+Button 0 4.75 P up
+Button 4.25 3.25 P up
+Spike 2 2.5 P up
+Button 0 3.25 Y up
+Button 4.25 4.75 Y up
+Spike 2 2.75 Y up
+Button 3.5 3.25 B up
+Spike 1.75 1.5 vB up
+Button 0.75 4.75 G up
+Spike 2.75 1.5 G up
+Spike 3 1.5 vG up
 

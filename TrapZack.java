@@ -51,8 +51,16 @@ public class TrapZack extends Application{
   boolean canMoveDown = true;
   //variable to count the current frame rotation
   int frameCount = 0;
+  //count frames for gate open/close
+  int gateCount = 0;
+  int gateNumber = 0;
+  int oldGate = 0;
   //boolean keeping track of initializing objects for the level
   boolean initializedObjects = false;
+   //boolean to keep track if objects were grabbed
+  boolean loaded = false;
+  int numObjects = 0;
+  String[][] objects;
   
   //ContraptionZacLevel
   ContraptionZacLevel L1 = new ContraptionZacLevel("Assets/Level1.txt");
@@ -161,13 +169,14 @@ public class TrapZack extends Application{
   Image GrayButtonPressed = new Image("Assets/ButtonGrayPressed.png", false);
   
   
-  Image PlayerImage = Player1;
+   Image PlayerImage = Player1;
+   Image Bottle = Henny;
   
   //Objects
   ArrayList<GameSpring> listOfSprings = new ArrayList<GameSpring>();
   ArrayList<GameButton> buttonList = new ArrayList<GameButton>();
   ArrayList<GameSpike> spikeList = new ArrayList<GameSpike>();
-   
+  ArrayList<GameGate> gateList = new ArrayList<GameGate>();   
    public void start(Stage stage){
       
       //escape menu
@@ -244,11 +253,6 @@ public class TrapZack extends Application{
    //draw player movement and stuff
    public void draw(GraphicsContext gc){
       root.setStyle("-fx-background-color: black");
-      //System.out.println(currentLevel.getName());
-     /* System.out.println(mechanisms.size());
-      System.out.println(listOfSprings.size());
-      System.out.println(buttonList.size());
-      System.out.println(spikeList.size());*/
       //if not in the title screen
       if(titleMenu == false){
          //load the first level, get the data from the text file
@@ -322,8 +326,11 @@ public class TrapZack extends Application{
          }
          
          //Draw objects
-         String[][] objects = currentLevel.getObjects();
-         int numObjects = currentLevel.getNumObjects();
+          if(!loaded){
+            objects = currentLevel.getObjects();
+            numObjects = currentLevel.getNumObjects();
+            loaded = true;
+         }
          
          
          if (!initializedObjects)
@@ -356,6 +363,13 @@ public class TrapZack extends Application{
                   spikeList.add(gsp);
                }
                
+                if (objects[i][0].equals("gate"))
+               {
+                   GameGate ggate = new GameGate(Double.parseDouble(objects[i][1]), Double.parseDouble(objects[i][2]), objects[i][3], objects[i][4]);
+                   mechanisms.add(ggate);
+                   gateList.add(ggate);
+               }
+               
             }
             initializedObjects = true;
             reloaded = false;
@@ -382,16 +396,11 @@ public class TrapZack extends Application{
                   currentLevel.setPy(1);//1
                   currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
                } 
-               else if (currentLevel.getCurrent().equals("Assets/Level3.txt"))
-               {
-                     currentLevel.setPx(1);//3
-                     currentLevel.setPy(1);//1
-                     currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
-               } 
+                
                //load next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
-               
+               loaded = false;
             }
          }
          else
@@ -413,7 +422,7 @@ public class TrapZack extends Application{
          {
             canMoveRight = false;
             //If the current tile is an exit tile and youre trying to leave
-            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].matches("X.T1"))
+            if (data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].matches("X.T1")|| data[(Px - levelOffsetX)/64][(Py - levelOffsetY)/64].equals("PT1"))
             {
                //reset the visuals
                drewPlayer = false;
@@ -435,6 +444,7 @@ public class TrapZack extends Application{
 
                //currentLevel = new ContraptionZacLevel(currentLevel.getLast()+"AutoSave.txt");
                initializedObjects = false;
+               loaded = false;
 
             }
          }
@@ -473,15 +483,11 @@ public class TrapZack extends Application{
                      currentLevel.setPy(1);//1
                      currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
                }
-               else if (currentLevel.getCurrent().equals("Assets/Level3.txt"))
-               {
-                     currentLevel.setPx(1);//3
-                     currentLevel.setPy(1);//1
-                     currentLevel.saveLevel("Assets/Level2AutoSave.txt", mechanisms);
-               }
+               
                //Move to the next level
                currentLevel = new ContraptionZacLevel(currentLevel.getNext());
                initializedObjects = false;
+               loaded = false;
             }
          }
          else
@@ -512,7 +518,8 @@ public class TrapZack extends Application{
                listOfSprings.clear();
                mechanisms.clear();   
                //Move to the next level
-               if(currentLevel != L1){
+               if(currentLevel != L1 && !currentLevel.getCurrent().equals("Assets/Level2.txt")){
+               //System.out.println("Test");
                   if (currentLevel.getLast().equals("Assets/Level2.txt"))
                   {
                      
@@ -524,8 +531,10 @@ public class TrapZack extends Application{
                   }
                   //currentLevel = new ContraptionZacLevel(currentLevel.getLast()+"AutoSave.txt");
                   initializedObjects = false;
+                  loaded = false;
                }
-
+               initializedObjects = false;
+                  loaded = false;
             }
          }
          else
@@ -602,11 +611,19 @@ public class TrapZack extends Application{
             if (objects[i][0].equals("Spike"))
             {
                 if(objects[i][4].equals("down")){
+                    if(objects[i][3].matches("v.")){
+                        gc.drawImage(vDownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+
+                     }else{
                         gc.drawImage(DownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                     }
                 }else{
                   switch(objects[i][3]){
                         case "B":
                            gc.drawImage(BlueSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                           break;
+                        case "vB":
+                           gc.drawImage(vBlueSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;
                         case "Y":
                            gc.drawImage(YellowSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
@@ -620,6 +637,9 @@ public class TrapZack extends Application{
                         case "G":
                            gc.drawImage(GreenSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;
+                         case "vG":
+                           gc.drawImage(vGreenSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+                           break;
                         case "Gr":
                            gc.drawImage(GraySpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
                            break;    
@@ -631,18 +651,48 @@ public class TrapZack extends Application{
             {
                gc.drawImage(halfWall, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
             }
+            
+            gateCount++;
+            if (objects[i][0].equals("gate"))
+            {
+                
+               if(currentLevel.getCurrent().equals("Assets/Level3.txt")){
+                  
+                  if(gateCount > 6000){
+                     
+                     if(Integer.parseInt(objects[i][3]) == oldGate){
+                        objects[i][4] = "down";
+                        System.out.println(oldGate + " down");
+                        oldGate++;
+                        gateCount = 0;
+                     }
+                     
+                     if(oldGate > 3){
+                        oldGate = 0;
+                     }
+                     
+                     
+                    
+                  }
+               }
+               if(objects[i][4].equals("up")){
+                  gc.drawImage(vDownSpike, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               }
+            }
                          
             if (objects[i][0].equals("JukeBox"))
             {
-               gc.drawImage(Henny, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               gc.drawImage(Bottle, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
             }
             
             if (objects[i][0].equals("boat"))
             {
-               gc.drawImage(PlayerImage, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
+               gc.drawImage(Bottle, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
             }
 
          }
+         
+         
          
          
          //check all springs
@@ -731,7 +781,9 @@ public class TrapZack extends Application{
             //System.out.println("Testiing");
                 xDiff = (int)(Px - levelOffsetX - (Double.parseDouble(objects[i][1])*64 + 32));
                 yDiff = (int)(Py - levelOffsetY - (Double.parseDouble(objects[i][2])*64 + 16));
-                System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
+
+
+                //System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
                 //System.out.println(objects[i][0] + " " + ((Double.parseDouble(objects[i][1])*64) + " " + (Double.parseDouble(objects[i][2])*64)));
                      if (canMoveRight)
                      {
@@ -810,6 +862,8 @@ public class TrapZack extends Application{
          
          
          
+         
+         
          //During spring launch   
          if (state == "sprung")
          {
@@ -856,13 +910,19 @@ public class TrapZack extends Application{
             
       //count every five frames, swap image every cycle
       frameCount++;
-      if (frameCount > 10)
+      if (frameCount > 20)
       {
          frameCount = 0;
          if (PlayerImage == Player1)
             PlayerImage = Player2;
          else if (PlayerImage == Player2)
             PlayerImage = Player1;
+          //animate bottle
+         if (Bottle == Henny)
+            Bottle = Henny1;
+         else{
+            Bottle = Henny;
+         }
       }
       //Draw player at its current position over the background
       //gc.drawImage(PlayerImage, Px, Py);
@@ -946,6 +1006,7 @@ public class TrapZack extends Application{
          }
          else if (e.getSource() == save)
          {
+           // mechanisms.clear()
             currentLevel.setPx((Px/64)-2);
             currentLevel.setPy((Py/64)-2);
             td.setContentText("Type in the name for your saved game");
@@ -987,6 +1048,7 @@ public class TrapZack extends Application{
          {
             drewPlayer = false;
             gamePaused = false;
+            loaded = false;
             //reloaded = true;
             initializedObjects = false;
             for (int i = 0; i < mechanisms.size(); i++)
@@ -1007,6 +1069,7 @@ public class TrapZack extends Application{
             drewPlayer = false;
             gamePaused = false;
             reloaded = true;
+            loaded = false;
             //initializedObjects = false;
             currentLevel = new ContraptionZacLevel("Assets/Level1.txt");
             root.getChildren().remove(vbox);
@@ -1072,6 +1135,7 @@ public class TrapZack extends Application{
             root.getChildren().remove(vbox);
             root.getChildren().add(saveBox);
             save1.requestFocus();
+            //loaded = false;
             //System.out.println(save1.getText());
             //System.out.println(save1.getText().equals(""));      
          }

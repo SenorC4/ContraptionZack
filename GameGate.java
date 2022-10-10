@@ -1,16 +1,16 @@
 
-public class GameSpike extends mechanism{
+public class GameGate extends mechanism{
 
    double Px;
    double Py;
-   String color;
+   int num;
    boolean activated = false;
 
-   public GameSpike(double x, double y, String inputtedColor, String state){
+   public GameGate(double x, double y, String numIn, String state){
       Px = x;
       Py = y;
-      color = inputtedColor;
-      if (state.equals("down"))
+      num = Integer.parseInt(numIn);
+      if (state.matches("down."))
       {
          activated = false;
       }
@@ -40,9 +40,9 @@ public class GameSpike extends mechanism{
       activated = false;
    }
    
-   public String getColor()
+   public int getNum()
    {
-      return color;
+      return num;
    }
    
    public boolean getState()
@@ -52,7 +52,7 @@ public class GameSpike extends mechanism{
    
    public String getType()
    {
-      return "Spike";
+      return "Gate";
    }
 
 }
