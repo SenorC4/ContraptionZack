@@ -1307,7 +1307,7 @@ public class TrapZack extends Application{
          {
             //add code to load the saved file
             titleMenu = false;
-            reloaded = true;
+            //reloaded = true;
            
             root.getChildren().remove(titleBox);
             FlowPane saveList = new FlowPane();
@@ -1321,6 +1321,7 @@ public class TrapZack extends Application{
                
                Label l = new Label(saves[i]);
                l.setFont(font);
+               l.setTextFill(Color.WHITE);
                saveList.getChildren().add(l);
                l = new Label("      ");
                saveList.getChildren().add(l);
@@ -1333,6 +1334,10 @@ public class TrapZack extends Application{
             currentLevel = new ContraptionZacLevel("SaveGames/"+chosenSave);
             root.getChildren().remove(saveList);
             drewPlayer = false;
+            
+                  
+                  reloaded = true;
+                  loaded = false;
             //gamePaused = false;
             ta = new AnimationHandler();
             ta.start();
