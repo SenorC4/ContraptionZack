@@ -805,7 +805,7 @@ public class TrapZack extends Application{
                      //check down
                      if (canMoveDown)
                      {
-                        if (((yDiff >= -32) && (yDiff <= 0)) && ((xDiff <= 48) && (xDiff > -48)))
+                        if (((yDiff >= -32) && (yDiff <= 0)) && ((xDiff < 48) && (xDiff > -48)))
                            canMoveDown = false;
                         else
                            canMoveDown = true;
@@ -837,7 +837,8 @@ public class TrapZack extends Application{
                      {
                         if (objects[j][0].equals("Spike"))
                         {
-                           if (objects[i][3].equals(objects[j][3]))
+                           String check = "v" + objects[i][3];
+                           if ((objects[i][3].equals(objects[j][3])) || (check.equals(objects[j][3])))
                            {
                               if (objects[j][4].equals("up"))
                               {
@@ -849,6 +850,104 @@ public class TrapZack extends Application{
                               }
                            }
                         }
+                     }
+                  }
+               }
+            }
+            
+            if (objects[i][0].equals("Spike"))
+            {
+               if (objects[i][4].equals("up"))
+               {
+                  if ((objects[i][3].equals("vO")) || (objects[i][3].equals("vB")) || (objects[i][3].equals("vP")) || (objects[i][3].equals("vG")))
+                  {
+                     xDiff = (int)(Px - levelOffsetX - (Double.parseDouble(objects[i][1])*64 + 8));
+                     yDiff = (int)(Py - levelOffsetY - (Double.parseDouble(objects[i][2])*64 + 32));
+                     System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
+                     //System.out.println(objects[i][0] + " " + ((Double.parseDouble(objects[i][1])*64) + " " + (Double.parseDouble(objects[i][2])*64)));
+                     if (canMoveRight)
+                     {
+                        if (((xDiff >= -24) && (xDiff <= 0)) && ((yDiff < 48) && (yDiff > -48)))
+                           canMoveRight = false;
+                        else
+                           canMoveRight = true;
+                     }
+                     //check left
+                     if (canMoveLeft)
+                     {
+                        if (((xDiff <= 24) && (xDiff >= 0)) && ((yDiff < 48) && (yDiff > -48))){
+                           canMoveLeft = false;
+                           //System.out.println("baaad " +xDiff + "   " + yDiff);
+                           }
+                        else{
+                           canMoveLeft = true;
+                           //System.out.println("goooood " + xDiff + "   " + yDiff);
+                           }
+                     }
+                     //check down
+                     if (canMoveDown)
+                     {
+                        if (((yDiff >= -48) && (yDiff <= 0)) && ((xDiff < 24) && (xDiff > -24)))
+                           canMoveDown = false;
+                        else
+                           canMoveDown = true;
+                     }
+                     //check up
+                     if (canMoveUp)
+                     {
+                        if (((yDiff <= 48) && (yDiff >= 0)) && ((xDiff < 24) && (xDiff > -24))){
+                           canMoveUp = false;
+                           //System.out.println("baaad " +xDiff + "   " + yDiff);
+                           }
+                        else
+                           canMoveUp = true;
+                           //System.out.println("goooood " + xDiff + "   " + yDiff);
+                     }
+
+                  }
+                  else
+                  {
+                     xDiff = (int)(Px - levelOffsetX - (Double.parseDouble(objects[i][1])*64 + 32));
+                     yDiff = (int)(Py - levelOffsetY - (Double.parseDouble(objects[i][2])*64 + 8));
+                     System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
+                     //System.out.println(objects[i][0] + " " + ((Double.parseDouble(objects[i][1])*64) + " " + (Double.parseDouble(objects[i][2])*64)));
+                     if (canMoveRight)
+                     {
+                        if (((xDiff >= -48) && (xDiff <= 0)) && ((yDiff < 24) && (yDiff > -24)))
+                           canMoveRight = false;
+                        else
+                           canMoveRight = true;
+                     }
+                     //check left
+                     if (canMoveLeft)
+                     {
+                        if (((xDiff <= 48) && (xDiff >= 0)) && ((yDiff < 24) && (yDiff > -24))){
+                           canMoveLeft = false;
+                           //System.out.println("baaad " +xDiff + "   " + yDiff);
+                           }
+                        else{
+                           canMoveLeft = true;
+                           //System.out.println("goooood " + xDiff + "   " + yDiff);
+                           }
+                     }
+                     //check down
+                     if (canMoveDown)
+                     {
+                        if (((yDiff >= -24) && (yDiff <= 0)) && ((xDiff < 48) && (xDiff > -48)))
+                           canMoveDown = false;
+                        else
+                           canMoveDown = true;
+                     }
+                     //check up
+                     if (canMoveUp)
+                     {
+                        if (((yDiff <= 24) && (yDiff >= 0)) && ((xDiff < 48) && (xDiff > -48))){
+                           canMoveUp = false;
+                           //System.out.println("baaad " +xDiff + "   " + yDiff);
+                           }
+                        else
+                           canMoveUp = true;
+                           //System.out.println("goooood " + xDiff + "   " + yDiff);
                      }
                   }
                }
