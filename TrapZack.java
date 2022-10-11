@@ -33,6 +33,7 @@ public class TrapZack extends Application{
   
   boolean reloaded = false;
   boolean playerAnimate = false;
+  boolean grab = false;
   
   //Player x and y positions
   int Px = 400;
@@ -439,9 +440,13 @@ public class TrapZack extends Application{
                      
                      currentLevel = new ContraptionZacLevel("Assets/Level2AutoSave.txt");
                   }
-               else if (currentLevel.getLast().equals("Assets/Level3.txt"))
+               else if (currentLevel.getLast().equals("Assets/Level3.txt") && grab == false)
                {
                   currentLevel = new ContraptionZacLevel("Assets/Level3AutoSave.txt");
+               }
+               else if (currentLevel.getLast().equals("Assets/Level3.txt") && grab == true)
+               {
+                  currentLevel = new ContraptionZacLevel("Assets/Level3AutoSave2.txt");
                }
 
                //currentLevel = new ContraptionZacLevel(currentLevel.getLast()+"AutoSave.txt");
@@ -716,7 +721,7 @@ public class TrapZack extends Application{
                   
             }
             
-            if (objects[i][0].equals("boat"))
+            if (objects[i][0].equals("boat") && grab == false)
             {
                gc.drawImage(Bottle, levelOffsetX + Float.parseFloat(objects[i][1])*64, levelOffsetY + Float.parseFloat(objects[i][2])*64);
             }
@@ -815,6 +820,12 @@ public class TrapZack extends Application{
          
          
          
+         
+         
+         
+         
+         
+         
          for (int i = 0; i < numObjects; i++)
          {
             if (objects[i][0].equals("halfWall"))
@@ -866,6 +877,18 @@ public class TrapZack extends Application{
                
                
             }
+         
+            if (objects[i][0].equals("boat"))
+            {
+               System.out.println(objects[i][1] + " " + objects[i][2] + "\n");
+               System.out.println(Px/64 + " " + Py/64 + "\n");
+               if (Integer.parseInt(objects[i][1]) == (Px/64)-2 && Integer.parseInt(objects[i][2]) == (Py/64)-2)
+               {
+                  grab = true;
+               }
+            
+            }
+            
          
             if (objects[i][0].equals("Button"))
             {
@@ -1000,7 +1023,7 @@ public class TrapZack extends Application{
                {
                      xDiff = (int)(Px - levelOffsetX - (Double.parseDouble(objects[i][1])*64 + 8));
                      yDiff = (int)(Py - levelOffsetY - (Double.parseDouble(objects[i][2])*64 + 32));
-                     System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
+                     //System.out.println(objects[i][1] + "   "+ Double.parseDouble(objects[i][2]) + "   "+ yDiff);
                      //System.out.println(objects[i][0] + " " + ((Double.parseDouble(objects[i][1])*64) + " " + (Double.parseDouble(objects[i][2])*64)));
                      if (canMoveRight)
                      {
