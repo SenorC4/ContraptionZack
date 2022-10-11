@@ -1345,7 +1345,7 @@ public class TrapZack extends Application{
             root.getChildren().remove(saveList);
             drewPlayer = false;
             
-                  
+                  initializedObjects = false;
                   reloaded = true;
                   loaded = false;
             //gamePaused = false;
