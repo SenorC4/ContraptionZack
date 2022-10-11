@@ -32,6 +32,7 @@ public class TrapZack extends Application{
   int test = 0;
   
   boolean reloaded = false;
+  boolean playerAnimate = false;
   
   //Player x and y positions
   int Px = 400;
@@ -205,6 +206,7 @@ public class TrapZack extends Application{
       restartA.setOnAction(new ButtonListener());
       restartL.setOnAction(new ButtonListener());
       root.setOnKeyPressed(new KeyListenerDown());
+       root.setOnKeyReleased(new KeyListenerReleased());
       
       
       
@@ -1127,13 +1129,49 @@ public class TrapZack extends Application{
       }
       //Draw player at its current position over the background
       //gc.drawImage(PlayerImage, Px, Py);
-      gc.setFill(Color.BROWN);
+      
+      if (playerAnimate == false)
+      {
+         gc.setFill(Color.BROWN);
+      }
+      else
+      {
+         gc.setFill(Color.ORANGE);
+      }
+      
+      
       gc.fillRect(Px - 16, Py - 16, 32, 32);
       gc.setFill(Color.BLACK);
 
       
 
    }
+   
+   
+   public class KeyListenerReleased implements EventHandler<KeyEvent>  
+   {
+   
+      public void handle(KeyEvent event) 
+      {
+            if (!gamePaused)
+            {
+               
+               //Left
+               if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.W || event.getCode() == KeyCode.S || event.getCode() == KeyCode.D)
+               {
+                  playerAnimate = false;
+               }
+               
+            }
+
+            
+      }
+      
+      
+    } 
+   
+   
+   
    
    
    public class KeyListenerDown implements EventHandler<KeyEvent>  
@@ -1162,6 +1200,7 @@ public class TrapZack extends Application{
          {
             if (!gamePaused)
             {
+               playerAnimate = true;
                //Left
                if (event.getCode() == KeyCode.A)
                {
@@ -1186,6 +1225,7 @@ public class TrapZack extends Application{
                   if (canMoveDown)
                      Py += 4;
                }
+               //playerAnimate = false;
             }
          }
       }
